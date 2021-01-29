@@ -1,0 +1,518 @@
+[
+  {
+    "id": "auth.connect",
+    "defaultMessage": "Connect to the platform"
+  },
+  {
+    "id": "auth.login.enter",
+    "defaultMessage": "Enter"
+  },
+  {
+    "id": "auth.login.error_to_fetch_codes",
+    "defaultMessage": "Impossibile caricare i codici clienti!"
+  },
+  {
+    "id": "auth.login.installation",
+    "defaultMessage": "Installazione"
+  },
+  {
+    "id": "auth.login.installation_required",
+    "defaultMessage": "Installazione obbligatoria!"
+  },
+  {
+    "id": "auth.login.no_prefetched_codes",
+    "defaultMessage": "Impossibile pre-caricare i codici!"
+  },
+  {
+    "id": "auth.login.password_required",
+    "defaultMessage": "The password is required!"
+  },
+  {
+    "id": "auth.login.username_required",
+    "defaultMessage": "The user is required!"
+  },
+  {
+    "id": "auth.login.wrong_credentials",
+    "defaultMessage": "User or password are not correct!"
+  },
+  {
+    "id": "booking.accepted_by_msc",
+    "defaultMessage": "I declare to ship goods accepted by MSC *"
+  },
+  {
+    "id": "booking.booking_data",
+    "defaultMessage": "Booking data"
+  },
+  {
+    "id": "booking.booking_date",
+    "defaultMessage": "Booking Date"
+  },
+  {
+    "id": "booking.booking_save_certificate_ok",
+    "defaultMessage": "Certificate \"{code}\" saved successfully!"
+  },
+  {
+    "id": "booking.city_collection_point",
+    "defaultMessage": "City of the collection point"
+  },
+  {
+    "id": "booking.city_delivery_point",
+    "defaultMessage": "City of the delivery point"
+  },
+  {
+    "id": "booking.confirm_save",
+    "defaultMessage": "Are you sure you want to save?"
+  },
+  {
+    "id": "booking.container_data",
+    "defaultMessage": "Container data"
+  },
+  {
+    "id": "booking.country_collection_point",
+    "defaultMessage": "Country of the collection point"
+  },
+  {
+    "id": "booking.country_delivery_point",
+    "defaultMessage": "Country of the delivery point"
+  },
+  {
+    "id": "booking.country_port_discharge",
+    "defaultMessage": "Country of the port discharge"
+  },
+  {
+    "id": "booking.country_port_loading",
+    "defaultMessage": "Country of the port loading"
+  },
+  {
+    "id": "booking.currency_goods",
+    "defaultMessage": "Goods value currency"
+  },
+  {
+    "id": "booking.departure_date",
+    "defaultMessage": "Date of departure"
+  },
+  {
+    "id": "booking.error_bookingDate",
+    "defaultMessage": "Invalid booking date format!"
+  },
+  {
+    "id": "booking.goods_quantity",
+    "defaultMessage": "Goods quantity"
+  },
+  {
+    "id": "booking.goods_weigh",
+    "defaultMessage": "Goods weight (kg)"
+  },
+  {
+    "id": "booking.header_data",
+    "defaultMessage": "Header data"
+  },
+  {
+    "id": "booking.important_customer",
+    "defaultMessage": "Important customer"
+  },
+  {
+    "id": "booking.insurance_data",
+    "defaultMessage": "Insurance data"
+  },
+  {
+    "id": "booking.insurance_type",
+    "defaultMessage": "Insurance type"
+  },
+  {
+    "id": "booking.more_goods_details",
+    "defaultMessage": "More goods details"
+  },
+  {
+    "id": "booking.msc_booking_ref",
+    "defaultMessage": "MSC booking ref"
+  },
+  {
+    "id": "booking.new_booking.header_title",
+    "defaultMessage": "Create a New Booking"
+  },
+  {
+    "id": "booking.number_container",
+    "defaultMessage": "Number of containers booked"
+  },
+  {
+    "id": "booking.policy_holders",
+    "defaultMessage": "Policy Holders"
+  },
+  {
+    "id": "booking.port_discharge",
+    "defaultMessage": "Port of discharge"
+  },
+  {
+    "id": "booking.port_loading",
+    "defaultMessage": "Port of loading"
+  },
+  {
+    "id": "booking.recipient",
+    "defaultMessage": "Recipient"
+  },
+  {
+    "id": "booking.reefer_container",
+    "defaultMessage": "Reefer Container"
+  },
+  {
+    "id": "booking.sender",
+    "defaultMessage": "Sender"
+  },
+  {
+    "id": "booking.sender_recipient_data",
+    "defaultMessage": "Sender and Recipient data"
+  },
+  {
+    "id": "booking.special_conditions",
+    "defaultMessage": "Special conditions"
+  },
+  {
+    "id": "booking.type_goods",
+    "defaultMessage": "Type of goods"
+  },
+  {
+    "id": "booking.value_goods",
+    "defaultMessage": "Value of the goods"
+  },
+  {
+    "id": "booking.vessel_mail",
+    "defaultMessage": "Vessel Mail"
+  },
+  {
+    "id": "booking.vessel_name",
+    "defaultMessage": "Vessel name (if already known)"
+  },
+  {
+    "id": "booking.vessel_phone",
+    "defaultMessage": "Vessel Phone"
+  },
+  {
+    "id": "booking.weight",
+    "defaultMessage": "Weight (Kg)"
+  },
+  {
+    "id": "certificates.column_actions",
+    "defaultMessage": "Actions"
+  },
+  {
+    "id": "certificates.column_code",
+    "defaultMessage": "Code"
+  },
+  {
+    "id": "certificates.list.header_title",
+    "defaultMessage": "Retrieve Certificate"
+  },
+  {
+    "id": "common.all",
+    "defaultMessage": "Tutti"
+  },
+  {
+    "id": "common.apply",
+    "defaultMessage": "Apply"
+  },
+  {
+    "id": "common.building",
+    "defaultMessage": "Struttura"
+  },
+  {
+    "id": "common.cancel",
+    "defaultMessage": "cancel"
+  },
+  {
+    "id": "common.clear",
+    "defaultMessage": "Clear"
+  },
+  {
+    "id": "common.closedBy",
+    "defaultMessage": "Chiuso da"
+  },
+  {
+    "id": "common.confirm",
+    "defaultMessage": "confirm"
+  },
+  {
+    "id": "common.confirm_operation",
+    "defaultMessage": "Confirm operation"
+  },
+  {
+    "id": "common.covers",
+    "defaultMessage": "Coperti"
+  },
+  {
+    "id": "common.date",
+    "defaultMessage": "Data"
+  },
+  {
+    "id": "common.discounts",
+    "defaultMessage": "Sconti"
+  },
+  {
+    "id": "common.dividedPayment",
+    "defaultMessage": "Separato"
+  },
+  {
+    "id": "common.export",
+    "defaultMessage": "Menu esportazione dati"
+  },
+  {
+    "id": "common.exportAll",
+    "defaultMessage": "Esporta tabella"
+  },
+  {
+    "id": "common.exportMenu",
+    "defaultMessage": "Menu esportazione dati"
+  },
+  {
+    "id": "common.exportTable",
+    "defaultMessage": "Esporta tabella"
+  },
+  {
+    "id": "common.filters",
+    "defaultMessage": "Filters"
+  },
+  {
+    "id": "common.income",
+    "defaultMessage": "Incassato"
+  },
+  {
+    "id": "common.language",
+    "defaultMessage": "Date and currency"
+  },
+  {
+    "id": "common.loading",
+    "defaultMessage": "Loading…"
+  },
+  {
+    "id": "common.no_options",
+    "defaultMessage": "No options"
+  },
+  {
+    "id": "common.price",
+    "defaultMessage": "Prezzo"
+  },
+  {
+    "id": "common.product",
+    "defaultMessage": "Prodotto"
+  },
+  {
+    "id": "common.quantity",
+    "defaultMessage": "Qta"
+  },
+  {
+    "id": "common.rate",
+    "defaultMessage": "Rate"
+  },
+  {
+    "id": "common.reversals",
+    "defaultMessage": "Storni"
+  },
+  {
+    "id": "common.room",
+    "defaultMessage": "Sala"
+  },
+  {
+    "id": "common.save",
+    "defaultMessage": "Save"
+  },
+  {
+    "id": "common.search",
+    "defaultMessage": "Search…"
+  },
+  {
+    "id": "common.settings",
+    "defaultMessage": "Settings"
+  },
+  {
+    "id": "common.table",
+    "defaultMessage": "Tavolo"
+  },
+  {
+    "id": "common.tables",
+    "defaultMessage": "Tavoli"
+  },
+  {
+    "id": "common.theme",
+    "defaultMessage": "Theme"
+  },
+  {
+    "id": "common.to",
+    "defaultMessage": "a"
+  },
+  {
+    "id": "common.tot",
+    "defaultMessage": "Tot"
+  },
+  {
+    "id": "common.total",
+    "defaultMessage": "Totale"
+  },
+  {
+    "id": "common.transfers",
+    "defaultMessage": "Storni"
+  },
+  {
+    "id": "common.type",
+    "defaultMessage": "Tipo"
+  },
+  {
+    "id": "common.type_of_document",
+    "defaultMessage": "Tipo di Documento"
+  },
+  {
+    "id": "common.type_of_payment",
+    "defaultMessage": "Tipo di Pagamento"
+  },
+  {
+    "id": "common.username",
+    "defaultMessage": "Username"
+  },
+  {
+    "id": "common.wait",
+    "defaultMessage": "Attendi..."
+  },
+  {
+    "id": "dashboard.title",
+    "defaultMessage": "Dashboard"
+  },
+  {
+    "id": "date_range.end_date",
+    "defaultMessage": "Fine"
+  },
+  {
+    "id": "date_range.start_date",
+    "defaultMessage": "Inizio"
+  },
+  {
+    "id": "error.ECONNREFUSED",
+    "defaultMessage": "Connessione rifiutata!"
+  },
+  {
+    "id": "error.INVALID_DOC_UPDATE",
+    "defaultMessage": "Campo \"set\" o \"unset\" obbligatorio!"
+  },
+  {
+    "id": "error.MISSING_PARAMETERS",
+    "defaultMessage": "Parametri obbligatori mancanti: {parameters}"
+  },
+  {
+    "id": "error404.go_back_button",
+    "defaultMessage": "Go back to the previous page"
+  },
+  {
+    "id": "error404.goto_home_page_description",
+    "defaultMessage": "Se hai digitato un collegamento nella barra degli indirizzi, prova ad utilizzare il menu di navigazione a\n          sinistra."
+  },
+  {
+    "id": "error404.wrong_page",
+    "defaultMessage": "404: The page you try to open is not here!"
+  },
+  {
+    "id": "error500.contact_vendors",
+    "defaultMessage": "Contact the software provider."
+  },
+  {
+    "id": "error500.goto_home_page",
+    "defaultMessage": "Vai all home page"
+  },
+  {
+    "id": "error500.goto_home_page_button",
+    "defaultMessage": "Vai all'home page"
+  },
+  {
+    "id": "error500.reload_current_page",
+    "defaultMessage": "Reload the page"
+  },
+  {
+    "id": "error500.retry",
+    "defaultMessage": "Retry"
+  },
+  {
+    "id": "error500.something_wrong",
+    "defaultMessage": "500: Ooops, Somethin goes wrong!"
+  },
+  {
+    "id": "error503.service_unavailable!",
+    "defaultMessage": "503: Service unavailable!"
+  },
+  {
+    "id": "general.network_error",
+    "defaultMessage": "Network error: service not available!"
+  },
+  {
+    "id": "language.de",
+    "defaultMessage": "German"
+  },
+  {
+    "id": "language.en-gb",
+    "defaultMessage": "English"
+  },
+  {
+    "id": "language.it",
+    "defaultMessage": "Italian"
+  },
+  {
+    "id": "menu.closed_tables",
+    "defaultMessage": "Tavoli chiusi"
+  },
+  {
+    "id": "menu.closing_day",
+    "defaultMessage": "Chiusure di giornata"
+  },
+  {
+    "id": "menu.new_booking",
+    "defaultMessage": "New booking"
+  },
+  {
+    "id": "menu.retrieve_certificate",
+    "defaultMessage": "Retrieve Certificate"
+  },
+  {
+    "id": "menu.running_tables",
+    "defaultMessage": "Tavoli in corso"
+  },
+  {
+    "id": "role.role_admin",
+    "defaultMessage": "Administrator"
+  },
+  {
+    "id": "role.role_broker",
+    "defaultMessage": "Broker"
+  },
+  {
+    "id": "sub.booking",
+    "defaultMessage": "Booking"
+  },
+  {
+    "id": "sub.bookings",
+    "defaultMessage": "Bookings"
+  },
+  {
+    "id": "sub.certificates",
+    "defaultMessage": "Certificates"
+  },
+  {
+    "id": "sub.home",
+    "defaultMessage": "Home"
+  },
+  {
+    "id": "sub.reports",
+    "defaultMessage": "Report"
+  },
+  {
+    "id": "table.no_data",
+    "defaultMessage": "No results!"
+  },
+  {
+    "id": "table.select_date",
+    "defaultMessage": "Ricerca per date"
+  },
+  {
+    "id": "toolbar.settings.responsive_fonts",
+    "defaultMessage": "Responsive Fonts"
+  },
+  {
+    "id": "toolbar.settings.save",
+    "defaultMessage": "Save Settings"
+  },
+]

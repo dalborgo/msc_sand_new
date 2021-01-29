@@ -1,0 +1,28 @@
+{
+  "workspaces": [
+    "packages/*"
+  ],
+  "private": true,
+  "license": "MIT",
+  "scripts": {
+    "test": "lerna run test",
+    "update-version": "lerna version patch --no-git-tag-version --no-push --yes"
+  },
+  "name": "msc_genova",
+  "devDependencies": {
+    "chai": "^4.2.0",
+    "lerna": "^3.22.1",
+    "mocha": "^8.2.1",
+    "nodemon": "^2.0.7",
+    "nyc": "^15.1.0",
+    "plop": "^2.7.4"
+  },
+  "dependencies": {
+    "bluebird": "^3.7.2",
+    "module-alias": "^2.2.2",
+    "config": "^3.3.3",
+    "debug": "^4.2.0",
+    "esm": "^3.2.25",
+    "q": "^1.5.1"
+  }
+}
