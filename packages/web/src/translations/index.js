@@ -1,6 +1,7 @@
 import messagesGB from './en-gb.json'
 import messagesIT from './it.json'
 
+require('moment/locale/de')
 require('moment/locale/en-gb')
 require('moment/locale/it')
 

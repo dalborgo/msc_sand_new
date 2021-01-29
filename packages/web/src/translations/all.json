@@ -96,8 +96,20 @@
     "defaultMessage": "Invalid booking date format!"
   },
   {
+    "id": "booking.error_goodsValue",
+    "defaultMessage": "The goods value exceeds the maximum!"
+  },
+  {
     "id": "booking.goods_quantity",
     "defaultMessage": "Goods quantity"
+  },
+  {
+    "id": "booking.goods_value",
+    "defaultMessage": "Value of the goods"
+  },
+  {
+    "id": "booking.goods_value_max",
+    "defaultMessage": "Value of the goods maximum: {max}"
   },
   {
     "id": "booking.goods_weigh",
@@ -160,20 +172,12 @@
     "defaultMessage": "Sender"
   },
   {
-    "id": "booking.sender_recipient_data",
-    "defaultMessage": "Sender and Recipient data"
-  },
-  {
     "id": "booking.special_conditions",
     "defaultMessage": "Special conditions"
   },
   {
     "id": "booking.type_goods",
     "defaultMessage": "Type of goods"
-  },
-  {
-    "id": "booking.value_goods",
-    "defaultMessage": "Value of the goods"
   },
   {
     "id": "booking.vessel_mail",
@@ -188,10 +192,6 @@
     "defaultMessage": "Vessel Phone"
   },
   {
-    "id": "booking.weight",
-    "defaultMessage": "Weight (Kg)"
-  },
-  {
     "id": "certificates.column_actions",
     "defaultMessage": "Actions"
   },
@@ -204,12 +204,28 @@
     "defaultMessage": "Retrieve Certificate"
   },
   {
+    "id": "closing_day.discounts",
+    "defaultMessage": "Sconti"
+  },
+  {
+    "id": "closing_day.transfers",
+    "defaultMessage": "Storni"
+  },
+  {
+    "id": "closing_day.type_of_document",
+    "defaultMessage": "Tipo di Documento"
+  },
+  {
+    "id": "closing_day.type_of_payment",
+    "defaultMessage": "Tipo di Pagamento"
+  },
+  {
     "id": "common.all",
     "defaultMessage": "Tutti"
   },
   {
     "id": "common.apply",
-    "defaultMessage": "Apply"
+    "defaultMessage": "Applica"
   },
   {
     "id": "common.building",
@@ -221,7 +237,7 @@
   },
   {
     "id": "common.clear",
-    "defaultMessage": "Clear"
+    "defaultMessage": "Pulisci"
   },
   {
     "id": "common.closedBy",
@@ -269,7 +285,7 @@
   },
   {
     "id": "common.filters",
-    "defaultMessage": "Filters"
+    "defaultMessage": "Filtri"
   },
   {
     "id": "common.income",
@@ -282,6 +298,10 @@
   {
     "id": "common.loading",
     "defaultMessage": "Loading…"
+  },
+  {
+    "id": "common.no",
+    "defaultMessage": "No"
   },
   {
     "id": "common.no_options",
@@ -302,6 +322,14 @@
   {
     "id": "common.rate",
     "defaultMessage": "Rate"
+  },
+  {
+    "id": "common.rate_default",
+    "defaultMessage": "Rate (default: {default})"
+  },
+  {
+    "id": "common.rate_min",
+    "defaultMessage": "Rate (minimum: {min})"
   },
   {
     "id": "common.reversals",
@@ -370,6 +398,10 @@
   {
     "id": "common.wait",
     "defaultMessage": "Attendi..."
+  },
+  {
+    "id": "common.yes",
+    "defaultMessage": "Yes"
   },
   {
     "id": "dashboard.title",
@@ -472,6 +504,91 @@
     "defaultMessage": "Tavoli in corso"
   },
   {
+    "id": "menu_certificate_list",
+    "defaultMessage": "Retrieve certificate"
+  },
+  {
+    "id": "mode.5STELLE",
+    "defaultMessage": "Addebito"
+  },
+  {
+    "id": "mode.CHECK",
+    "defaultMessage": "Scontrino"
+  },
+  {
+    "id": "mode.INVOICE",
+    "defaultMessage": "Fattura"
+  },
+  {
+    "id": "mode.PRECHECK",
+    "defaultMessage": "Preconto"
+  },
+  {
+    "id": "reports.browser.response_time",
+    "defaultMessage": "Tempo query"
+  },
+  {
+    "id": "reports.browser.save",
+    "description": "Bottone Salva",
+    "defaultMessage": "Salva"
+  },
+  {
+    "id": "reports.browser.showMore",
+    "defaultMessage": "Mostra di più"
+  },
+  {
+    "id": "reports.browser.total_rows",
+    "defaultMessage": "Righe totali"
+  },
+  {
+    "id": "reports.closed_tables.header_title",
+    "defaultMessage": "Tavoli chiusi"
+  },
+  {
+    "id": "reports.closed_tables.select_type_of_payment",
+    "defaultMessage": "Seleziona il Tipo di Pagamento"
+  },
+  {
+    "id": "reports.closed_tables.type_of_payment",
+    "defaultMessage": "Tipo di pagamento"
+  },
+  {
+    "id": "reports.closing_day.closing",
+    "defaultMessage": "Chiusura"
+  },
+  {
+    "id": "reports.closing_day.header_title",
+    "defaultMessage": "Chiusure di giornata"
+  },
+  {
+    "id": "reports.closing_day.opening",
+    "defaultMessage": "Apertura"
+  },
+  {
+    "id": "reports.closing_day.tot_reversal",
+    "defaultMessage": "Totale Storni"
+  },
+  {
+    "id": "reports.dashboard.best_earning",
+    "defaultMessage": "Miglior Guadagno"
+  },
+  {
+    "id": "reports.header.list_documents",
+    "defaultMessage": "Lista Documenti"
+  },
+  {
+    "id": "reports.running_tables.header_title",
+    "defaultMessage": "Tavoli in corso"
+  },
+  {
+    "id": "reports.tot_discount",
+    "defaultMessage": "Totale Sconti"
+  },
+  {
+    "id": "reports.total",
+    "defaultMessage": "Totale"
+  },
+  {
     "id": "role.role_admin",
     "defaultMessage": "Administrator"
   },
@@ -480,8 +597,12 @@
     "defaultMessage": "Broker"
   },
   {
-    "id": "sub.booking",
-    "defaultMessage": "Booking"
+    "id": "role.role_customer",
+    "defaultMessage": "Cliente"
+  },
+  {
+    "id": "role.role_msc",
+    "defaultMessage": "Msc"
   },
   {
     "id": "sub.bookings",
@@ -515,4 +636,8 @@
     "id": "toolbar.settings.save",
     "defaultMessage": "Save Settings"
   },
+  {
+    "id": "views.login.installation",
+    "defaultMessage": "Installazione"
+  }
 ]
