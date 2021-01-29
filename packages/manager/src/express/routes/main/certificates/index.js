@@ -23,7 +23,7 @@ async function getSequence (connClass) {
   return { ok, results: sequence ? ++sequence : INITIAL_COUNT + 1 }
 }
 
-const listFields = ['code']
+const listFields = ['code', 'policyNumber', 'bookingRef','portDischarge', 'portLoading']
 
 function addRouters (router) {
   router.post('/certificates/save', async function (req, res) {

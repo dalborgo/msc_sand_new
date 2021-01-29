@@ -18,17 +18,22 @@ const setPriority = role => {
   }
 }
 
-function selectUserFields (identity) {
-  return {
-    display: identity.user,
-    morse: identity.morse,
-    priority: setPriority(identity.role),
-  }
-}
+const selectUserFields = identity => ({
+  display: identity.user,
+  morse: identity.morse,
+  priority: setPriority(identity.role),
+})
 
-function getQueryUserField () {
-  return '`user`.`user`, `user`.`role`, `user`.`locales` '
-}
+const getQueryUserField = () => '`user`.`user`, `user`.`role`, `user`.`locales` '
+
+const getJwtReturnObj = (connClass, identity) => ({
+  bucket: connClass.projectBucketName,
+  couchbaseUrl: connClass.host,
+  locales: identity.locales || [],
+  user: {
+    ...selectUserFields(identity),
+  },
+})
 
 function addRouters (router) {
   router.post('/jwt/login', async function (req, res) {
@@ -62,12 +67,7 @@ function addRouters (router) {
     )
     res.send({
       accessToken,
-      bucket: connClass.projectBucketName,
-      couchbaseUrl: connClass.host,
-      locales: identity.locales || [],
-      user: {
-        ...selectUserFields(identity),
-      },
+      ...getJwtReturnObj(connClass, identity)
     })
   })
   router.get('/jwt/me', async function (req, res) {
@@ -88,12 +88,7 @@ function addRouters (router) {
     }
     const [identity] = results
     res.send({
-      bucket: connClass.projectBucketName,
-      couchbaseUrl: connClass.host,
-      locales: identity.locales || [],
-      user: {
-        ...selectUserFields(identity),
-      },
+      ...getJwtReturnObj(connClass, identity)
     })
   })
   router.get('/jwt/codes', async function (req, res) {

@@ -158,5 +158,8 @@
   "role.role_msc": "Msc",
   "sub.bookings": "Bookings",
   "sub.certificates": "Certificates",
-  "sub.home": "Home"
+  "sub.home": "Home",
+  "certificates.policy_number": "Policy number",
+  "certificates.port_discharge": "Port discharge",
+  "certificates.port_loading": "Port loading"
 }

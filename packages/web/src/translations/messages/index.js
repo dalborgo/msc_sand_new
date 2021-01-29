@@ -53,6 +53,18 @@ export const messages = defineMessages({
     id: 'certificates.column_code',
     defaultMessage: 'Code',
   },
+  certificates_column_policy_number: {
+    id: 'certificates.policy_number',
+    defaultMessage: 'Policy number',
+  },
+  certificates_column_port_loading: {
+    id: 'certificates.port_loading',
+    defaultMessage: 'Port loading',
+  },
+  certificates_column_port_discharge: {
+    id: 'certificates.port_discharge',
+    defaultMessage: 'Port discharge',
+  },
   certificates_column_actions: {
     id: 'certificates.column_actions',
     defaultMessage: 'Actions',

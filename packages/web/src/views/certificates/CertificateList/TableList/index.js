@@ -14,7 +14,6 @@ const tableColumnExtensions = [
   { columnName: 'actions', align: 'right' },
 ]
 
-
 const IntegratedFilteringSel = memo(function IntegratedFilteringSel () {
   const filteringColumnExtensions = ['covers', 'date']
     .map(columnName => ({
@@ -28,11 +27,23 @@ const IntegratedFilteringSel = memo(function IntegratedFilteringSel () {
   )
 })
 
+const getPortName = (data, column) => data[column] ? `${data[column]?.value} (${data[column]?.key})` : ''
+
 const TableList = memo(function TableList ({ rows, isFetching, isIdle }) {
   console.log('%c***EXPENSIVE_RENDER_TABLE', 'color: yellow')
   const intl = useIntl()
   const [columns] = useState([
-    { name: 'code', title: intl.formatMessage(messages['certificates_column_code']) },
+    { name: 'policyNumber', title: intl.formatMessage(messages['certificates_column_policy_number']) },
+    {
+      name: 'portLoading',
+      title: intl.formatMessage(messages['certificates_column_port_loading']),
+      getCellValue: getPortName,
+    },
+    {
+      name: 'portDischarge',
+      title: intl.formatMessage(messages['certificates_column_port_discharge']),
+      getCellValue: getPortName,
+    },
     { name: 'actions', title: intl.formatMessage(messages['certificates_column_actions']) },
   ])
   const noDataCellComponent = useCallback(({ colSpan }) =>

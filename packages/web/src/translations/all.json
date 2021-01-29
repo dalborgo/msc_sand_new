@@ -204,6 +204,18 @@
     "defaultMessage": "Retrieve Certificate"
   },
   {
+    "id": "certificates.policy_number",
+    "defaultMessage": "Policy number"
+  },
+  {
+    "id": "certificates.port_discharge",
+    "defaultMessage": "Port discharge"
+  },
+  {
+    "id": "certificates.port_loading",
+    "defaultMessage": "Port loading"
+  },
+  {
     "id": "closing_day.discounts",
     "defaultMessage": "Sconti"
   },

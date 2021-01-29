@@ -4,26 +4,6 @@ import {
 } from 'react-feather'
 
 const sections = [
-  /*{
-    subheader: 'home',
-    items: [
-      {
-        title: 'Dashboard',
-        icon: PieChartIcon,
-        href: '/app/reports/dashboard',
-      },
-    ],
-  },*/
-  {
-    subheader: 'certificates',
-    items: [
-      {
-        title: 'certificate_list',
-        icon: ListIcon,
-        href: '/app/certificates/list',
-      },
-    ],
-  },
   {
     subheader: 'bookings',
     items: [
@@ -31,6 +11,16 @@ const sections = [
         title: 'new_booking',
         icon: FilePlusIcon,
         href: '/app/booking/new-booking',
+      },
+    ],
+  },
+  {
+    subheader: 'certificates',
+    items: [
+      {
+        title: 'certificate_list',
+        icon: ListIcon,
+        href: '/app/certificates/list',
       },
     ],
   },
