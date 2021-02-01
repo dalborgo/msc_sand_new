@@ -237,7 +237,7 @@
   },
   {
     "id": "common.apply",
-    "defaultMessage": "Applica"
+    "defaultMessage": "Apply"
   },
   {
     "id": "common.building",
@@ -249,7 +249,7 @@
   },
   {
     "id": "common.clear",
-    "defaultMessage": "Pulisci"
+    "defaultMessage": "Clear"
   },
   {
     "id": "common.closedBy",
@@ -297,7 +297,7 @@
   },
   {
     "id": "common.filters",
-    "defaultMessage": "Filtri"
+    "defaultMessage": "Filters"
   },
   {
     "id": "common.income",

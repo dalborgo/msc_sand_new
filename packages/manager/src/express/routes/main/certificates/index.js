@@ -54,13 +54,15 @@ function addRouters (router) {
     utils.controlParameters(query, [])
     const {
       bucketName = connClass.projectBucketName,
+      typeOfGoods,
       options,
     } = query
-    const statement = knex(bucketName)
+    const knex_ = knex(bucketName)
       .where({ type: 'CERTIFICATE' })
       .select(listFields)
       .orderBy('sequence', 'desc')
-      .toQuery()
+    if(typeOfGoods){knex_.where({ typeOfGoods })}
+    const statement = knex_.toQuery()
     const { ok, results, message, err } = await couchQueries.exec(statement, connClass.cluster, options)
     if (!ok) {return res.send({ ok, message, err })}
     res.send({ ok, results })

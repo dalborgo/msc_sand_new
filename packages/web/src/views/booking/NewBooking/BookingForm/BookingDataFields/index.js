@@ -145,28 +145,6 @@ const BookingDataFields = ({ handleChange, setFieldValue }) => {
         </Grid>
       }
       {
-        insuranceSelected.endsWith('door') &&
-        <Grid item sm={6} xs={12}>
-          <BookingAutocomplete
-            label={intl.formatMessage(messages['booking_country_delivery_point'])}
-            list={countryList}
-            name="countryDeliveryPoint"
-            onChange={onCountryDeliveryPointChange}
-          />
-        </Grid>
-      }
-      {
-        insuranceSelected.endsWith('door') &&
-        <Grid item sm={6} xs={12}>
-          <FastField
-            as={TF}
-            fullWidth
-            label={intl.formatMessage(messages['booking_city_delivery_point'])}
-            name="cityDeliveryPoint"
-          />
-        </Grid>
-      }
-      {
         (insuranceSelected.startsWith('door') || insuranceSelected.startsWith('port')) &&
         <Grid item sm={6} xs={12}>
           <BookingAutocomplete
@@ -185,6 +163,28 @@ const BookingDataFields = ({ handleChange, setFieldValue }) => {
             list={loadingPorts}
             name="portLoading"
             onChange={onPortLoadingChange}
+          />
+        </Grid>
+      }
+      {
+        insuranceSelected.endsWith('door') &&
+        <Grid item sm={6} xs={12}>
+          <BookingAutocomplete
+            label={intl.formatMessage(messages['booking_country_delivery_point'])}
+            list={countryList}
+            name="countryDeliveryPoint"
+            onChange={onCountryDeliveryPointChange}
+          />
+        </Grid>
+      }
+      {
+        insuranceSelected.endsWith('door') &&
+        <Grid item sm={6} xs={12}>
+          <FastField
+            as={TF}
+            fullWidth
+            label={intl.formatMessage(messages['booking_city_delivery_point'])}
+            name="cityDeliveryPoint"
           />
         </Grid>
       }

@@ -33,6 +33,7 @@ const TableList = memo(function TableList ({ rows, isFetching, isIdle }) {
   console.log('%c***EXPENSIVE_RENDER_TABLE', 'color: yellow')
   const intl = useIntl()
   const [columns] = useState([
+    { name: 'code', title: intl.formatMessage(messages['certificates_column_code']) },
     { name: 'policyNumber', title: intl.formatMessage(messages['certificates_column_policy_number']) },
     {
       name: 'portLoading',

@@ -17,6 +17,7 @@ import shallow from 'zustand/shallow'
 import { useSnackbar } from 'notistack'
 import useAuth from 'src/hooks/useAuth'
 import { useConfirm } from 'material-ui-confirm'
+import { initialState } from 'src/zustandStore/useCertificateStore'
 
 const useStyles = makeStyles(theme => ({
   page: {
@@ -39,7 +40,7 @@ const saveCertificateMutation = async values => {
 const getConfirmText = (values, intl) =>
   intl.formatMessage(messages['booking_confirm_save']) + '<br/><br/>' +
   intl.formatMessage(messages['booking_important_customer']) + ': <strong>' + (values.importantCustomer ? intl.formatMessage(messages['common_yes']) : intl.formatMessage(messages['common_no'])) + '</strong><br/>' +
-  intl.formatMessage(messages['booking_reefer_container']) + ': <strong>' + (values.reeferContainer? intl.formatMessage(messages['common_yes']) : intl.formatMessage(messages['common_no'])) + '</strong><br/>' +
+  intl.formatMessage(messages['booking_reefer_container']) + ': <strong>' + (values.reeferContainer ? intl.formatMessage(messages['common_yes']) : intl.formatMessage(messages['common_no'])) + '</strong><br/>' +
   intl.formatMessage(messages['common_rate']) + ': <strong>' + values.rate + ' %</strong>'
 
 const loadingSel = state => ({ setLoading: state.setLoading })
@@ -63,7 +64,10 @@ const NewBooking = () => {
       if (!ok || error) {
         snackQueryError(err || message || error)
       } else {
-        const queryListKey = 'certificates/list'
+        const queryListKey = ['certificates/list',{
+          ...initialState.filter,
+        }]
+        console.log('queryListKey:', queryListKey)
         const oldCertificateList = queryClient.getQueryData(queryListKey)
         if (oldCertificateList) {
           const newCertificateList = {
@@ -151,7 +155,7 @@ const NewBooking = () => {
                 />
               }
               rightComponent={
-                <Button color="secondary" onClick={() => submitRef.current.click()} variant="outlined">
+                <Button onClick={() => submitRef.current.click()} size="small" variant="contained">
                   <FormattedMessage
                     defaultMessage="Save"
                     id="common.save"

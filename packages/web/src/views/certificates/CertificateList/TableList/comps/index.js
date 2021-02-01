@@ -112,7 +112,6 @@ const CellBase = props => {
           }
           size="small"
           startIcon={<SvgIcon fontSize="small"><ExternalLinkIcon/></SvgIcon>}
-          style={{ textTransform: 'none' }}
           variant="contained"
         >
           PDF
