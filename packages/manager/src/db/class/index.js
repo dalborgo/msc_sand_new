@@ -3,7 +3,7 @@ import config from 'config'
 
 const { connections } = config.get('couchbase')
 const {
-  _bucket: AST_DEFAULT,
+  _bucket: PROJ_DEFAULT,
   backend: BACKEND_HOST_DEFAULT,
   server: HOST_DEFAULT,
 } = connections['defaultServer']
@@ -56,7 +56,7 @@ export default class Couchbase {
   }
   
   get projectBucketName () {
-    return this._project.name || AST_DEFAULT
+    return this._project.name || PROJ_DEFAULT
   }
   
   get projectBucketCollection () {

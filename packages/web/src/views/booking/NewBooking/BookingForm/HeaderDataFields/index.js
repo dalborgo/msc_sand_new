@@ -70,7 +70,6 @@ const HeaderDataFields = ({ recipients }) => {
                   ))
                 }
               </Box>
-            
             )
           }
         />

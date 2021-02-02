@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start web rewired": "set PORT=4001&&react-app-rewired start",
-    "start web": "set PORT=4001&&react-scripts start",
+    "start web rewired": "set PORT=9011&&react-app-rewired start",
+    "start web": "set PORT=9011&&react-scripts start",
     "build": "react-scripts build"
   },
   "browserslist": {
@@ -60,7 +60,7 @@
     "react-error-boundary": "^3.1.0",
     "react-feather": "^2.0.9",
     "react-helmet": "^6.1.0",
-    "react-intl": "^5.11.0",
+    "react-intl": "^5.12.0",
     "react-modal-image": "^2.5.0",
     "react-number-format": "^4.4.4",
     "react-perfect-scrollbar": "^1.5.8",

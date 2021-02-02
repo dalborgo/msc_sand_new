@@ -11,6 +11,7 @@ import { ExternalLink as ExternalLinkIcon } from 'react-feather'
 import { manageFile } from 'src/utils/axios'
 import { useSnackbar } from 'notistack'
 import useAuth from 'src/hooks/useAuth'
+import { envConfig } from 'src/init'
 
 export const summaryCalculator = (type, rows, getValue) => {
   if (type === 'incomeSum') {
@@ -78,7 +79,7 @@ const CellBase = props => {
           priority === 4 ?
             <Link
               color="inherit"
-              href={`http://${couchbaseUrl}:8091/ui/index.html#!/buckets/documents/CERTIFICATE%7C${value}?bucket=${bucket}`}
+              href={`http://${couchbaseUrl}:${envConfig.COUCH_DASHBOARD_PORT}/ui/index.html#!/buckets/documents/CERTIFICATE%7C${value}?bucket=${bucket}`}
               target="_blank"
             >
               {value}

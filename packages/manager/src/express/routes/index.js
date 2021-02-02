@@ -14,7 +14,7 @@ router.use(async function (req, res, next) {
 })
 
 router.get('/', function (req, res) {
-  res.locals.title = 'ADAPTER MSC GENOVA SERVER'
+  res.locals.title = 'ADAPTER MEDITERRANEA SERVER'
   res.locals.nodejs = process.version
   res.locals.info = info
   res.locals.namespace = NAMESPACE

@@ -7,11 +7,13 @@ const ORIGIN = window.location.origin
 const PROTOCOL = window.location.protocol || 'http:'
 const BACKEND_PORT = PROTOCOL === 'http:' ? process.env[`${REACT_APP}_BACKEND_PORT`] : parseInt(process.env[`${REACT_APP}_BACKEND_PORT`], 10) + 1000
 const BACKEND_HOST = `${PROTOCOL}//${wlh}:${BACKEND_PORT}`
-const HOSTNAME = process.env[`${REACT_APP}_COUCHBASE_FOR_LINK`] ? process.env[`${REACT_APP}_COUCHBASE_FOR_LINK`] : wlh
+const COUCH_DASHBOARD_PORT = process.env[`${REACT_APP}_COUCH_DASHBOARD_PORT`] ? process.env[`${REACT_APP}_COUCH_DASHBOARD_PORT`] : 8091
+const HOSTNAME = wlh
 
 export const envConfig = {
   BACKEND_HOST,
   BACKEND_PORT,
+  COUCH_DASHBOARD_PORT,
   HOSTNAME,
   IS_PROD: isProd,
   LOG_LEVEL: process.env[`${REACT_APP}_LOG_LEVEL`] || 'INFO',
