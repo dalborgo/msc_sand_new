@@ -49,7 +49,7 @@ const BookingForm = ({ bookingFromRef }) => {
         <FormattedMessage defaultMessage="Header data" id="booking.header_data"/>
       </Typography>
       <Card>
-        <HeaderDataFields/>
+        <HeaderDataFields recipients={values.recipients}/>
       </Card>
       <Typography color="secondary" gutterBottom>
         <FormattedMessage defaultMessage="Container data" id="booking.container_data"/>

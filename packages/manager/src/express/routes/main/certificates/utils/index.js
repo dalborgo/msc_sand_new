@@ -39,6 +39,7 @@ export const generateInput = cert => {
     goodsValue: numeric.printDecimal(cert.goodsValue / 1000),
     goodsWeight: cert.goodsWeight ? numeric.printDecimal(cert.goodsWeight / 1000, 0) : '',
     notReeferContainer: cert.reeferContainer ? '   ' : 'X',
+    recipient: cert.recipients.join('\n'),
     reeferContainer: cert.reeferContainer ? 'X' : '   ',
     to,
     today: cDate.mom(null, null, 'DD/MM/YYYY'),

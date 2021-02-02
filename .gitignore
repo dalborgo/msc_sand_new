@@ -10,6 +10,7 @@
 /packages/web/build/
 yarn.lock
 ~*.docx
+~*.tmp
 /packages/web/.eslintcache
 /packages/web/.env
 /packages/manager/src/express/routes/main/routines/files/

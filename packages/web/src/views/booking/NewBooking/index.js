@@ -75,6 +75,8 @@ const NewBooking = () => {
           }
           queryClient.removeQueries(queryListKey)
           queryClient.setQueryData(queryListKey, newCertificateList)
+        } else {
+          queryClient.setQueryData(queryListKey, { ok: true, results: [data.results] })
         }
         enqueueSnackbar(intl.formatMessage(messages['booking_save_certificate_ok'], { code: data.results?.code }), { variant: 'success' })
       }
@@ -110,7 +112,7 @@ const NewBooking = () => {
             portDischarge: null,
             portLoading: null,
             rate: '0,175', // rate vip, normal container
-            recipient: 'To the orders as per Bill of Lading',
+            recipients: ['To the orders as per Bill of Lading'],
             reeferContainer: false,
             sender: 'MSC for whom it may concern',
             specialConditions: '',

@@ -67,7 +67,7 @@ const BookingDataFields = ({ handleChange, setFieldValue }) => {
           }
           renderInput={
             props => {
-              return <TF {...props} fullWidth helperText={null} required/>
+              return <TF {...props} fullWidth helperText={null}/>
             }
           }
         />
