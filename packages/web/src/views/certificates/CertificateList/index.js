@@ -54,8 +54,9 @@ const CertificateList = () => {
   const { data, refetch, ...rest } = useQuery(getQueryKey(),
     {
       keepPreviousData: true,
-      refetchOnMount: false,
+      notifyOnChangeProps: ['data', 'error'],
       onError: snackQueryError,
+      refetchOnMount: false,
     }
   )
   const refetchOnClick = useCallback(async () => {
