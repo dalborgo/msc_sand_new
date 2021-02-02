@@ -5,7 +5,7 @@ import { useIntl } from 'react-intl'
 import { Cell } from './comps'
 import { MoneyTypeProvider } from 'src/utils/tableFormatters'
 import { IntegratedSummary, SummaryState } from '@devexpress/dx-react-grid'
-import { CellHeader, CellSummary } from 'src/components/TableComponents/CellBase'
+import { CellHeader, CellSummary } from 'src/components/tableComponents'
 import { withWidth } from '@material-ui/core'
 const tableColumnExtensions = [
   { columnName: 'pro_qta', align: 'right' },

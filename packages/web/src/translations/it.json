@@ -163,5 +163,8 @@
   "certificates.port_discharge": "Port discharge",
   "certificates.port_loading": "Port loading",
   "certificates.column_certificate_number": "Certificate",
-  "certificates.booking_ref": "Booking id"
+  "certificates.booking_ref": "Booking id",
+  "certificates.table_info": "{from}-{to} of {count}",
+  "certificates.table_rows_per_page": "Certificates per page",
+  "certificates.table_show_all": "Show all"
 }

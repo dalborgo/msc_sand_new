@@ -1,10 +1,10 @@
 import React, { memo, useCallback, useState } from 'react'
-import { Grid, Table, TableHeaderRow, Toolbar } from '@devexpress/dx-react-grid-material-ui'
-import { IntegratedFiltering, SearchState } from '@devexpress/dx-react-grid'
+import { Grid, Table, TableHeaderRow, Toolbar, PagingPanel } from '@devexpress/dx-react-grid-material-ui'
+import { IntegratedFiltering, IntegratedPaging, PagingState, SearchState } from '@devexpress/dx-react-grid'
 import { Cell } from './comps'
-import { LoadingComponent } from 'src/components/TableComponents'
-import { CellHeader, RootToolbar } from 'src/components/TableComponents/CellBase'
-import SearchPanelIntl from 'src/components/TableComponents/SearchPanelIntl'
+import { LoadingComponent } from 'src/components/tableComponents'
+import { CellHeader, PagingComponent, RootToolbar } from 'src/components/tableComponents'
+import SearchPanelIntl from 'src/components/tableComponents/SearchPanelIntl'
 import { useIntl } from 'react-intl'
 import { messages } from 'src/translations/messages'
 
@@ -28,7 +28,7 @@ const IntegratedFilteringSel = memo(function IntegratedFilteringSel () {
 })
 
 const getPortName = (data, column) => data[column] ? `${data[column]?.value} (${data[column]?.key})` : ''
-
+const pageSizes = [15, 30, 45, 60]
 const TableList = memo(function TableList ({ rows, isFetching, isIdle }) {
   console.log('%c***EXPENSIVE_RENDER_TABLE', 'color: yellow')
   const intl = useIntl()
@@ -48,9 +48,13 @@ const TableList = memo(function TableList ({ rows, isFetching, isIdle }) {
     },
     { name: 'actions', title: intl.formatMessage(messages['certificates_column_actions']) },
   ])
+  const [pagingMessages] = useState({
+    info: intl.formatMessage(messages['certificates_table_info']),
+    showAll: intl.formatMessage(messages['certificates_table_show_all']),
+    rowsPerPage: intl.formatMessage(messages['certificates_table_rows_per_page']),
+  })
   const noDataCellComponent = useCallback(({ colSpan }) =>
     <LoadingComponent colSpan={colSpan} idle={isIdle} isFetching={isFetching}/>, [isFetching, isIdle])
-  
   return (
     <Grid
       columns={columns}
@@ -59,6 +63,11 @@ const TableList = memo(function TableList ({ rows, isFetching, isIdle }) {
     >
       <SearchState/>
       <IntegratedFilteringSel/>
+      <PagingState
+        defaultCurrentPage={0}
+        defaultPageSize={15}
+      />
+      <IntegratedPaging />
       <Table
         cellComponent={Cell}
         columnExtensions={tableColumnExtensions}
@@ -68,6 +77,11 @@ const TableList = memo(function TableList ({ rows, isFetching, isIdle }) {
         rootComponent={RootToolbar}
       />
       <TableHeaderRow cellComponent={CellHeader}/>
+      <PagingPanel
+        containerComponent={PagingComponent}
+        messages={pagingMessages}
+        pageSizes={pageSizes}
+      />
       <SearchPanelIntl/>
     </Grid>
   )

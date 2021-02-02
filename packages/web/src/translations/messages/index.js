@@ -13,6 +13,18 @@ export const messages = defineMessages({
     id: 'common.confirm_operation',
     defaultMessage: 'Confirm operation',
   },
+  certificates_table_info: {
+    id: 'certificates.table_info',
+    defaultMessage: '{from}-{to} of {count}',
+  },
+  certificates_table_show_all: {
+    id: 'certificates.table_show_all',
+    defaultMessage: 'Show all',
+  },
+  certificates_table_rows_per_page: {
+    id: 'certificates.table_rows_per_page',
+    defaultMessage: 'Certificates per page',
+  },
   common_no_options: {
     id: 'common.no_options',
     defaultMessage: 'No options',

@@ -163,5 +163,8 @@
   "certificates.port_discharge": "",
   "certificates.port_loading": "",
   "certificates.column_certificate_number": "",
-  "certificates.booking_ref": ""
+  "certificates.booking_ref": "",
+  "certificates.table_info": "",
+  "certificates.table_rows_per_page": "",
+  "certificates.table_show_all": ""
 }

@@ -224,6 +224,18 @@
     "defaultMessage": "Port loading"
   },
   {
+    "id": "certificates.table_info",
+    "defaultMessage": "{from}-{to} of {count}"
+  },
+  {
+    "id": "certificates.table_rows_per_page",
+    "defaultMessage": "Certificates per page"
+  },
+  {
+    "id": "certificates.table_show_all",
+    "defaultMessage": "Show all"
+  },
+  {
     "id": "closing_day.discounts",
     "defaultMessage": "Sconti"
   },

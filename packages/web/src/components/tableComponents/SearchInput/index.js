@@ -9,7 +9,7 @@ const styles = () => ({
   },
 })
 
-export const SearchInput = withStyles(styles)(({ classes, ...rest }) => (
+const SearchInput = withStyles(styles)(({ classes, ...rest }) => (
   <SearchPanel.Input
     {...rest}
     classes={
@@ -30,3 +30,5 @@ export const SearchInput = withStyles(styles)(({ classes, ...rest }) => (
     style={{ maxWidth: 240 }}
   />
 ))
+
+export default SearchInput
