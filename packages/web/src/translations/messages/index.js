@@ -49,13 +49,17 @@ export const messages = defineMessages({
     id: 'booking.vessel_mail',
     defaultMessage: 'Vessel Mail',
   },
-  certificates_column_code: {
-    id: 'certificates.column_code',
-    defaultMessage: 'Code',
+  certificates_column_certificate_number: {
+    id: 'certificates.column_certificate_number',
+    defaultMessage: 'Certificate',
   },
   certificates_column_policy_number: {
     id: 'certificates.policy_number',
-    defaultMessage: 'Policy number',
+    defaultMessage: 'Policy',
+  },
+  certificates_column_booking_ref: {
+    id: 'certificates.booking_ref',
+    defaultMessage: 'Booking id',
   },
   certificates_column_port_loading: {
     id: 'certificates.port_loading',

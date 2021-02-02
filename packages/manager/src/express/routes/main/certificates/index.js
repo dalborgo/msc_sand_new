@@ -23,7 +23,7 @@ async function getSequence (connClass) {
   return { ok, results: sequence ? ++sequence : INITIAL_COUNT + 1 }
 }
 
-const listFields = ['code', 'policyNumber', 'bookingRef','portDischarge', 'portLoading']
+const listFields = ['code', 'policyNumber', 'bookingRef', 'portDischarge', 'portLoading']
 
 function addRouters (router) {
   router.post('/certificates/save', async function (req, res) {
@@ -61,7 +61,7 @@ function addRouters (router) {
       .where({ type: 'CERTIFICATE' })
       .select(listFields)
       .orderBy('sequence', 'desc')
-    if(typeOfGoods){knex_.where({ typeOfGoods })}
+    if (typeOfGoods) {knex_.where({ typeOfGoods })}
     const statement = knex_.toQuery()
     const { ok, results, message, err } = await couchQueries.exec(statement, connClass.cluster, options)
     if (!ok) {return res.send({ ok, message, err })}

@@ -4,7 +4,7 @@ import { ToWords } from 'to-words'
 import get from 'lodash/get'
 
 export const generateInput = cert => {
-  const toWords = new ToWords()
+  const toWords = new ToWords({ localeCode: 'en-US' })
   const typeOfGoods = getTypeOfGood(cert.typeOfGoods)
   let from, to
   const countryPortLoadingValue = get(cert, 'countryPortLoading.value', '')
@@ -18,19 +18,19 @@ export const generateInput = cert => {
   switch (cert.insuranceType) {
     case 'port-to-door':
       from = `${countryPortLoadingValue}\n${portLoadingValue}${portLoadingKey ? ` (${portLoadingKey})` : ''}`
-      to = `${countryDeliveryPointValue}${cert.cityDeliveryPoint ? ` - ${cert.cityDeliveryPoint}`: ''}`
+      to = `${countryDeliveryPointValue}${cert.cityDeliveryPoint ? ` - ${cert.cityDeliveryPoint}` : ''}`
       break
     case 'port-to-port':
       from = `${countryPortLoadingValue}\n${portLoadingValue}${portLoadingKey ? ` (${portLoadingKey})` : ''}`
       to = `${countryPortDischargeValue}\n${portDischargeValue}${portDischargeKey ? ` (${portDischargeKey})` : ''}`
       break
     case 'door-to-port':
-      from = `${countryCollectionPointValue}${cert.cityCollectionPoint ? ` - ${cert.cityCollectionPoint}`: ''}`
+      from = `${countryCollectionPointValue}${cert.cityCollectionPoint ? ` - ${cert.cityCollectionPoint}` : ''}`
       to = `${countryPortDischargeValue}\n${portDischargeValue}${portDischargeKey ? ` (${portDischargeKey})` : ''}`
       break
     default: //door-to-door
-      from = `${countryCollectionPointValue}${cert.cityCollectionPoint ? ` - ${cert.cityCollectionPoint}`: ''}`
-      to = `${countryDeliveryPointValue}${cert.cityDeliveryPoint ? ` - ${cert.cityDeliveryPoint}`: ''}`
+      from = `${countryCollectionPointValue}${cert.cityCollectionPoint ? ` - ${cert.cityCollectionPoint}` : ''}`
+      to = `${countryDeliveryPointValue}${cert.cityDeliveryPoint ? ` - ${cert.cityDeliveryPoint}` : ''}`
   }
   return {
     ...cert,

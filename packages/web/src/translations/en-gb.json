@@ -161,5 +161,7 @@
   "sub.home": "",
   "certificates.policy_number": "",
   "certificates.port_discharge": "",
-  "certificates.port_loading": ""
+  "certificates.port_loading": "",
+  "certificates.column_certificate_number": "",
+  "certificates.booking_ref": ""
 }

@@ -1,22 +1,21 @@
-import React, { memo, useCallback, useMemo } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import Page from 'src/components/Page'
-import { Box, makeStyles, TextField as TF, Button } from '@material-ui/core'
+import { Box, makeStyles } from '@material-ui/core'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { messages } from 'src/translations/messages'
 import StandardHeader from 'src/components/StandardHeader'
 import { useQuery } from 'react-query'
 import Paper from '@material-ui/core/Paper'
 import { useSnackQueryError } from 'src/utils/reactQueryFunctions'
-import { getEffectiveFetching } from 'src/utils/logics'
 import { StandardBreadcrumb } from 'src/components/StandardBreadcrumb'
 import IconButtonLoader from 'src/components/IconButtonLoader'
 import TableList from './TableList'
-import { FastField, Form, Formik } from 'formik'
 import FilterButton from 'src/components/FilterButton'
-import { validation } from '@adapter/common'
-import { useCertificateStore, useNewBookingStore } from 'src/zustandStore'
+import { useCertificateStore } from 'src/zustandStore'
 import shallow from 'zustand/shallow'
 import RightDrawer from 'src/components/RightDrawer'
+import { getEffectiveFetching } from 'src/utils/logics'
+import FilterForm from './FilterForm'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -29,97 +28,44 @@ const useStyles = makeStyles(theme => ({
     },
   },
 }))
-const { typesOfGoods } = useNewBookingStore.getState()
-const FilterForm = memo(function FilterForm ({ typeOfGoods, onSubmit }) {
-  console.log('%cRENDER_FORM', 'color: pink')
-  const intl = useIntl()
-  return (
-    <Formik
-      initialValues={{ typeOfGoods: typeOfGoods }}
-      onSubmit={onSubmit}
-    >
-      {
-        ({ handleChange, dirty, setValues, values }) => (
-          <Form>
-            <Box mb={3}>
-              <FastField
-                as={TF}
-                fullWidth
-                label={intl.formatMessage(messages['booking_type_goods'])}
-                name="typeOfGoods"
-                onChange={
-                  event => {
-                    handleChange(event)
-                  }
-                }
-                onFocus={() => null}
-                select
-                SelectProps={{ native: true }}
-                variant="outlined"
-              >
-                <option
-                  key={''}
-                  value={''}
-                />
-                {
-                  typesOfGoods.map(({ value, key }) => (
-                    <option
-                      key={key}
-                      value={key}
-                    >
-                      {value}
-                    </option>
-                  ))
-                }
-              </FastField>
-            </Box>
-            <Box display="flex" justifyContent="flex-end">
-              <Box mr={2}>
-                <Button onClick={() => setValues(validation.resetAll(values))} size="small" variant="contained">
-                  <FormattedMessage defaultMessage="Clear" id="common.clear"/>
-                </Button>
-              </Box>
-              <Box>
-                <Button color="secondary" disabled={!dirty} size="small" type="submit" variant="contained">
-                  <FormattedMessage defaultMessage="Apply" id="common.apply"/>
-                </Button>
-              </Box>
-            </Box>
-          </Form>
-        )
-      }
-    </Formik>
-  )
-})
+
 const certificateSelector = state => ({
   openFilter: state.openFilter,
   submitFilter: state.submitFilter,
   switchOpenFilter: state.switchOpenFilter,
   typeOfGoods: state.filter.typeOfGoods,
+  getQueryKey: state.getQueryKey,
+  reset: state.reset,
 })
 
 const CertificateList = () => {
   const classes = useStyles()
   const snackQueryError = useSnackQueryError()
+  const [isRefetch, setIsRefetch] = useState(false)
   const intl = useIntl()
   const {
+    getQueryKey,
     openFilter,
-    switchOpenFilter,
+    reset,
     submitFilter,
+    switchOpenFilter,
     typeOfGoods,
   } = useCertificateStore(certificateSelector, shallow)
-  const { data, isIdle, refetch, ...rest } = useQuery(
-    ['certificates/list',
-      {
-        typeOfGoods,
-      },
-    ],
+  const { data, refetch, ...rest } = useQuery(getQueryKey(),
     {
       keepPreviousData: true,
       refetchOnMount: false,
       onError: snackQueryError,
-    })
-  const effectiveFetching = getEffectiveFetching(rest)
+    }
+  )
+  const refetchOnClick = useCallback(async () => {
+    setIsRefetch(true)
+    await refetch()
+    setIsRefetch(false)
+  }, [refetch])
+  
+  const effectiveFetching = getEffectiveFetching(rest, isRefetch)
+  useEffect(() => reset, [reset]) //occhio reset senza parentesi: si passa la funzione non si esegue
   const onFilterSubmit = useCallback(filter => {
     submitFilter(filter)
     return filter
@@ -151,10 +97,10 @@ const CertificateList = () => {
               <Box>
                 <IconButtonLoader
                   isFetching={effectiveFetching}
-                  onClick={refetch}
+                  onClick={refetchOnClick}
                 />
               </Box>
-              <Box>
+              <Box ml={0.5}>
                 <FilterButton
                   isActive={typeOfGoods}
                   onClick={switchOpenFilter}
@@ -171,7 +117,11 @@ const CertificateList = () => {
       </div>
       <Box alignItems="center" display="flex" p={2} pt={0}/>
       <Paper className={classes.paper}>
-        <TableList isFetching={effectiveFetching && !data?.results?.length} isIdle={isIdle} rows={data?.results || []}/>
+        <TableList
+          isFetching={effectiveFetching && !data?.results?.length}
+          isIdle={rest.isIdle}
+          rows={data?.results || []}
+        />
       </Paper>
     </Page>
   )

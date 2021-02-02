@@ -9,8 +9,8 @@ export const isMenuLinkToShow = (item, payload = {}) => {
 export const getEffectiveFetching = ({
   isFetching,
   isSuccess,
-  isFetchedAfterMount,
-}) => isFetching && (!isSuccess || isFetchedAfterMount)
+  isPreviousData,
+}, isRefetch = true) => (isFetching && (!isSuccess || isPreviousData)) || isRefetch
 
 export const getMinimumRate = (importantCustomer, reeferContainer) => {
   if (importantCustomer && reeferContainer) {

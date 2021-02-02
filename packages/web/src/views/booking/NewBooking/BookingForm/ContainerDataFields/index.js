@@ -51,6 +51,73 @@ const ContainerDataFields = ({ handleChange, setFieldValue, maxGoodsValueLabel, 
             name="goodsWeight"
           />
         </Grid>
+        <Grid alignItems="center" container>
+          <Grid item sm={6} xs={12}>
+            <FastField
+              as={TF}
+              fullWidth
+              label={intl.formatMessage(messages['booking_type_goods'])}
+              name="typeOfGoods"
+              onChange={
+                event => {
+                  handleChange(event)
+                }
+              }
+              onFocus={() => null}
+              required
+              select
+              SelectProps={{ native: true }}
+            >
+              <option
+                key={''}
+                value={''}
+              />
+              {
+                typesOfGoods.map(({ value, key }) => {
+                  return (
+                    <option
+                      key={key}
+                      value={key}
+                    >
+                      {value}
+                    </option>
+                  )
+                })
+              }
+            </FastField>
+          </Grid>
+          <Grid item sm={6} xs={12}>
+            <InputLabel
+              htmlFor="reeferContainer"
+              style={{ height: 20 }}
+            >
+              {intl.formatMessage(messages['booking_reefer_container'])}
+              <FastField
+                component={Switch}
+                name="reeferContainer"
+                onChange={
+                  event => {
+                    handleChange(event)
+                    setFieldValue('rate', getMinimumRate(bookingFromRef.current.values.importantCustomer, event.target.checked))
+                  }
+                }
+                type="checkbox"
+              />
+            </InputLabel>
+            <InputLabel
+              htmlFor="acceptedByMSC"
+              style={{ whiteSpace: 'nowrap' }}
+            >
+              {intl.formatMessage(messages['accepted_by_msc'])}
+              <FastField
+                component={Switch}
+                name="acceptedByMSC"
+                required
+                type="checkbox"
+              />
+            </InputLabel>
+          </Grid>
+        </Grid>
         <Grid item sm={6} xs={12}>
           <Field
             as={TF}
@@ -90,73 +157,6 @@ const ContainerDataFields = ({ handleChange, setFieldValue, maxGoodsValueLabel, 
                 USD
               </ToggleButton>
             </FastField>
-          </InputLabel>
-        </Grid>
-      </Grid>
-      <Grid alignItems="center" container>
-        <Grid item sm={6} xs={12}>
-          <FastField
-            as={TF}
-            fullWidth
-            label={intl.formatMessage(messages['booking_type_goods'])}
-            name="typeOfGoods"
-            onChange={
-              event => {
-                handleChange(event)
-              }
-            }
-            onFocus={() => null}
-            required
-            select
-            SelectProps={{ native: true }}
-          >
-            <option
-              key={''}
-              value={''}
-            />
-            {
-              typesOfGoods.map(({ value, key }) => {
-                return (
-                  <option
-                    key={key}
-                    value={key}
-                  >
-                    {value}
-                  </option>
-                )
-              })
-            }
-          </FastField>
-        </Grid>
-        <Grid item sm={6} xs={12}>
-          <InputLabel
-            htmlFor="reeferContainer"
-            style={{ height: 20 }}
-          >
-            {intl.formatMessage(messages['booking_reefer_container'])}
-            <FastField
-              component={Switch}
-              name="reeferContainer"
-              onChange={
-                event => {
-                  handleChange(event)
-                  setFieldValue('rate', getMinimumRate(bookingFromRef.current.values.importantCustomer, event.target.checked))
-                }
-              }
-              type="checkbox"
-            />
-          </InputLabel>
-          <InputLabel
-            htmlFor="acceptedByMSC"
-            style={{ whiteSpace: 'nowrap' }}
-          >
-            {intl.formatMessage(messages['accepted_by_msc'])}
-            <FastField
-              component={Switch}
-              name="acceptedByMSC"
-              required
-              type="checkbox"
-            />
           </InputLabel>
         </Grid>
       </Grid>

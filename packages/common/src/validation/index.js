@@ -3,6 +3,7 @@ import moment from 'moment'
 import isString from 'lodash/isString'
 import mapValues from 'lodash/mapValues'
 import isNil from 'lodash/isNil'
+import reduce from 'lodash/reduce'
 
 export function yupUniqueProperty (propertyName, message) {
   return this.test('unique', message, function (value) {
@@ -90,6 +91,15 @@ function filterByArray (obj, arr) {
   return newObj
 }
 
+function objectSkipEmpty (obj) {
+  return reduce(obj, (prev, curr, key) => {
+    if (curr !== '' && !isNil(curr)) {
+      prev[key] = curr
+    }
+    return prev
+  }, {})
+}
+
 const objectUpperCase = obj => mapValues(obj, inp => !isNil(inp) ? String(inp).toUpperCase() : undefined)
 const objectRemoveEmpty = obj => mapValues(obj, inp => inp !== '' && inp !== null ? inp : undefined)
 
@@ -97,6 +107,7 @@ export default {
   escapeUnknownChar,
   filterByArray,
   objectRemoveEmpty,
+  objectSkipEmpty,
   objectUpperCase,
   resetAll,
   trimAll,

@@ -34,12 +34,12 @@ const BookingDataFields = ({ handleChange, setFieldValue }) => {
   const onCountryPortLoadingChange = useCallback((_, value) => {
     setFieldValue('countryPortLoading', value)
     setFieldValue('portLoading', null)
-    setLoadingPorts(value)
+    setLoadingPorts(value || {})
   }, [setFieldValue, setLoadingPorts])
   const onCountryPortDischargeChange = useCallback((_, value) => {
     setFieldValue('countryPortDischarge', value)
     setFieldValue('portDischarge', null)
-    setDischargePorts(value)
+    setDischargePorts(value || {})
   }, [setFieldValue, setDischargePorts])
   
   return (

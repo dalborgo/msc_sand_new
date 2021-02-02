@@ -17,7 +17,6 @@ import shallow from 'zustand/shallow'
 import { useSnackbar } from 'notistack'
 import useAuth from 'src/hooks/useAuth'
 import { useConfirm } from 'material-ui-confirm'
-import { initialState } from 'src/zustandStore/useCertificateStore'
 
 const useStyles = makeStyles(theme => ({
   page: {
@@ -59,15 +58,12 @@ const NewBooking = () => {
     onMutate: () => {
       setLoading(true)
     },
-    onSettled: (data, error) => {
+    onSettled: async (data, error) => {
       const { ok, message, err } = data || {}
       if (!ok || error) {
         snackQueryError(err || message || error)
       } else {
-        const queryListKey = ['certificates/list',{
-          ...initialState.filter,
-        }]
-        console.log('queryListKey:', queryListKey)
+        const queryListKey = 'certificates/list'
         const oldCertificateList = queryClient.getQueryData(queryListKey)
         if (oldCertificateList) {
           const newCertificateList = {
@@ -77,6 +73,7 @@ const NewBooking = () => {
               ...oldCertificateList.results,
             ],
           }
+          queryClient.removeQueries(queryListKey)
           queryClient.setQueryData(queryListKey, newCertificateList)
         }
         enqueueSnackbar(intl.formatMessage(messages['booking_save_certificate_ok'], { code: data.results?.code }), { variant: 'success' })

@@ -159,7 +159,9 @@
   "sub.bookings": "Bookings",
   "sub.certificates": "Certificates",
   "sub.home": "Home",
-  "certificates.policy_number": "Policy number",
+  "certificates.policy_number": "Policy",
   "certificates.port_discharge": "Port discharge",
-  "certificates.port_loading": "Port loading"
+  "certificates.port_loading": "Port loading",
+  "certificates.column_certificate_number": "Certificate",
+  "certificates.booking_ref": "Booking id"
 }
