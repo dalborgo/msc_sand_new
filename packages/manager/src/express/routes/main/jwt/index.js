@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken'
 import { couchQueries } from '@adapter/io'
 import config from 'config'
 import log from '@adapter/common/src/winston'
+import { cFunctions } from '@adapter/common'
 
 const { MAXAGE_MINUTES = 30, AUTH = 'boobs' } = config.get('express')
 const JWT_SECRET = AUTH
@@ -28,7 +29,7 @@ const getQueryUserField = () => '`user`.`user`, `user`.`role`, `user`.`locales` 
 
 const getJwtReturnObj = (connClass, identity) => ({
   bucket: connClass.projectBucketName,
-  couchbaseUrl: connClass.host,
+  couchbaseUrl: cFunctions.isProd() ? `${connClass.publicIp}:${connClass.dashboardPort}` : `${connClass.host}:${connClass.dashboardPort}`,
   locales: identity.locales || [],
   user: {
     ...selectUserFields(identity),
@@ -67,7 +68,7 @@ function addRouters (router) {
     )
     res.send({
       accessToken,
-      ...getJwtReturnObj(connClass, identity)
+      ...getJwtReturnObj(connClass, identity),
     })
   })
   router.get('/jwt/me', async function (req, res) {
@@ -88,7 +89,7 @@ function addRouters (router) {
     }
     const [identity] = results
     res.send({
-      ...getJwtReturnObj(connClass, identity)
+      ...getJwtReturnObj(connClass, identity),
     })
   })
   router.get('/jwt/codes', async function (req, res) {

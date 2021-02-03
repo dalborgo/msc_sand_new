@@ -24,20 +24,13 @@ export default class Couchbase {
     return this.connHost()
   }
   
-  get sgAdmin () {
-    return this._op['sgAdmin'] || `http://${HOST_DEFAULT}:4985` // ok with port
+  
+  get publicIp () {
+    return this._op['publicIp'] || this.connHost()
   }
   
-  get sgAdminToken () {
-    return this._op['sgAdminToken'] || ''
-  }
-  
-  get sgPublic () {
-    return this._op['sgPublic'] || `http://${HOST_DEFAULT}:4984` // ok with port
-  }
-  
-  get sgPublicToken () {
-    return this._op['sgPublicToken'] || ''
+  get dashboardPort () {
+    return this._op['dashboardPort'] || 8091
   }
   
   get serviceRestProtocol () {
@@ -73,13 +66,11 @@ export default class Couchbase {
       BUCKET_NAME: this.projectBucketName,
       CLUSTER: this.cluster,
       COLLECTION: this.projectBucketCollection,
+      DASHBOARD_PORT: this.dashboardPort,
       HOST: this.host,
       PASSWORD: this.projectBucketPassword(),
+      PUBLIC_IP: this.publicIp,
       SERVICE_REST_PROTOCOL: this.serviceRestProtocol,
-      SG_ADMIN: this.sgAdmin,
-      SG_ADMIN_TOKEN: this.sgAdminToken,
-      SG_PUBLIC: this.sgPublic,
-      SG_PUBLIC_TOKEN: this.sgPublicToken,
     }
   }
   

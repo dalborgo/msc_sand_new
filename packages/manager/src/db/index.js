@@ -19,11 +19,9 @@ void (async () => {
       logFunc: connections_.logFunc,
     }
     const extraOptions = {
+      dashboardPort: connection.dashboard_port,
+      publicIp: connection.public_ip,
       serviceRestProtocol: connection.service_rest_protocol || 'http',
-      sgAdmin: connection.sg_admin,
-      sgAdminToken: connection.sg_admin_token,
-      sgPublic: connection.sg_public,
-      sgPublicToken: connection.sg_public_token,
     }
     const queryString = cFunctions.objToQueryString({ certpath: connection._certpath, config_total_timeout: CONFIG_TOTAL_TIMEOUT }, true)
     const prefix = connection._certpath ? 'couchbases' : 'couchbase'
