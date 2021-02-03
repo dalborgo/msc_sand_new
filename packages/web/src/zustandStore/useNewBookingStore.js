@@ -10,19 +10,30 @@ const insuranceTypes = [
 ]
 
 const initialState = {
-  insuranceSelected: '',
-  countryLoadingSelected: null,
+  confirmedValues: {},
   countryDischargeSelected: null,
-  loadingPorts: [],
-  dischargePorts: [],
-  insuranceTypes,
   countryList: getCountryList(),
+  countryLoadingSelected: null,
+  dischargePorts: [],
+  insuranceSelected: '',
+  insuranceTypes,
+  loadingPorts: [],
+  openConfirmDialog: false,
   typesOfGoods: getTypeOfGoods(),
 }
 
 const useNewBookingStore = create(immerMiddleware(set => ({
   ...initialState,
   reset: () => set(() => initialState),
+  setOpenConfirmDialog: val => set(state => {
+    state.openConfirmDialog = val
+  }),
+  handleCloseConfirmDialog: () => set(state => {
+    state.openConfirmDialog = false
+  }),
+  setConfirmedValues: val => set(state => {
+    state.confirmedValues = val
+  }),
   setInsuranceSelected: val => set(state => {
     state.insuranceSelected = val
   }),
@@ -32,6 +43,7 @@ const useNewBookingStore = create(immerMiddleware(set => ({
   setDischargePorts: ({value: country}) => set(state => {
     state.dischargePorts = getPortList(country)
   }),
+  set: fn => set(fn),
 })))
 
 export default useNewBookingStore

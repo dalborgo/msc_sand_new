@@ -60,6 +60,10 @@
     "defaultMessage": "City of the delivery point"
   },
   {
+    "id": "booking.confirm_data_title",
+    "defaultMessage": "Review booking"
+  },
+  {
     "id": "booking.confirm_save",
     "defaultMessage": "Are you sure you want to save?"
   },
@@ -185,6 +189,10 @@
   },
   {
     "id": "booking.vessel_name",
+    "defaultMessage": "Vessel name"
+  },
+  {
+    "id": "booking.vessel_name_long",
     "defaultMessage": "Vessel name (if already known)"
   },
   {
@@ -320,6 +328,10 @@
     "defaultMessage": "Filters"
   },
   {
+    "id": "common.from",
+    "defaultMessage": "From"
+  },
+  {
     "id": "common.income",
     "defaultMessage": "Incassato"
   },
@@ -397,7 +409,7 @@
   },
   {
     "id": "common.to",
-    "defaultMessage": "a"
+    "defaultMessage": "To"
   },
   {
     "id": "common.tot",

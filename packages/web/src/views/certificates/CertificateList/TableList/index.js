@@ -4,7 +4,7 @@ import { IntegratedFiltering, IntegratedPaging, PagingState, SearchState } from 
 import { Cell } from './comps'
 import { LoadingComponent } from 'src/components/tableComponents'
 import { CellHeader, PagingComponent, RootToolbar } from 'src/components/tableComponents'
-import SearchPanelIntl from 'src/components/tableComponents/SearchPanelIntl'
+import { SearchPanelIntl } from 'src/components/tableComponents'
 import { useIntl } from 'react-intl'
 import { messages } from 'src/translations/messages'
 

@@ -166,5 +166,8 @@
   "certificates.booking_ref": "",
   "certificates.table_info": "",
   "certificates.table_rows_per_page": "",
-  "certificates.table_show_all": ""
+  "certificates.table_show_all": "",
+  "booking.confirm_data_title": "",
+  "common.from": "",
+  "booking.vessel_name_long": ""
 }

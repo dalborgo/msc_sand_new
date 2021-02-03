@@ -1,4 +1,4 @@
-import React, { useRef } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Button, makeStyles } from '@material-ui/core'
 import Page from 'src/components/Page'
 import DivContentWrapper from 'src/components/DivContentWrapper'
@@ -12,11 +12,10 @@ import { checkValues } from './validate'
 import { axiosLocalInstance, useSnackQueryError } from 'src/utils/reactQueryFunctions'
 import { useMutation, useQueryClient } from 'react-query'
 import { useGeneralStore } from 'src/zustandStore'
-import parse from 'html-react-parser'
 import shallow from 'zustand/shallow'
 import { useSnackbar } from 'notistack'
-import useAuth from 'src/hooks/useAuth'
-import { useConfirm } from 'material-ui-confirm'
+import useNewBookingStore from 'src/zustandStore/useNewBookingStore'
+import ConfirmDialog from './ConfirmDialog'
 
 const useStyles = makeStyles(theme => ({
   page: {
@@ -36,23 +35,24 @@ const saveCertificateMutation = async values => {
   return data
 }
 
-const getConfirmText = (values, intl) =>
-  intl.formatMessage(messages['booking_confirm_save']) + '<br/><br/>' +
-  intl.formatMessage(messages['booking_important_customer']) + ': <strong>' + (values.importantCustomer ? intl.formatMessage(messages['common_yes']) : intl.formatMessage(messages['common_no'])) + '</strong><br/>' +
-  intl.formatMessage(messages['booking_reefer_container']) + ': <strong>' + (values.reeferContainer ? intl.formatMessage(messages['common_yes']) : intl.formatMessage(messages['common_no'])) + '</strong><br/>' +
-  intl.formatMessage(messages['common_rate']) + ': <strong>' + values.rate + ' %</strong>'
+const newBookingSelector = state => ({
+  reset: state.reset,
+  setBookingStore: state.set,
+})
 
 const loadingSel = state => ({ setLoading: state.setLoading })
 const NewBooking = () => {
   const snackQueryError = useSnackQueryError()
   const { enqueueSnackbar } = useSnackbar()
   const classes = useStyles()
-  const confirm = useConfirm()
+  const {
+    reset,
+    setBookingStore,
+  } = useNewBookingStore(newBookingSelector, shallow)
   const queryClient = useQueryClient()
   const intl = useIntl()
   const submitRef = useRef()
   const bookingFromRef = useRef()
-  const { user } = useAuth()
   const { setLoading } = useGeneralStore(loadingSel, shallow)
   const { mutateAsync: saveCertificate } = useMutation(saveCertificateMutation, {
     onMutate: () => {
@@ -76,13 +76,14 @@ const NewBooking = () => {
           queryClient.removeQueries(queryListKey)
           queryClient.setQueryData(queryListKey, newCertificateList)
         } else {
-          queryClient.setQueryData(queryListKey, { ok: true, results: [data.results] })
+          await queryClient.prefetchQuery(queryListKey)
         }
         enqueueSnackbar(intl.formatMessage(messages['booking_save_certificate_ok'], { code: data.results?.code }), { variant: 'success' })
       }
       setLoading(false)
     },
   })
+  useEffect(() => reset, [reset])
   return (
     <Page
       title={intl.formatMessage(messages['menu_new_booking'])}
@@ -124,14 +125,13 @@ const NewBooking = () => {
         }
         innerRef={bookingFromRef}
         onSubmit={
-          async (values, { resetForm }) => {
+          async values => {
             try {
-              const newValues = checkValues(values)
-              await confirm({
-                description: parse(getConfirmText(values, intl)),
+              const confirmedValues = checkValues(values)
+              setBookingStore(state => {
+                state.openConfirmDialog = true
+                state.confirmedValues = confirmedValues
               })
-              const { ok } = await saveCertificate({ ...newValues, _createdBy: user.display })
-              ok && resetForm()
               return true
             } catch (err) {
               const { message } = err || {}
@@ -178,6 +178,7 @@ const NewBooking = () => {
                 <Button ref={submitRef} style={{ display: 'none' }} type="submit"/>
               </div>
             </Form>
+            <ConfirmDialog bookingFromRef={bookingFromRef} saveCertificate={saveCertificate}/>
           </DivContentWrapper>
         </>
       </Formik>

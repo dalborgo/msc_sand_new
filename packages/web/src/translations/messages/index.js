@@ -9,6 +9,14 @@ export const messages = defineMessages({
     id: 'common.confirm',
     defaultMessage: 'confirm',
   },
+  common_from: {
+    id: 'common.from',
+    defaultMessage: 'From',
+  },
+  common_to: {
+    id: 'common.to',
+    defaultMessage: 'To',
+  },
   common_confirm_operation: {
     id: 'common.confirm_operation',
     defaultMessage: 'Confirm operation',
@@ -157,9 +165,13 @@ export const messages = defineMessages({
     id: 'booking.insurance_type',
     defaultMessage: 'Insurance type',
   },
+  booking_vessel_name_long: {
+    id: 'booking.vessel_name_long',
+    defaultMessage: 'Vessel name (if already known)',
+  },
   booking_vessel_name: {
     id: 'booking.vessel_name',
-    defaultMessage: 'Vessel name (if already known)',
+    defaultMessage: 'Vessel name',
   },
   booking_sender: {
     id: 'booking.sender',

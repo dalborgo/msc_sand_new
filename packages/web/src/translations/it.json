@@ -30,7 +30,7 @@
   "common.table": "Tavolo",
   "common.tables": "Tavoli",
   "common.theme": "Theme",
-  "common.to": "a",
+  "common.to": "To",
   "common.tot": "Tot",
   "common.total": "Totale",
   "common.transfers": "Storni",
@@ -137,7 +137,7 @@
   "booking.special_conditions": "Special conditions",
   "booking.type_goods": "Type of goods",
   "booking.vessel_mail": "Vessel Mail",
-  "booking.vessel_name": "Vessel name (if already known)",
+  "booking.vessel_name": "Vessel name",
   "booking.vessel_phone": "Vessel Phone",
   "certificates.column_actions": "Actions",
   "certificates.column_code": "Code",
@@ -166,5 +166,8 @@
   "certificates.booking_ref": "Booking id",
   "certificates.table_info": "{from}-{to} of {count}",
   "certificates.table_rows_per_page": "Certificates per page",
-  "certificates.table_show_all": "Show all"
+  "certificates.table_show_all": "Show all",
+  "booking.confirm_data_title": "Review booking",
+  "common.from": "From",
+  "booking.vessel_name_long": "Vessel name (if already known)"
 }

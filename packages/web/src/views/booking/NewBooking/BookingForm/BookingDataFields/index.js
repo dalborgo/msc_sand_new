@@ -118,7 +118,7 @@ const BookingDataFields = ({ handleChange, setFieldValue }) => {
         <FastField
           as={TF}
           fullWidth
-          label={intl.formatMessage(messages['booking_vessel_name'])}
+          label={intl.formatMessage(messages['booking_vessel_name_long'])}
           name="vesselName"
         />
       </Grid>
