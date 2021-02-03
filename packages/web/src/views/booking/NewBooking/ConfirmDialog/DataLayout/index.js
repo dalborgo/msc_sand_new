@@ -108,16 +108,28 @@ function DataLayout ({ values }) {
         </Grid>
         <Grid item sm="auto" xs={12}>
           <Typo>
-            {intl.formatMessage(messages['common_from'])}
+            {intl.formatMessage(messages['booking_country_collection_point'])}
+          </Typo>
+          <Typo bold mb>
+            {values.countryCollectionPoint ? `${values.countryCollectionPoint?.value} - ${values.cityCollectionPoint}` : ''}
+          </Typo>
+          <Typo>
+            {intl.formatMessage(messages['booking_port_loading'])}
           </Typo>
           <Typo bold mb>
             {values.portLoading ? `${values.portLoading?.value} (${values.portLoading?.key})` : ''}
           </Typo>
           <Typo>
-            {intl.formatMessage(messages['common_to'])}
+            {intl.formatMessage(messages['booking_country_collection_point'])}
           </Typo>
           <Typo bold mb>
-            {values.portLoading ? `${values.portDischarge?.value} (${values.portDischarge?.key})` : ''}
+            {values.countryDeliveryPoint ? `${values.countryDeliveryPoint?.value} - ${values.cityDeliveryPoint}` : ''}
+          </Typo>
+          <Typo>
+            {intl.formatMessage(messages['booking_port_discharge'])}
+          </Typo>
+          <Typo bold mb>
+            {values.portDischarge ? `${values.portDischarge?.value} (${values.portDischarge?.key})` : ''}
           </Typo>
           <Typo>
             {intl.formatMessage(messages['booking_insurance_type'])}
@@ -183,7 +195,7 @@ function DataLayout ({ values }) {
                 {intl.formatMessage(messages['common_rate'])}
               </Typo>
               <Typo bold mb>
-                {values.rate ? numeric.printDecimal(values.rate / 1000, 3) : ''}
+                {values.rate ? `${numeric.printDecimal(values.rate / 1000, 3)} %` : ''}
               </Typo>
             </>
           }
