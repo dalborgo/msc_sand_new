@@ -54,7 +54,7 @@ function DataLayout ({ values }) {
             {intl.formatMessage(messages['booking_recipient'])}
           </Typo>
           {
-            values.recipients.map((recipient, index) => {
+            values.recipients?.map((recipient, index) => {
               return (
                 <Typo bold key={index}>
                   {recipient}
@@ -68,7 +68,7 @@ function DataLayout ({ values }) {
             {intl.formatMessage(messages['booking_booking_date'])}
           </Typo>
           <Typo bold mb>
-            {moment(values.bookingDate).format('DD/MM/YYYY')}
+            {values.bookingDate ? moment(values.bookingDate).format('DD/MM/YYYY') : ''}
           </Typo>
           <Typo>
             {intl.formatMessage(messages['booking_msc_booking_ref'])}
@@ -85,7 +85,7 @@ function DataLayout ({ values }) {
             {intl.formatMessage(messages['booking_goods_weight'])}
           </Typo>
           <Typo bold mb>
-            {values.goodsWeight ? numeric.printDecimal(values.goodsWeight / 1000) : ''}
+            {values.goodsWeight ? numeric.printDecimal(values.goodsWeight / 1000, 0) : ''}
           </Typo>
           <Typo>
             {intl.formatMessage(messages['booking_number_container'])}
@@ -107,36 +107,67 @@ function DataLayout ({ values }) {
           </Typo>
         </Grid>
         <Grid item sm="auto" xs={12}>
-          <Typo>
-            {intl.formatMessage(messages['booking_country_collection_point'])}
-          </Typo>
-          <Typo bold mb>
-            {values.countryCollectionPoint ? `${values.countryCollectionPoint?.value} - ${values.cityCollectionPoint}` : ''}
-          </Typo>
-          <Typo>
-            {intl.formatMessage(messages['booking_port_loading'])}
-          </Typo>
-          <Typo bold mb>
-            {values.portLoading ? `${values.portLoading?.value} (${values.portLoading?.key})` : ''}
-          </Typo>
-          <Typo>
-            {intl.formatMessage(messages['booking_country_collection_point'])}
-          </Typo>
-          <Typo bold mb>
-            {values.countryDeliveryPoint ? `${values.countryDeliveryPoint?.value} - ${values.cityDeliveryPoint}` : ''}
-          </Typo>
-          <Typo>
-            {intl.formatMessage(messages['booking_port_discharge'])}
-          </Typo>
-          <Typo bold mb>
-            {values.portDischarge ? `${values.portDischarge?.value} (${values.portDischarge?.key})` : ''}
-          </Typo>
-          <Typo>
-            {intl.formatMessage(messages['booking_insurance_type'])}
-          </Typo>
-          <Typo bold mb>
-            {values.insuranceType}
-          </Typo>
+          {
+            values.insuranceType &&
+            <>
+              {
+                values.insuranceType.startsWith('door') &&
+                <>
+                  <Typo>
+                    {intl.formatMessage(messages['booking_country_collection_point'])}
+                  </Typo>
+                  <Typo bold mb>
+                    {values.countryCollectionPoint ? `${values.countryCollectionPoint?.value} - ${values.cityCollectionPoint}` : ''}
+                  </Typo>
+                </>
+              }
+              {
+                (values.insuranceType.startsWith('door') || values.insuranceType.startsWith('port')) &&
+                <>
+                  <Typo>
+                    {intl.formatMessage(messages['booking_country_plus_port_loading'])}
+                  </Typo>
+                  <Typo bold>
+                    {values.countryPortLoading ? values.countryPortLoading?.value : ''}
+                  </Typo>
+                  <Typo bold mb>
+                    {values.portLoading ? `${values.portLoading?.value} (${values.portLoading?.key})` : ''}
+                  </Typo>
+                </>
+              }
+              {
+                values.insuranceType.endsWith('door') &&
+                <>
+                  <Typo>
+                    {intl.formatMessage(messages['booking_country_delivery_point'])}
+                  </Typo>
+                  <Typo bold mb>
+                    {values.countryDeliveryPoint ? `${values.countryDeliveryPoint?.value} - ${values.cityDeliveryPoint}` : ''}
+                  </Typo>
+                </>
+              }
+              {
+                (values.insuranceType.endsWith('door') || values.insuranceType.endsWith('port')) &&
+                <>
+                  <Typo>
+                    {intl.formatMessage(messages['booking_country_plus_port_discharge'])}
+                  </Typo>
+                  <Typo bold>
+                    {values.countryPortDischarge ? values.countryPortDischarge?.value : ''}
+                  </Typo>
+                  <Typo bold mb>
+                    {values.portDischarge ? `${values.portDischarge?.value} (${values.portDischarge?.key})` : ''}
+                  </Typo>
+                </>
+              }
+              <Typo>
+                {intl.formatMessage(messages['booking_insurance_type'])}
+              </Typo>
+              <Typo bold mb>
+                {values.insuranceType}
+              </Typo>
+            </>
+          }
           {
             values.vesselName &&
             <>

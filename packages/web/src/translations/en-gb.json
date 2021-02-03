@@ -170,5 +170,7 @@
   "booking.confirm_data_title": "",
   "common.from": "",
   "booking.vessel_name_long": "",
-  "booking.button_review_and_save": ""
+  "booking.button_review_and_save": "",
+  "country_plus_port_discharge": "",
+  "country_plus_port_loading": ""
 }

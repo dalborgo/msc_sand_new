@@ -106,7 +106,7 @@
   "booking.header_data": "Header data",
   "booking.insurance_data": "Insurance data",
   "booking.accepted_by_msc": "I declare to ship goods accepted by MSC *",
-  "booking.booking_date": "Booking Date",
+  "booking.booking_date": "Booking date",
   "booking.booking_save_certificate_ok": "Certificate \"{code}\" saved successfully!",
   "booking.city_collection_point": "City of the collection point",
   "booking.city_delivery_point": "City of the delivery point",
@@ -132,7 +132,7 @@
   "booking.port_discharge": "Port of discharge",
   "booking.port_loading": "Port of loading",
   "booking.recipient": "Recipient",
-  "booking.reefer_container": "Reefer Container",
+  "booking.reefer_container": "Reefer container",
   "booking.sender": "Sender",
   "booking.special_conditions": "Special conditions",
   "booking.type_goods": "Type of goods",
@@ -170,5 +170,7 @@
   "booking.confirm_data_title": "Review booking",
   "common.from": "From",
   "booking.vessel_name_long": "Vessel name (if already known)",
-  "booking.button_review_and_save": "Review and Save"
+  "booking.button_review_and_save": "Review and Save",
+  "country_plus_port_discharge": "Country and port of discharge",
+  "country_plus_port_loading": "Country and port of loading"
 }

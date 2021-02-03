@@ -45,7 +45,7 @@
   },
   {
     "id": "booking.booking_date",
-    "defaultMessage": "Booking Date"
+    "defaultMessage": "Booking date"
   },
   {
     "id": "booking.booking_save_certificate_ok",
@@ -173,7 +173,7 @@
   },
   {
     "id": "booking.reefer_container",
-    "defaultMessage": "Reefer Container"
+    "defaultMessage": "Reefer container"
   },
   {
     "id": "booking.sender",
@@ -450,6 +450,14 @@
   {
     "id": "common.yes",
     "defaultMessage": "Yes"
+  },
+  {
+    "id": "country_plus_port_discharge",
+    "defaultMessage": "Country and port of discharge"
+  },
+  {
+    "id": "country_plus_port_loading",
+    "defaultMessage": "Country and port of loading"
   },
   {
     "id": "dashboard.title",

@@ -153,13 +153,21 @@ export const messages = defineMessages({
     id: 'booking.port_discharge',
     defaultMessage: 'Port of discharge',
   },
+  booking_country_plus_port_discharge: {
+    id: 'country_plus_port_discharge',
+    defaultMessage: 'Country and port of discharge',
+  },
+  booking_country_plus_port_loading: {
+    id: 'country_plus_port_loading',
+    defaultMessage: 'Country and port of loading',
+  },
   booking_msc_booking_ref: {
     id: 'booking.msc_booking_ref',
     defaultMessage: 'MSC booking ref',
   },
   booking_booking_date: {
     id: 'booking.booking_date',
-    defaultMessage: 'Booking Date',
+    defaultMessage: 'Booking date',
   },
   booking_type_goods: {
     id: 'booking.type_goods',
@@ -211,7 +219,7 @@ export const messages = defineMessages({
   },
   booking_reefer_container: {
     id: 'booking.reefer_container',
-    defaultMessage: 'Reefer Container',
+    defaultMessage: 'Reefer container',
   },
   accepted_by_msc: {
     id: 'booking.accepted_by_msc',
