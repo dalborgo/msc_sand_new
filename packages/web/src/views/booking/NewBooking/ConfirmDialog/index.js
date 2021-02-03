@@ -75,7 +75,7 @@ export default function ConfirmDialog ({ saveCertificate, bookingFromRef }) {
             {intl.formatMessage(messages['common_cancel'])}
           </Button>
           <Button color="secondary" onClick={save} size="small">
-            {intl.formatMessage(messages['common_confirm'])}
+            {intl.formatMessage(messages['common_save'])}
           </Button>
         </DialogActions>
       </div>

@@ -156,8 +156,8 @@ const NewBooking = () => {
               rightComponent={
                 <Button onClick={() => submitRef.current.click()} size="small" variant="contained">
                   <FormattedMessage
-                    defaultMessage="Save"
-                    id="common.save"
+                    defaultMessage="Review and Save"
+                    id="booking.button_review_and_save"
                   />
                 </Button>
               }

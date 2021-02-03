@@ -99,7 +99,7 @@
   "common.exportTable": "Esporta tabella",
   "dashboard.title": "Dashboard",
   "booking.new_booking.header_title": "Create a New Booking",
-  "common.save": "Save",
+  "common.save": "save",
   "certificates.list.header_title": "Retrieve Certificate",
   "booking.booking_data": "Booking data",
   "booking.container_data": "Container data",
@@ -169,5 +169,6 @@
   "certificates.table_show_all": "Show all",
   "booking.confirm_data_title": "Review booking",
   "common.from": "From",
-  "booking.vessel_name_long": "Vessel name (if already known)"
+  "booking.vessel_name_long": "Vessel name (if already known)",
+  "booking.button_review_and_save": "Review and Save"
 }

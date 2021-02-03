@@ -9,6 +9,10 @@ export const messages = defineMessages({
     id: 'common.confirm',
     defaultMessage: 'confirm',
   },
+  common_save: {
+    id: 'common.save',
+    defaultMessage: 'save',
+  },
   common_from: {
     id: 'common.from',
     defaultMessage: 'From',

@@ -52,6 +52,10 @@
     "defaultMessage": "Certificate \"{code}\" saved successfully!"
   },
   {
+    "id": "booking.button_review_and_save",
+    "defaultMessage": "Review and Save"
+  },
+  {
     "id": "booking.city_collection_point",
     "defaultMessage": "City of the collection point"
   },
@@ -385,7 +389,7 @@
   },
   {
     "id": "common.save",
-    "defaultMessage": "Save"
+    "defaultMessage": "save"
   },
   {
     "id": "common.search",
