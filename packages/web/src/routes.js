@@ -4,11 +4,11 @@ import DashboardLayout from 'src/layouts/DashboardLayout'
 import AuthGuard from 'src/components/AuthGuard'
 import GuestGuard from 'src/components/GuestGuard'
 import { isMenuLinkToShow } from './utils/logics'
-import SplashScreen from './components/SplashScreen'
+import LoadingFacebookStyleBoxed from './components/LoadingFacebookStyleBoxed'
 
 export const renderRoutes = (routes = [], priority) => {
   return (
-    <Suspense fallback={<SplashScreen/>}>
+    <Suspense fallback={<LoadingFacebookStyleBoxed/>}>
       <Switch>
         {
           routes.reduce((acc, route, index) => {

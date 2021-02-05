@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     padding: theme.spacing(1.3, 2),
   },
   dialogContent: {
-    paddingBottom: theme.spacing(0.5),
+    padding: theme.spacing(2, 2, 1),
   },
 }))
 const newBookingSelector = state => ({
