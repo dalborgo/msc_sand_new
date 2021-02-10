@@ -56,7 +56,7 @@ const CertificateList = () => {
     switchOpenFilter,
     typeOfGoods,
   } = useCertificateStore(certificateSelector, shallow)
-  const isFilterActive = useMemo(()=> Boolean(typeOfGoods || bookingDateFrom || bookingDateTo), [bookingDateFrom, bookingDateTo, typeOfGoods])
+  const isFilterActive = useMemo(() => Boolean(typeOfGoods || bookingDateFrom || bookingDateTo), [bookingDateFrom, bookingDateTo, typeOfGoods])
   const { data, refetch, ...rest } = useQuery(getQueryKey(),
     {
       keepPreviousData: true,
@@ -83,7 +83,7 @@ const CertificateList = () => {
     return filter
   }, [submitFilter])
   const FilterFormWr = useMemo(() => (
-    <FilterForm 
+    <FilterForm
       bookingDateFrom={bookingDateFrom}
       bookingDateTo={bookingDateTo}
       onSubmit={onFilterSubmit}
@@ -135,9 +135,9 @@ const CertificateList = () => {
       <Box alignItems="center" display="flex" p={2} pt={0}/>
       <Paper className={classes.paper}>
         <TableList
-          isFetching={effectiveFetching && !data?.results?.length}
+          isFetching={effectiveFetching && !data?.results?.list?.length}
           isIdle={rest.isIdle}
-          rows={data?.results || []}
+          rows={data?.results?.list || []}
         />
       </Paper>
     </Page>

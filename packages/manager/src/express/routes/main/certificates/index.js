@@ -47,7 +47,13 @@ function addRouters (router) {
       method: 'POST',
       responseType: 'blob',
     })*/
-    res.send({ ok: true, results: validation.filterByArray(input, listFields) })
+    res.send({
+      ok: true, results: {
+        containers: input.numberContainers,
+        importantCustomers: input.importantCustomer ? 1 : 0,
+        certificate: validation.filterByArray(input, listFields)
+      }
+    })
   })
   router.get('/certificates/list', async function (req, res) {
     const { connClass, query } = req
@@ -63,14 +69,41 @@ function addRouters (router) {
       .where({ type: 'CERTIFICATE' })
       .select(listFields)
       .orderBy('sequence', 'desc')
-    if (typeOfGoods) {knex_.where({ typeOfGoods })}
+    const knexStats_ = knex(bucketName)
+      .select(knex.raw('SUM(numberContainers) totalContainers, SUM(CASE WHEN importantCustomer = TRUE THEN 1 ELSE 0 END) totalImportantCustomers'))
+      .where({ type: 'CERTIFICATE' })
+    if (typeOfGoods) {
+      knex_.where({ typeOfGoods })
+      knexStats_.where({ typeOfGoods })
+    }
     const dateFrom = bookingDateFrom || '1900-01-01'
     const dateTo = bookingDateTo || '2100-01-01'
-    if (bookingDateFrom || bookingDateTo) {knex_.whereBetween('bookingDate', [dateFrom, dateTo])}
+    if (bookingDateFrom || bookingDateTo) {
+      knex_.whereBetween('bookingDate', [dateFrom, dateTo])
+      knexStats_.whereBetween('bookingDate', [dateFrom, dateTo])
+    }
     const statement = knex_.toQuery()
-    const { ok, results, message, err } = await couchQueries.exec(statement, connClass.cluster, options)
-    if (!ok) {return res.send({ ok, message, err })}
-    res.send({ ok, results })
+    const statementStats = knexStats_.toQuery()
+    const promises = []
+    promises.push(couchQueries.exec(statement, connClass.cluster, options))
+    promises.push(couchQueries.exec(statementStats, connClass.cluster, options))
+    const [listResponse, statsResponse] = await utils.allSettled(promises)
+    if (!listResponse.ok || !statsResponse.ok) {
+      return res.send({
+        ok: false,
+        message: listResponse.message || statsResponse.message,
+        err: listResponse.err || statsResponse.err
+      })
+    }
+    const [stats] = statsResponse.results
+    stats.total = listResponse.results.length
+    res.send({
+      ok: true,
+      results: {
+        list: listResponse.results,
+        stats,
+      }
+    })
   })
   
   router.post('/certificates/print/:code', async function (req, res) {

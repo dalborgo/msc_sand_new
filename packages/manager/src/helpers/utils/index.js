@@ -1,5 +1,7 @@
-const { BadRequest } = require(__errors)
 import { security } from '../'
+import Q from 'q'
+const { BadRequest } = require(__errors)
+
 
 /**
  *
@@ -20,8 +22,6 @@ function parseOwner ({ query, body, headers }, bucketLabel) {
   }
 }
 
-const checkSide = allIn => Boolean(allIn === 'true' || allIn === true)
-
 function controlParameters (query, requiredKeys) {
   const out = []
   let errors
@@ -36,8 +36,22 @@ function controlParameters (query, requiredKeys) {
   }
 }
 
+async function allSettled (promises) {
+  const output = []
+  const results = await Q.allSettled(promises)
+  results.forEach(result => {
+    const { state, value } = result
+    if (state === 'fulfilled') {
+      output.push(value)
+    } else {
+      output.push(null)
+    }
+  })
+  return output
+}
+
 export default {
-  checkSide,
+  allSettled,
   controlParameters,
   parseOwner,
 }

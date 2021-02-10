@@ -2,7 +2,7 @@ import { numeric, validation } from '@adapter/common'
 import moment from 'moment'
 import { getMaxGoodsValue } from 'src/utils/logics'
 
-const numberField = ['numberContainers, goodsQuantity']
+const numberFields = ['numberContainers', 'goodsQuantity']
 const inMillisFields = ['goodsWeight', 'goodsValue', 'rate']
 const dateFields = ['bookingDate']
 export const checkValues = values => {
@@ -13,7 +13,7 @@ export const checkValues = values => {
   for (let key in newValues) {
     const val = newValues[key]
     if (val) {
-      if (numberField.includes(key)) {
+      if (numberFields.includes(key)) {
         newValues[key] = numeric.toFloat(val)
       }
       if (inMillisFields.includes(key)) {

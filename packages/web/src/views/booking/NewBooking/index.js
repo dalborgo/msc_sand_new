@@ -68,10 +68,17 @@ const NewBooking = () => {
         if (oldCertificateList) {
           const newCertificateList = {
             ok: oldCertificateList.ok,
-            results: [
-              data.results,
-              ...oldCertificateList.results,
-            ],
+            results: {
+              stats: {
+                total: oldCertificateList?.results?.list.length + 1,
+                totalContainers: oldCertificateList?.results?.stats?.totalContainers + data.results?.containers,
+                totalImportantCustomers: oldCertificateList?.results?.stats?.totalImportantCustomers + data.results?.importantCustomers,
+              },
+              list: [
+                data.results?.certificate,
+                ...oldCertificateList?.results?.list,
+              ]
+            },
           }
           queryClient.removeQueries(queryListKey)
           queryClient.setQueryData(queryListKey, newCertificateList)
