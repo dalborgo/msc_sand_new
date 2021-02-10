@@ -3,11 +3,12 @@ import immerMiddleware from './immerMiddleware'
 import { validation } from '@adapter/common'
 import isEmpty from 'lodash/isEmpty'
 
-const initialState = {
+export const initialState = {
   openFilter: false,
   filter: {
     typeOfGoods: '',
     bookingDateFrom: null,
+    bookingDateTo: null,
   },
 }
 
@@ -23,9 +24,10 @@ const useCertificateStore = create(immerMiddleware((set, get) => ({
   switchOpenFilter: () => set(state => {
     state.openFilter = !state.openFilter
   }),
-  submitFilter: ({ typeOfGoods, bookingDateFrom }) => set(state => {
+  submitFilter: ({ typeOfGoods, bookingDateFrom, bookingDateTo }) => set(state => {
     state.filter.typeOfGoods = typeOfGoods
     state.filter.bookingDateFrom = bookingDateFrom
+    state.filter.bookingDateTo = bookingDateTo
     state.openFilter = !state.openFilter
   }),
 })))

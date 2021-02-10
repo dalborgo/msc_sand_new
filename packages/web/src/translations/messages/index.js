@@ -5,6 +5,10 @@ export const messages = defineMessages({
     id: 'certificate.filters_booking_date_from',
     defaultMessage: 'Booking date from',
   },
+  certificates_filters_booking_date_to: {
+    id: 'certificate.filters_booking_date_to',
+    defaultMessage: 'Booking date to',
+  },
   common_cancel: {
     id: 'common.cancel',
     defaultMessage: 'cancel',

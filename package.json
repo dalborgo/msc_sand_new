@@ -10,7 +10,6 @@
   },
   "name": "msc_genova",
   "devDependencies": {
-    "chai": "^4.2.0",
     "lerna": "^3.22.1",
     "nodemon": "^2.0.7",
     "nyc": "^15.1.0",

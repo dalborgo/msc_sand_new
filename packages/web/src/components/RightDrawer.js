@@ -18,6 +18,7 @@ const RightDrawer = memo(function RightDrawer ({ open, switchOpen, children, tit
     <Drawer
       anchor="right"
       classes={{ paper: classes.drawer }}
+      disableEnforceFocus
       ModalProps={{ BackdropProps: { invisible: true } }}
       onClose={switchOpen}
       open={open}

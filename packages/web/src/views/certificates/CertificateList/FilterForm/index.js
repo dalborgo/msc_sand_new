@@ -3,12 +3,12 @@ import { FormattedMessage, useIntl } from 'react-intl'
 import { FastField, Field, Form, Formik } from 'formik'
 import { Box, Button, TextField as TF } from '@material-ui/core'
 import { messages } from 'src/translations/messages'
-import { validation } from '@adapter/common'
 import { useNewBookingStore } from 'src/zustandStore'
 import { DatePicker } from '@material-ui/pickers'
+import { initialState } from 'src/zustandStore/useCertificateStore'
 
 const { typesOfGoods } = useNewBookingStore.getState()
-const FilterForm = memo(function FilterForm ({ typeOfGoods, bookingDateFrom, onSubmit }) {
+const FilterForm = memo(function FilterForm ({ typeOfGoods, bookingDateFrom, bookingDateTo, onSubmit }) {
   console.log('%cRENDER_FORM', 'color: pink')
   const intl = useIntl()
   return (
@@ -17,6 +17,7 @@ const FilterForm = memo(function FilterForm ({ typeOfGoods, bookingDateFrom, onS
         {
           typeOfGoods: typeOfGoods,
           bookingDateFrom: bookingDateFrom,
+          bookingDateTo: bookingDateTo,
         }
       }
       onSubmit={onSubmit}
@@ -59,6 +60,7 @@ const FilterForm = memo(function FilterForm ({ typeOfGoods, bookingDateFrom, onS
             <Box mb={3}>
               <Field
                 allowKeyboardControl
+                allowSameDateSelection
                 as={DatePicker}
                 emptyLabel="dd/mm/yyyy"
                 format="DD/MM/YYYY"
@@ -76,9 +78,31 @@ const FilterForm = memo(function FilterForm ({ typeOfGoods, bookingDateFrom, onS
                 }
               />
             </Box>
+            <Box mb={3}>
+              <Field
+                allowKeyboardControl
+                allowSameDateSelection
+                as={DatePicker}
+                emptyLabel="dd/mm/yyyy"
+                format="DD/MM/YYYY"
+                label={intl.formatMessage(messages['certificates_filters_booking_date_to'])}
+                minDate={values['bookingDateFrom']}
+                name="bookingDateTo"
+                onChange={
+                  newValue => {
+                    setFieldValue('bookingDateTo', newValue)
+                  }
+                }
+                renderInput={
+                  props => {
+                    return <TF {...props} fullWidth helperText={null}/>
+                  }
+                }
+              />
+            </Box>
             <Box display="flex" justifyContent="flex-end">
               <Box mr={2}>
-                <Button onClick={() => setValues(validation.resetAll(values))} size="small" variant="contained">
+                <Button onClick={() => setValues(initialState.filter)} size="small" variant="contained">
                   <FormattedMessage defaultMessage="Clear" id="common.clear"/>
                 </Button>
               </Box>

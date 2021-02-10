@@ -173,5 +173,6 @@
   "booking.button_review_and_save": "Review and Save",
   "country_plus_port_discharge": "Country and port of discharge",
   "country_plus_port_loading": "Country and port of loading",
-  "certificate.filters_booking_date_from": "Booking date from"
+  "certificate.filters_booking_date_from": "Booking date from",
+  "certificate.filters_booking_date_to": "Booking date to"
 }

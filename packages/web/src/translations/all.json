@@ -208,6 +208,10 @@
     "defaultMessage": "Booking date from"
   },
   {
+    "id": "certificate.filters_booking_date_to",
+    "defaultMessage": "Booking date to"
+  },
+  {
     "id": "certificates.booking_ref",
     "defaultMessage": "Booking id"
   },

@@ -34,7 +34,7 @@ export const generateInput = cert => {
   }
   return {
     ...cert,
-    bookingDate: cDate.mom(cert.bookingDate, null, 'DD/MM/YYYY'),
+    bookingDate: cert.bookingDate && cDate.mom(cert.bookingDate, null, 'DD/MM/YYYY'),
     from,
     goodsValue: numeric.printDecimal(cert.goodsValue / 1000),
     goodsWeight: cert.goodsWeight ? numeric.printDecimal(cert.goodsWeight / 1000, 0) : '',

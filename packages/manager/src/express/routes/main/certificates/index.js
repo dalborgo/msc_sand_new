@@ -55,6 +55,8 @@ function addRouters (router) {
     const {
       bucketName = connClass.projectBucketName,
       typeOfGoods,
+      bookingDateFrom,
+      bookingDateTo,
       options,
     } = query
     const knex_ = knex(bucketName)
@@ -62,6 +64,9 @@ function addRouters (router) {
       .select(listFields)
       .orderBy('sequence', 'desc')
     if (typeOfGoods) {knex_.where({ typeOfGoods })}
+    const dateFrom = bookingDateFrom || '1900-01-01'
+    const dateTo = bookingDateTo || '2100-01-01'
+    if (bookingDateFrom || bookingDateTo) {knex_.whereBetween('bookingDate', [dateFrom, dateTo])}
     const statement = knex_.toQuery()
     const { ok, results, message, err } = await couchQueries.exec(statement, connClass.cluster, options)
     if (!ok) {return res.send({ ok, message, err })}

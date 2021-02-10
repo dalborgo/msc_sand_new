@@ -16,6 +16,7 @@ import shallow from 'zustand/shallow'
 import RightDrawer from 'src/components/RightDrawer'
 import { getEffectiveFetching } from 'src/utils/logics'
 import FilterForm from './FilterForm'
+import { cDate } from '@adapter/common'
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -35,6 +36,7 @@ const certificateSelector = state => ({
   switchOpenFilter: state.switchOpenFilter,
   typeOfGoods: state.filter.typeOfGoods,
   bookingDateFrom: state.filter.bookingDateFrom,
+  bookingDateTo: state.filter.bookingDateTo,
   getQueryKey: state.getQueryKey,
   reset: state.reset,
 })
@@ -47,13 +49,14 @@ const CertificateList = () => {
   const {
     getQueryKey,
     bookingDateFrom,
+    bookingDateTo,
     openFilter,
     reset,
     submitFilter,
     switchOpenFilter,
     typeOfGoods,
   } = useCertificateStore(certificateSelector, shallow)
-  const isFilterActive = useMemo(()=> Boolean(typeOfGoods || bookingDateFrom), [bookingDateFrom, typeOfGoods])
+  const isFilterActive = useMemo(()=> Boolean(typeOfGoods || bookingDateFrom || bookingDateTo), [bookingDateFrom, bookingDateTo, typeOfGoods])
   const { data, refetch, ...rest } = useQuery(getQueryKey(),
     {
       keepPreviousData: true,
@@ -71,16 +74,22 @@ const CertificateList = () => {
   const effectiveFetching = getEffectiveFetching(rest, isRefetch)
   useEffect(() => reset, [reset]) //occhio reset senza parentesi: si passa la funzione non si esegue
   const onFilterSubmit = useCallback(filter => {
-    submitFilter(filter)
+    const normalizeFilter = {
+      ...filter,
+      bookingDateFrom: filter.bookingDateFrom && cDate.mom(filter.bookingDateFrom, null, 'YYYY-MM-DD'),
+      bookingDateTo: filter.bookingDateTo && cDate.mom(filter.bookingDateTo, null, 'YYYY-MM-DD'),
+    }
+    submitFilter(normalizeFilter)
     return filter
   }, [submitFilter])
   const FilterFormWr = useMemo(() => (
     <FilterForm 
       bookingDateFrom={bookingDateFrom}
+      bookingDateTo={bookingDateTo}
       onSubmit={onFilterSubmit}
       typeOfGoods={typeOfGoods}
     />
-  ), [bookingDateFrom, onFilterSubmit, typeOfGoods])
+  ), [bookingDateFrom, bookingDateTo, onFilterSubmit, typeOfGoods])
   return (
     <Page
       title={intl.formatMessage(messages['menu_certificate_list'])}

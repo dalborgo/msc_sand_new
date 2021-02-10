@@ -173,5 +173,6 @@
   "booking.button_review_and_save": "",
   "country_plus_port_discharge": "",
   "country_plus_port_loading": "",
-  "certificate.filters_booking_date_from": ""
+  "certificate.filters_booking_date_from": "",
+  "certificate.filters_booking_date_to": ""
 }
