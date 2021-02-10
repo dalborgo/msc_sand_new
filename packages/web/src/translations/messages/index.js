@@ -1,6 +1,10 @@
 import { defineMessages } from 'react-intl'
 
 export const messages = defineMessages({
+  certificates_filters_booking_date_from: {
+    id: 'certificate.filters_booking_date_from',
+    defaultMessage: 'Booking date from',
+  },
   common_cancel: {
     id: 'common.cancel',
     defaultMessage: 'cancel',

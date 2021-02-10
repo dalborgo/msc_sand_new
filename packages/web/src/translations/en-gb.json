@@ -172,5 +172,6 @@
   "booking.vessel_name_long": "",
   "booking.button_review_and_save": "",
   "country_plus_port_discharge": "",
-  "country_plus_port_loading": ""
+  "country_plus_port_loading": "",
+  "certificate.filters_booking_date_from": ""
 }

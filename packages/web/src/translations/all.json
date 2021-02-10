@@ -204,6 +204,10 @@
     "defaultMessage": "Vessel Phone"
   },
   {
+    "id": "certificate.filters_booking_date_from",
+    "defaultMessage": "Booking date from"
+  },
+  {
     "id": "certificates.booking_ref",
     "defaultMessage": "Booking id"
   },

@@ -34,6 +34,7 @@ const certificateSelector = state => ({
   submitFilter: state.submitFilter,
   switchOpenFilter: state.switchOpenFilter,
   typeOfGoods: state.filter.typeOfGoods,
+  bookingDateFrom: state.filter.bookingDateFrom,
   getQueryKey: state.getQueryKey,
   reset: state.reset,
 })
@@ -45,12 +46,14 @@ const CertificateList = () => {
   const intl = useIntl()
   const {
     getQueryKey,
+    bookingDateFrom,
     openFilter,
     reset,
     submitFilter,
     switchOpenFilter,
     typeOfGoods,
   } = useCertificateStore(certificateSelector, shallow)
+  const isFilterActive = useMemo(()=> Boolean(typeOfGoods || bookingDateFrom), [bookingDateFrom, typeOfGoods])
   const { data, refetch, ...rest } = useQuery(getQueryKey(),
     {
       keepPreviousData: true,
@@ -72,8 +75,12 @@ const CertificateList = () => {
     return filter
   }, [submitFilter])
   const FilterFormWr = useMemo(() => (
-    <FilterForm onSubmit={onFilterSubmit} typeOfGoods={typeOfGoods}/>
-  ), [onFilterSubmit, typeOfGoods])
+    <FilterForm 
+      bookingDateFrom={bookingDateFrom}
+      onSubmit={onFilterSubmit}
+      typeOfGoods={typeOfGoods}
+    />
+  ), [bookingDateFrom, onFilterSubmit, typeOfGoods])
   return (
     <Page
       title={intl.formatMessage(messages['menu_certificate_list'])}
@@ -103,7 +110,7 @@ const CertificateList = () => {
               </Box>
               <Box ml={0.5}>
                 <FilterButton
-                  isActive={typeOfGoods}
+                  isActive={isFilterActive}
                   onClick={switchOpenFilter}
                 />
               </Box>
