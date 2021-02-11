@@ -88,7 +88,7 @@ function DataLayout ({ values }) {
             {values.goodsWeight ? numeric.printDecimal(values.goodsWeight / 1000, 0) : ''}
           </Typo>
           <Typo>
-            {intl.formatMessage(messages['booking_number_container'])}
+            {intl.formatMessage(messages['booking_number_containers'])}
           </Typo>
           <Typo bold mb>
             {values.numberContainers}

@@ -30,7 +30,7 @@ const ContainerDataFields = ({ handleChange, setFieldValue, maxGoodsValueLabel, 
                 },
               }
             }
-            label={intl.formatMessage(messages['booking_number_container'])}
+            label={intl.formatMessage(messages['booking_number_containers'])}
             name="numberContainers"
           />
         </Grid>

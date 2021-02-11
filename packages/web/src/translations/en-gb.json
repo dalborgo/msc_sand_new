@@ -127,7 +127,7 @@
   "booking.insurance_type": "",
   "booking.more_goods_details": "",
   "booking.msc_booking_ref": "",
-  "booking.number_container": "",
+  "booking.number_containers": "",
   "booking.policy_holders": "",
   "booking.port_discharge": "",
   "booking.port_loading": "",
@@ -174,5 +174,14 @@
   "country_plus_port_discharge": "",
   "country_plus_port_loading": "",
   "certificate.filters_booking_date_from": "",
-  "certificate.filters_booking_date_to": ""
+  "certificate.filters_booking_date_to": "",
+  "certificates.stats_total": "",
+  "certificates.stats_total_containers": "",
+  "certificates.stats_important_customers": "",
+  "certificates.stats_normal_customers": "",
+  "certificates.confirm_export_text": "",
+  "certificates.export_currency": "",
+  "certificates.export_number_containers": "",
+  "certificates.export_booking": "",
+  "certificates.export_containers": ""
 }

@@ -152,7 +152,7 @@
     "defaultMessage": "Create a New Booking"
   },
   {
-    "id": "booking.number_container",
+    "id": "booking.number_containers",
     "defaultMessage": "Number of containers booked"
   },
   {
@@ -228,6 +228,26 @@
     "defaultMessage": "Code"
   },
   {
+    "id": "certificates.confirm_export_text",
+    "defaultMessage": "This filters will be applied to the export"
+  },
+  {
+    "id": "certificates.export_booking",
+    "defaultMessage": "Booking Export"
+  },
+  {
+    "id": "certificates.export_containers",
+    "defaultMessage": "Containers Export"
+  },
+  {
+    "id": "certificates.export_currency",
+    "defaultMessage": "Currency"
+  },
+  {
+    "id": "certificates.export_number_containers",
+    "defaultMessage": "# containers"
+  },
+  {
     "id": "certificates.list.header_title",
     "defaultMessage": "Retrieve Certificate"
   },
@@ -242,6 +262,22 @@
   {
     "id": "certificates.port_loading",
     "defaultMessage": "Port loading"
+  },
+  {
+    "id": "certificates.stats_important_customers",
+    "defaultMessage": "Important customers:"
+  },
+  {
+    "id": "certificates.stats_normal_customers",
+    "defaultMessage": "Normal customers:"
+  },
+  {
+    "id": "certificates.stats_total",
+    "defaultMessage": "Total certificates:"
+  },
+  {
+    "id": "certificates.stats_total_containers",
+    "defaultMessage": "Total containers:"
   },
   {
     "id": "certificates.table_info",

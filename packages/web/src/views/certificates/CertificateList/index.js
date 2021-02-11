@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import Page from 'src/components/Page'
-import { Box, makeStyles } from '@material-ui/core'
+import { Box, Button, makeStyles } from '@material-ui/core'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { messages } from 'src/translations/messages'
 import StandardHeader from 'src/components/StandardHeader'
@@ -11,16 +11,22 @@ import { StandardBreadcrumb } from 'src/components/StandardBreadcrumb'
 import IconButtonLoader from 'src/components/IconButtonLoader'
 import TableList from './TableList'
 import FilterButton from 'src/components/FilterButton'
-import { useCertificateStore } from 'src/zustandStore'
+import { useCertificateStore, useGeneralStore } from 'src/zustandStore'
 import shallow from 'zustand/shallow'
 import RightDrawer from 'src/components/RightDrawer'
 import { getEffectiveFetching } from 'src/utils/logics'
 import FilterForm from './FilterForm'
 import { cDate } from '@adapter/common'
+import StatsList from './StatsList'
+import { exportQuery } from 'src/utils/axios'
+import { useConfirm } from 'material-ui-confirm'
+import { useSnackbar } from 'notistack'
+import { exportContainers, getConfirmExportText } from './utils'
+import parse from 'html-react-parser'
 
 const useStyles = makeStyles(theme => ({
-  paper: {
-    margin: theme.spacing(0, 3),
+  block: {
+    margin: theme.spacing(1, 3),
   },
   container: {
     padding: 0,
@@ -40,11 +46,14 @@ const certificateSelector = state => ({
   getQueryKey: state.getQueryKey,
   reset: state.reset,
 })
-
+const loadingSel = state => ({ setLoading: state.setLoading, loading: state.loading })
 const CertificateList = () => {
   const classes = useStyles()
   const snackQueryError = useSnackQueryError()
+  const { enqueueSnackbar } = useSnackbar()
   const [isRefetch, setIsRefetch] = useState(false)
+  const { setLoading, loading } = useGeneralStore(loadingSel, shallow)
+  const confirm = useConfirm()
   const intl = useIntl()
   const {
     getQueryKey,
@@ -56,6 +65,22 @@ const CertificateList = () => {
     switchOpenFilter,
     typeOfGoods,
   } = useCertificateStore(certificateSelector, shallow)
+  const handleExport = useCallback(async event => {
+    try {
+      const filter = { typeOfGoods, bookingDateFrom, bookingDateTo }
+      const hasFilter = Boolean(typeOfGoods || bookingDateFrom || bookingDateTo)
+      if (hasFilter) {await confirm({ description: parse(getConfirmExportText(filter, intl)) })}
+      setLoading(true)
+      const { results } = await exportQuery('certificates/export', filter)
+      const isBooking = event.target?.parentElement?.id === 'exportBooking'
+      exportContainers(results, filter, intl, isBooking)
+      setLoading(false)
+    } catch (err) {
+      setLoading(false)
+      const { message } = err || {}
+      message && enqueueSnackbar(messages[message] ? intl.formatMessage(messages[message]) : message)
+    }
+  }, [bookingDateFrom, bookingDateTo, confirm, enqueueSnackbar, intl, setLoading, typeOfGoods])
   const isFilterActive = useMemo(() => Boolean(typeOfGoods || bookingDateFrom || bookingDateTo), [bookingDateFrom, bookingDateTo, typeOfGoods])
   const { data, refetch, ...rest } = useQuery(getQueryKey(),
     {
@@ -112,6 +137,27 @@ const CertificateList = () => {
           rightComponent={
             <Box alignItems="center" display="flex">
               <Box>
+                <Button
+                  disabled={loading}
+                  id="exportContainers"
+                  onClick={handleExport}
+                  variant="outlined"
+                >
+                  Export containers
+                </Button>
+              </Box>
+              &nbsp;&nbsp;
+              <Box>
+                <Button
+                  disabled={loading}
+                  id="exportBooking"
+                  onClick={handleExport}
+                  variant="outlined"
+                >
+                  Export booking
+                </Button>
+              </Box>
+              <Box>
                 <IconButtonLoader
                   isFetching={effectiveFetching}
                   onClick={refetchOnClick}
@@ -132,8 +178,10 @@ const CertificateList = () => {
           {FilterFormWr}
         </RightDrawer>
       </div>
-      <Box alignItems="center" display="flex" p={2} pt={0}/>
-      <Paper className={classes.paper}>
+      <div className={classes.block}>
+        <StatsList stats={data?.results?.stats}/>
+      </div>
+      <Paper className={classes.block}>
         <TableList
           isFetching={effectiveFetching && !data?.results?.list?.length}
           isIdle={rest.isIdle}

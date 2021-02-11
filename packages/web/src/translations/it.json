@@ -127,7 +127,7 @@
   "booking.insurance_type": "Insurance type",
   "booking.more_goods_details": "More goods details",
   "booking.msc_booking_ref": "MSC booking ref",
-  "booking.number_container": "Number of containers booked",
+  "booking.number_containers": "Number of containers booked",
   "booking.policy_holders": "Policy Holders",
   "booking.port_discharge": "Port of discharge",
   "booking.port_loading": "Port of loading",
@@ -174,5 +174,14 @@
   "country_plus_port_discharge": "Country and port of discharge",
   "country_plus_port_loading": "Country and port of loading",
   "certificate.filters_booking_date_from": "Booking date from",
-  "certificate.filters_booking_date_to": "Booking date to"
+  "certificate.filters_booking_date_to": "Booking date to",
+  "certificates.stats_total": "Total certificates:",
+  "certificates.stats_total_containers": "Total containers:",
+  "certificates.stats_important_customers": "Important customers:",
+  "certificates.stats_normal_customers": "Normal customers:",
+  "certificates.confirm_export_text": "This filters will be applied to the export",
+  "certificates.export_currency": "Currency",
+  "certificates.export_number_containers": "# containers",
+  "certificates.export_booking": "Booking Export",
+  "certificates.export_containers": "Containers Export"
 }

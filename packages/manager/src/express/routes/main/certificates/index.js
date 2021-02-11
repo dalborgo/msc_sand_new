@@ -25,6 +25,13 @@ async function getSequence (connClass) {
 
 const listFields = ['code', 'policyNumber', 'bookingRef', 'portDischarge', 'portLoading']
 
+function applyFilter (knex_, filter) {
+  if (filter.typeOfGoods) {knex_.where({ typeOfGoods: filter.typeOfGoods })}
+  const dateFrom = filter.bookingDateFrom || '1900-01-01'
+  const dateTo = filter.bookingDateTo || '2100-01-01'
+  if (filter.bookingDateFrom || filter.bookingDateTo) {knex_.whereBetween('bookingDate', [dateFrom, dateTo])}
+}
+
 function addRouters (router) {
   router.post('/certificates/save', async function (req, res) {
     const { connClass, body } = req
@@ -51,8 +58,8 @@ function addRouters (router) {
       ok: true, results: {
         containers: input.numberContainers,
         importantCustomers: input.importantCustomer ? 1 : 0,
-        certificate: validation.filterByArray(input, listFields)
-      }
+        certificate: validation.filterByArray(input, listFields),
+      },
     })
   })
   router.get('/certificates/list', async function (req, res) {
@@ -60,10 +67,8 @@ function addRouters (router) {
     utils.controlParameters(query, [])
     const {
       bucketName = connClass.projectBucketName,
-      typeOfGoods,
-      bookingDateFrom,
-      bookingDateTo,
       options,
+      ...filter
     } = query
     const knex_ = knex(bucketName)
       .where({ type: 'CERTIFICATE' })
@@ -72,16 +77,8 @@ function addRouters (router) {
     const knexStats_ = knex(bucketName)
       .select(knex.raw('SUM(numberContainers) totalContainers, SUM(CASE WHEN importantCustomer = TRUE THEN 1 ELSE 0 END) totalImportantCustomers'))
       .where({ type: 'CERTIFICATE' })
-    if (typeOfGoods) {
-      knex_.where({ typeOfGoods })
-      knexStats_.where({ typeOfGoods })
-    }
-    const dateFrom = bookingDateFrom || '1900-01-01'
-    const dateTo = bookingDateTo || '2100-01-01'
-    if (bookingDateFrom || bookingDateTo) {
-      knex_.whereBetween('bookingDate', [dateFrom, dateTo])
-      knexStats_.whereBetween('bookingDate', [dateFrom, dateTo])
-    }
+    applyFilter(knex_, filter)
+    applyFilter(knexStats_, filter)
     const statement = knex_.toQuery()
     const statementStats = knexStats_.toQuery()
     const promises = []
@@ -92,7 +89,7 @@ function addRouters (router) {
       return res.send({
         ok: false,
         message: listResponse.message || statsResponse.message,
-        err: listResponse.err || statsResponse.err
+        err: listResponse.err || statsResponse.err,
       })
     }
     const [stats] = statsResponse.results
@@ -102,8 +99,26 @@ function addRouters (router) {
       results: {
         list: listResponse.results,
         stats,
-      }
+      },
     })
+  })
+  router.post('/certificates/export', async function (req, res) {
+    const { connClass, body } = req
+    utils.controlParameters(body, [])
+    const {
+      bucketName = connClass.projectBucketName,
+      options,
+      ...filter
+    } = body
+    const knex_ = knex({ buc: bucketName })
+      .select('buc.*')
+      .where({ type: 'CERTIFICATE' })
+      .orderBy('bookingDate')
+    applyFilter(knex_, filter)
+    const statement = knex_.toQuery()
+    const { ok, results, message, err } = await couchQueries.exec(statement, connClass.cluster, options)
+    if (!ok) {return res.send({ ok, message, err })}
+    res.send({ ok, results })
   })
   
   router.post('/certificates/print/:code', async function (req, res) {

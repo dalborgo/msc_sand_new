@@ -43,5 +43,21 @@ export async function manageFile (endpoint, fileName, type, data, options = {}) 
   }
 }
 
+export async function exportQuery (endpoint, data, options = {}) {
+  try {
+    const {
+      method = 'POST',
+    } = options
+    const response = await instance(endpoint, {
+      data,
+      method,
+    })
+    return response.data
+  } catch (err) {
+    log.error(err.message)
+    return { ok: false, message: err.message, err }
+  }
+}
+
 
 export default instance

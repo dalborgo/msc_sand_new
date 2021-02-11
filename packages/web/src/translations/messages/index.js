@@ -5,6 +5,26 @@ export const messages = defineMessages({
     id: 'certificate.filters_booking_date_from',
     defaultMessage: 'Booking date from',
   },
+  certificates_confirm_export_text: {
+    id: 'certificates.confirm_export_text',
+    defaultMessage: 'This filters will be applied to the export',
+  },
+  certificates_export_currency: {
+    id: 'certificates.export_currency',
+    defaultMessage: 'Currency',
+  },
+  certificates_export_containers: {
+    id: 'certificates.export_containers',
+    defaultMessage: 'Containers Export',
+  },
+  certificates_export_booking: {
+    id: 'certificates.export_booking',
+    defaultMessage: 'Booking Export',
+  },
+  certificates_export_number_containers: {
+    id: 'certificates.export_number_containers',
+    defaultMessage: '# containers',
+  },
   certificates_filters_booking_date_to: {
     id: 'certificate.filters_booking_date_to',
     defaultMessage: 'Booking date to',
@@ -28,6 +48,10 @@ export const messages = defineMessages({
   common_to: {
     id: 'common.to',
     defaultMessage: 'To',
+  },
+  common_filters: {
+    id: 'common.filters',
+    defaultMessage: 'Filters',
   },
   common_confirm_operation: {
     id: 'common.confirm_operation',
@@ -201,8 +225,8 @@ export const messages = defineMessages({
     id: 'booking.recipient',
     defaultMessage: 'Recipient',
   },
-  booking_number_container: {
-    id: 'booking.number_container',
+  booking_number_containers: {
+    id: 'booking.number_containers',
     defaultMessage: 'Number of containers booked',
   },
   booking_goods_weight: {
