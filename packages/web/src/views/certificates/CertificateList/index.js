@@ -23,6 +23,7 @@ import { useConfirm } from 'material-ui-confirm'
 import { useSnackbar } from 'notistack'
 import { exportContainers, getConfirmExportText } from './utils'
 import parse from 'html-react-parser'
+import useAuth from 'src/hooks/useAuth'
 
 const useStyles = makeStyles(theme => ({
   block: {
@@ -42,6 +43,7 @@ const certificateSelector = state => ({
   switchOpenFilter: state.switchOpenFilter,
   typeOfGoods: state.filter.typeOfGoods,
   bookingRef: state.filter.bookingRef,
+  portLoading: state.filter.portLoading,
   bookingDateFrom: state.filter.bookingDateFrom,
   bookingDateTo: state.filter.bookingDateTo,
   countryPortLoading: state.filter.countryPortLoading,
@@ -51,6 +53,7 @@ const certificateSelector = state => ({
 const loadingSel = state => ({ setLoading: state.setLoading, loading: state.loading })
 const CertificateList = () => {
   const classes = useStyles()
+  const { user: { priority } } = useAuth()
   const snackQueryError = useSnackQueryError()
   const { enqueueSnackbar } = useSnackbar()
   const [isRefetch, setIsRefetch] = useState(false)
@@ -59,6 +62,7 @@ const CertificateList = () => {
   const intl = useIntl()
   const {
     bookingDateFrom,
+    portLoading,
     bookingDateTo,
     bookingRef,
     countryPortLoading,
@@ -69,22 +73,22 @@ const CertificateList = () => {
     switchOpenFilter,
     typeOfGoods,
   } = useCertificateStore(certificateSelector, shallow)
-  const isFilterActive = useMemo(() => Boolean( bookingRef || countryPortLoading || typeOfGoods || bookingDateFrom || bookingDateTo), [bookingDateFrom, bookingDateTo, bookingRef, countryPortLoading, typeOfGoods])
+  const isFilterActive = useMemo(() => Boolean( bookingRef || portLoading || countryPortLoading || typeOfGoods || bookingDateFrom || bookingDateTo), [bookingDateFrom, bookingDateTo, bookingRef, countryPortLoading, typeOfGoods])
   const handleExport = useCallback(async event => {
     try {
-      const filter = { bookingRef, countryPortLoading, typeOfGoods, bookingDateFrom, bookingDateTo }
+      const filter = { bookingRef, portLoading, countryPortLoading, typeOfGoods, bookingDateFrom, bookingDateTo }
       if (isFilterActive) {await confirm({ description: parse(getConfirmExportText(filter, intl)) })}
       setLoading(true)
       const { results } = await exportQuery('certificates/export', filter)
       const isBooking = event.target?.parentElement?.id === 'exportBooking'
-      exportContainers(results, filter, intl, isBooking)
+      exportContainers(results, filter, intl, isBooking, priority)
       setLoading(false)
     } catch (err) {
       setLoading(false)
       const { message } = err || {}
       message && enqueueSnackbar(messages[message] ? intl.formatMessage(messages[message]) : message)
     }
-  }, [bookingRef, bookingDateFrom, bookingDateTo, confirm, countryPortLoading, enqueueSnackbar, intl, isFilterActive, setLoading, typeOfGoods])
+  }, [portLoading, bookingRef, countryPortLoading, typeOfGoods, bookingDateFrom, bookingDateTo, isFilterActive, setLoading, intl, priority, confirm, enqueueSnackbar])
   const { data, refetch, ...rest } = useQuery(getQueryKey(),
     {
       keepPreviousData: true,
@@ -117,9 +121,10 @@ const CertificateList = () => {
       bookingRef={bookingRef}
       countryPortLoading={countryPortLoading}
       onSubmit={onFilterSubmit}
+      portLoading={portLoading}
       typeOfGoods={typeOfGoods}
     />
-  ), [bookingRef, bookingDateFrom, bookingDateTo, countryPortLoading, onFilterSubmit, typeOfGoods])
+  ), [bookingRef, portLoading, bookingDateFrom, bookingDateTo, countryPortLoading, onFilterSubmit, typeOfGoods])
   return (
     <Page
       title={intl.formatMessage(messages['menu_certificate_list'])}
@@ -149,7 +154,7 @@ const CertificateList = () => {
                   size="small"
                   variant="outlined"
                 >
-                  Export containers
+                  {intl.formatMessage(messages['certificates_export_booking'])}
                 </Button>
               </Box>
               &nbsp;&nbsp;
@@ -161,7 +166,7 @@ const CertificateList = () => {
                   size="small"
                   variant="outlined"
                 >
-                  Export booking
+                  {intl.formatMessage(messages['certificates_export_containers'])}
                 </Button>
               </Box>
               <Box>

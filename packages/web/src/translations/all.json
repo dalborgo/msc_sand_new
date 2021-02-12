@@ -245,7 +245,7 @@
   },
   {
     "id": "certificates.export_booking",
-    "defaultMessage": "Booking Export"
+    "defaultMessage": "Export booking"
   },
   {
     "id": "certificates.export_container_no",
@@ -253,7 +253,7 @@
   },
   {
     "id": "certificates.export_containers",
-    "defaultMessage": "Containers Export"
+    "defaultMessage": "Export containers"
   },
   {
     "id": "certificates.export_currency",

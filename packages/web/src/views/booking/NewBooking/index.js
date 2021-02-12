@@ -71,7 +71,7 @@ const NewBooking = () => {
             results: {
               stats: {
                 total: oldCertificateList?.results?.list.length + 1,
-                totalContainers: oldCertificateList?.results?.stats?.totalContainers + data.results?.containers,
+                totalContainers: (oldCertificateList?.results?.stats?.totalContainers + data.results?.containers) || 0,
                 totalImportantCustomers: oldCertificateList?.results?.stats?.totalImportantCustomers + data.results?.importantCustomers,
               },
               list: [

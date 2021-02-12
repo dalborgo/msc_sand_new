@@ -7,22 +7,25 @@ import { numeric } from '@adapter/common'
 
 export const getConfirmExportText = (filter, intl) => {
   let str = ''
-  const { bookingRef, typeOfGoods, bookingDateFrom, bookingDateTo, countryPortLoading } = filter
-  str += intl.formatMessage(messages['certificates_confirm_export_text']) + '<br/>'
+  const { bookingRef, portLoading, typeOfGoods, bookingDateFrom, bookingDateTo, countryPortLoading } = filter
+  str += `${intl.formatMessage(messages['certificates_confirm_export_text'])}<br/>`
   if (bookingRef) {
-    str += intl.formatMessage(messages['certificates_column_booking_ref']) + ': <strong>' + bookingRef + '</strong><br/>'
+    str += `${intl.formatMessage(messages['certificates_column_booking_ref'])}: <strong>${bookingRef}</strong><br/>`
   }
   if (bookingDateFrom) {
-    str += intl.formatMessage(messages['certificates_filters_booking_date_from']) + ': <strong>' + moment(bookingDateFrom).format('DD/MM/YYYY') + '</strong><br/>'
+    str += `${intl.formatMessage(messages['certificates_filters_booking_date_from'])}: <strong>${moment(bookingDateFrom).format('DD/MM/YYYY')}</strong><br/>`
   }
   if (bookingDateTo) {
-    str += intl.formatMessage(messages['certificates_filters_booking_date_to']) + ': <strong>' + moment(bookingDateTo).format('DD/MM/YYYY') + '</strong><br/>'
+    str += `${intl.formatMessage(messages['certificates_filters_booking_date_to'])}: <strong>${moment(bookingDateTo).format('DD/MM/YYYY')}</strong><br/>`
   }
   if (typeOfGoods) {
-    str += intl.formatMessage(messages['booking_type_goods']) + ': <strong>' + getTypeOfGood(typeOfGoods)?.value + '</strong><br/>'
+    str += `${intl.formatMessage(messages['booking_type_goods'])}: <strong>${getTypeOfGood(typeOfGoods)?.value}</strong><br/>`
   }
   if (countryPortLoading) {
-    str += intl.formatMessage(messages['booking_country_port_loading']) + ': <strong>' + countryPortLoading.value + '</strong><br/>'
+    str += `${intl.formatMessage(messages['booking_country_port_loading'])}: <strong>${countryPortLoading.value}</strong><br/>`
+  }
+  if (portLoading) {
+    str += `${intl.formatMessage(messages['booking_port_loading'])}: <strong>${portLoading.value}${portLoading.key ? ` (${portLoading.key})` : ''}</strong><br/>`
   }
   return str
 }
@@ -34,7 +37,7 @@ const normal = { alignment: { vertical: 'middle' } }
 const wrap = { alignment: { wrapText: true } }
 const lightBlue = { fill: { type: 'pattern', pattern: 'solid', fgColor: { argb: 'CEDFE4' } } }
 
-export const exportContainers = (rows, filter, intl, isBooking) => {
+export const exportContainers = (rows, filter, intl, isBooking, priority) => {
   const fileName = isBooking ? 'booking-export' : 'containers-export'
   const workbook = new ExcelJS.Workbook()
   const ws = workbook.addWorksheet('Export')
@@ -47,6 +50,7 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
     { key: 'goodsValue', width: 20, style: { numFmt: '#,##0.00' } },
     { key: 'typeOfGoods', width: 25 },
     { key: 'goodsWeight', width: 20, style: { numFmt: '#,##0.00' } },
+    { key: 'rate', width: 20, style: { numFmt: '#,##0.000' } },
     { key: 'insuranceType', width: 20 },
     { key: 'importantCustomer', width: 20 },
     { key: 'reeferContainer', width: 20 },
@@ -62,6 +66,7 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
     { key: 'moreGoodsDetails', width: 25 },
     { key: 'specialConditions', width: 25 },
   ]
+  if (priority < 3) {columns.splice(8, 1)} // rate
   ws.columns = columns
   ws.addRow({ policyNumber: isBooking ? intl.formatMessage(messages['certificates_booking_export']) : intl.formatMessage(messages['certificates_containers_export']) })
   Object.assign(ws.getRow(1).getCell(1), bold)
@@ -130,6 +135,7 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
     goodsValue: intl.formatMessage(messages['booking_goods_value']),
     typeOfGoods: intl.formatMessage(messages['booking_type_goods']),
     goodsWeight: intl.formatMessage(messages['booking_goods_weight']),
+    rate: intl.formatMessage(messages['common_rate']),
     insuranceType: intl.formatMessage(messages['booking_insurance_type']),
     reeferContainer: intl.formatMessage(messages['booking_reefer_container']),
     importantCustomer: intl.formatMessage(messages['booking_important_customer']),
@@ -146,8 +152,8 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
     specialConditions: intl.formatMessage(messages['booking_special_conditions']),
   })
   const alignCenterCols = ['bookingDate', 'currencyGoods', 'importantCustomer', 'typeOfGoods', 'insuranceType', 'reeferContainer']
-  const alignRightCols = ['goodsValue', 'goodsWeight', 'numberContainers'] // tieni numberContainers ultimo
-  if(!isBooking){alignRightCols.pop()}
+  const alignRightCols = ['goodsValue', 'rate', 'goodsWeight', 'numberContainers'] // tieni numberContainers ultimo
+  if (!isBooking) {alignRightCols.pop()}
   const alignWrapCols = ['specialConditions', 'moreGoodsDetails']
   for (let colIndex = 1; colIndex <= columns.length; colIndex += 1) {
     if (alignRightCols.includes(columns[colIndex - 1].key)) {
@@ -172,6 +178,7 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
       goodsValue: numeric.toFloat((row.goodsValue / 1000) || 0),
       typeOfGoods: getTypeOfGood(row.typeOfGoods)?.value,
       goodsWeight: numeric.toFloat((row.goodsWeight / 1000) || 0),
+      rate: numeric.toFloat((row.rate / 1000) || 0),
       insuranceType: row.insuranceType,
       importantCustomer: row.importantCustomer ? intl.formatMessage(messages['common_yes']) : intl.formatMessage(messages['common_no']),
       reeferContainer: row.reeferContainer ? intl.formatMessage(messages['common_yes']) : intl.formatMessage(messages['common_no']),
@@ -191,9 +198,9 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
       ws.addRow(bookingRow)
     } else {
       for (let index = 1; index <= bookingRow.numberContainers; index += 1) {
-        if(bookingRefPrev === row.bookingRef){
+        if (bookingRefPrev === row.bookingRef) {
           containerCount++
-        } else{
+        } else {
           containerCount = 1
         }
         bookingRefPrev = row.bookingRef

@@ -8,10 +8,10 @@ import { useNewBookingStore } from 'src/zustandStore'
 import { DatePicker } from '@material-ui/pickers'
 import { initialState } from 'src/zustandStore/useCertificateStore'
 import BookingAutocomplete from 'src/views/booking/NewBooking/BookingForm/BookingDataFields/BookingAutocomplete'
-import { getCountryList } from '@adapter/common/src/msc'
+import { getCountryList, getPortList } from '@adapter/common/src/msc'
 
 const { typesOfGoods } = useNewBookingStore.getState()
-const FilterForm = memo(function FilterForm ({ bookingRef, typeOfGoods, bookingDateFrom, bookingDateTo, countryPortLoading, onSubmit }) {
+const FilterForm = memo(function FilterForm ({ bookingRef, portLoading, typeOfGoods, bookingDateFrom, bookingDateTo, countryPortLoading, onSubmit }) {
   console.log('%cRENDER_FORM', 'color: pink')
   const intl = useIntl()
   return (
@@ -22,6 +22,7 @@ const FilterForm = memo(function FilterForm ({ bookingRef, typeOfGoods, bookingD
           bookingDateTo,
           bookingRef,
           countryPortLoading,
+          portLoading,
           typeOfGoods,
         }
       }
@@ -121,6 +122,19 @@ const FilterForm = memo(function FilterForm ({ bookingRef, typeOfGoods, bookingD
                 onChange={
                   (_, value) => {
                     setFieldValue('countryPortLoading', value)
+                    setFieldValue('portLoading', null)
+                  }
+                }
+              />
+            </Box>
+            <Box mb={3}>
+              <BookingAutocomplete
+                label={intl.formatMessage(messages['booking_port_loading'])}
+                list={getPortList(values['countryPortLoading']?.value)}
+                name="portLoading"
+                onChange={
+                  (_, value) => {
+                    setFieldValue('portLoading', value)
                   }
                 }
               />

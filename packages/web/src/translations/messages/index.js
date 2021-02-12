@@ -19,11 +19,11 @@ export const messages = defineMessages({
   },
   certificates_export_containers: {
     id: 'certificates.export_containers',
-    defaultMessage: 'Containers Export',
+    defaultMessage: 'Export containers',
   },
   certificates_export_booking: {
     id: 'certificates.export_booking',
-    defaultMessage: 'Booking Export',
+    defaultMessage: 'Export booking',
   },
   certificates_export_container_no: {
     id: 'certificates.export_container_no',

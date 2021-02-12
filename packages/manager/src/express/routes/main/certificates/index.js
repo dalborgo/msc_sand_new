@@ -77,7 +77,7 @@ function addRouters (router) {
       .select(listFields)
       .orderBy('sequence', 'desc')
     const knexStats_ = knex(bucketName)
-      .select(knex.raw('SUM(numberContainers) totalContainers, SUM(CASE WHEN importantCustomer = TRUE THEN 1 ELSE 0 END) totalImportantCustomers'))
+      .select(knex.raw('IFNULL(SUM(numberContainers),0) totalContainers, SUM(CASE WHEN importantCustomer = TRUE THEN 1 ELSE 0 END) totalImportantCustomers'))
       .where({ type: 'CERTIFICATE' })
     applyFilter(knex_, filter)
     applyFilter(knexStats_, filter)
