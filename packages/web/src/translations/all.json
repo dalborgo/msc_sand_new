@@ -204,12 +204,20 @@
     "defaultMessage": "Vessel Phone"
   },
   {
+    "id": "certificate.container_id",
+    "defaultMessage": "Container id"
+  },
+  {
     "id": "certificate.filters_booking_date_from",
     "defaultMessage": "Booking date from"
   },
   {
     "id": "certificate.filters_booking_date_to",
     "defaultMessage": "Booking date to"
+  },
+  {
+    "id": "certificates.booking_export",
+    "defaultMessage": "Booking Export"
   },
   {
     "id": "certificates.booking_ref",
@@ -232,8 +240,16 @@
     "defaultMessage": "This filters will be applied to the export"
   },
   {
+    "id": "certificates.containers_export",
+    "defaultMessage": "Containers Export"
+  },
+  {
     "id": "certificates.export_booking",
     "defaultMessage": "Booking Export"
+  },
+  {
+    "id": "certificates.export_container_no",
+    "defaultMessage": "Container no."
   },
   {
     "id": "certificates.export_containers",
@@ -245,7 +261,7 @@
   },
   {
     "id": "certificates.export_number_containers",
-    "defaultMessage": "# containers"
+    "defaultMessage": "# Containers"
   },
   {
     "id": "certificates.list.header_title",

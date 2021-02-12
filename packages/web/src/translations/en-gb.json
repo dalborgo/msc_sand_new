@@ -183,5 +183,9 @@
   "certificates.export_currency": "",
   "certificates.export_number_containers": "",
   "certificates.export_booking": "",
-  "certificates.export_containers": ""
+  "certificates.export_containers": "",
+  "certificates.booking_export": "",
+  "certificates.containers_export": "",
+  "certificate.container_id": "",
+  "certificates.export_container_no": ""
 }

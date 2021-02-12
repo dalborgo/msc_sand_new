@@ -1,5 +1,9 @@
 [
   {
+    "key": "31",
+    "value": "Other cargo"
+  },
+  {
     "key": "7",
     "value": "Blood"
   },
@@ -78,10 +82,6 @@
   {
     "key": "30",
     "value": "Minerals"
-  },
-  {
-    "key": "31",
-    "value": "Other cargo"
   },
   {
     "key": "32",

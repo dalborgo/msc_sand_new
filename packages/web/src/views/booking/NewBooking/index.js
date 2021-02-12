@@ -77,7 +77,7 @@ const NewBooking = () => {
               list: [
                 data.results?.certificate,
                 ...oldCertificateList?.results?.list,
-              ]
+              ],
             },
           }
           queryClient.removeQueries(queryListKey)

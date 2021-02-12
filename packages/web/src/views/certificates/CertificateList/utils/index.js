@@ -5,11 +5,7 @@ import saveAs from 'file-saver'
 import moment from 'moment'
 import { getTypeOfGood } from '@adapter/common/src/msc'
 import { numeric } from '@adapter/common'
-/*export const getConfirmExportText = (values, intl) =>
-  intl.formatMessage(messages['booking_confirm_save']) + '<br/><br/>' +
-  intl.formatMessage(messages['booking_important_customer']) + ': <strong>' + (values.importantCustomer ? intl.formatMessage(messages['common_yes']) : intl.formatMessage(messages['common_no'])) + '</strong><br/>' +
-  intl.formatMessage(messages['booking_reefer_container']) + ': <strong>' + (values.reeferContainer? intl.formatMessage(messages['common_yes']) : intl.formatMessage(messages['common_no'])) + '</strong><br/>' +
-  intl.formatMessage(messages['common_rate']) + ': <strong>' + values.rate + ' %</strong>'*/
+
 export const getConfirmExportText = (filter, intl) => {
   let str = ''
   const { typeOfGoods, bookingDateFrom, bookingDateTo } = filter
@@ -63,7 +59,7 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
   ]
   ws.columns = columns
   const letter = ctol(columns)
-  ws.addRow({ policyNumber: isBooking ? intl.formatMessage(messages['certificates_export_booking']) : intl.formatMessage(messages['certificates_export_containers']) })
+  ws.addRow({ policyNumber: isBooking ? intl.formatMessage(messages['certificates_booking_export']) : intl.formatMessage(messages['certificates_containers_export']) })
   Object.assign(ws.getRow(1).getCell(1), bold)
   let gap = 1, first = true
   for (let key in filter) {
@@ -108,7 +104,7 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
   ws.addRow({
     policyNumber: intl.formatMessage(messages['certificates_column_policy_number']),
     bookingRef: intl.formatMessage(messages['certificates_column_booking_ref']),
-    numberContainers: intl.formatMessage(messages['certificates_export_number_containers']),
+    numberContainers: isBooking ? intl.formatMessage(messages['certificates_export_number_containers']) : intl.formatMessage(messages['certificates_container_id']),
     bookingDate: intl.formatMessage(messages['booking_booking_date']),
     currencyGoods: intl.formatMessage(messages['certificates_export_currency']),
     goodsValue: intl.formatMessage(messages['booking_goods_value']),
@@ -130,7 +126,8 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
     specialConditions: intl.formatMessage(messages['booking_special_conditions']),
   })
   const alignCenterCols = ['bookingDate', 'currencyGoods', 'importantCustomer', 'typeOfGoods', 'insuranceType', 'reeferContainer']
-  const alignRightCols = ['goodsValue', 'numberContainers', 'goodsWeight']
+  const alignRightCols = ['goodsValue', 'goodsWeight', 'numberContainers'] // tieni numberContainers ultimo
+  if(!isBooking){alignRightCols.pop()}
   const alignWrapCols = ['specialConditions', 'moreGoodsDetails']
   for (let colIndex = 1; colIndex <= columns.length; colIndex += 1) {
     if (alignRightCols.includes(columns[colIndex - 1].key)) {
@@ -144,6 +141,7 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
     }
     Object.assign(ws.getRow(gap + 1).getCell(colIndex), lightBlue)
   }
+  let bookingRefPrev = '', containerCount = 1
   for (let row of rows) {
     const bookingRow = {
       policyNumber: row.policyNumber,
@@ -173,9 +171,15 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
       ws.addRow(bookingRow)
     } else {
       for (let index = 1; index <= bookingRow.numberContainers; index += 1) {
+        if(bookingRefPrev === row.bookingRef){
+          containerCount++
+        } else{
+          containerCount = 1
+        }
+        bookingRefPrev = row.bookingRef
         ws.addRow({
           ...bookingRow,
-          numberContainers: 1,
+          numberContainers: `${intl.formatMessage(messages['certificates_export_container_no'])} ${containerCount}`,
           goodsValue: bookingRow.goodsValue / bookingRow.numberContainers,
           goodsWeight: bookingRow.goodsWeight / bookingRow.numberContainers,
         })

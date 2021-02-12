@@ -113,7 +113,7 @@ function addRouters (router) {
     const knex_ = knex({ buc: bucketName })
       .select('buc.*')
       .where({ type: 'CERTIFICATE' })
-      .orderBy('bookingDate')
+      .orderBy(['bookingDate','bookingRef'])
     applyFilter(knex_, filter)
     const statement = knex_.toQuery()
     const { ok, results, message, err } = await couchQueries.exec(statement, connClass.cluster, options)

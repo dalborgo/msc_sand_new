@@ -141,6 +141,7 @@ const CertificateList = () => {
                   disabled={loading}
                   id="exportContainers"
                   onClick={handleExport}
+                  size="small"
                   variant="outlined"
                 >
                   Export containers
@@ -152,6 +153,7 @@ const CertificateList = () => {
                   disabled={loading}
                   id="exportBooking"
                   onClick={handleExport}
+                  size="small"
                   variant="outlined"
                 >
                   Export booking

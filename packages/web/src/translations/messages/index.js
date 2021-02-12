@@ -1,6 +1,10 @@
 import { defineMessages } from 'react-intl'
 
 export const messages = defineMessages({
+  certificates_container_id: {
+    id: 'certificate.container_id',
+    defaultMessage: 'Container id',
+  },
   certificates_filters_booking_date_from: {
     id: 'certificate.filters_booking_date_from',
     defaultMessage: 'Booking date from',
@@ -21,9 +25,21 @@ export const messages = defineMessages({
     id: 'certificates.export_booking',
     defaultMessage: 'Booking Export',
   },
+  certificates_export_container_no: {
+    id: 'certificates.export_container_no',
+    defaultMessage: 'Container no.',
+  },
+  certificates_containers_export: {
+    id: 'certificates.containers_export',
+    defaultMessage: 'Containers Export',
+  },
+  certificates_booking_export: {
+    id: 'certificates.booking_export',
+    defaultMessage: 'Booking Export',
+  },
   certificates_export_number_containers: {
     id: 'certificates.export_number_containers',
-    defaultMessage: '# containers',
+    defaultMessage: '# Containers',
   },
   certificates_filters_booking_date_to: {
     id: 'certificate.filters_booking_date_to',

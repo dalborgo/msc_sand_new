@@ -105,6 +105,21 @@ function DataLayout ({ values }) {
           <Typo bold mb>
             {values.typeOfGoods ? getTypeOfGood(values.typeOfGoods)?.value : ''}
           </Typo>
+          {
+            values.moreGoodsDetails &&
+            <>
+              <Typo>
+                {intl.formatMessage(messages['booking_more_goods_details'])}
+              </Typo>
+              {
+                (values.moreGoodsDetails.split('\n')).map((row, index) => (
+                  <Typo bold key={index} mb={index === values.moreGoodsDetails.length - 1}>
+                    {row || ' '}
+                  </Typo>
+                ))
+              }
+            </>
+          }
         </Grid>
         <Grid item sm="auto" xs={12}>
           {
@@ -180,21 +195,6 @@ function DataLayout ({ values }) {
             </>
           }
         </Grid>
-        {
-          values.moreGoodsDetails &&
-          <Grid item xs={12}>
-            <Typo>
-              {intl.formatMessage(messages['booking_more_goods_details'])}
-            </Typo>
-            {
-              (values.moreGoodsDetails.split('\n')).map((row, index) => (
-                <Typo bold key={index} mb={index === values.moreGoodsDetails.length - 1}>
-                  {row || ' '}
-                </Typo>
-              ))
-            }
-          </Grid>
-        }
       </Grid>
       <Divider className={classes.divider}/>
       <Grid container justify="space-between">

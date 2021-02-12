@@ -25,7 +25,7 @@ const Typo = withStyles(typoStyle)(props => {
 
 const StatsList = ({ stats }) => {
   const { total = 0, totalImportantCustomers = 0 } = stats || {}
-  const normalCustomers = total && totalImportantCustomers ? total - totalImportantCustomers : ''
+  const normalCustomers = total && isNumber(totalImportantCustomers) ? total - totalImportantCustomers : ''
   return (
     <Grid container>
       <Grid item style={{ minWidth: 170 }}>
@@ -33,7 +33,7 @@ const StatsList = ({ stats }) => {
           <FormattedMessage defaultMessage="Total certificates:" id="certificates.stats_total"/>
         </Typo>
         <Typo bold>
-          {stats?.total}
+          {stats?.total || ''}
         </Typo>
       </Grid>
       <Grid item style={{ minWidth: 170 }}>

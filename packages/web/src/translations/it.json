@@ -181,7 +181,11 @@
   "certificates.stats_normal_customers": "Normal customers:",
   "certificates.confirm_export_text": "This filters will be applied to the export",
   "certificates.export_currency": "Currency",
-  "certificates.export_number_containers": "# containers",
+  "certificates.export_number_containers": "# Containers",
   "certificates.export_booking": "Booking Export",
-  "certificates.export_containers": "Containers Export"
+  "certificates.export_containers": "Containers Export",
+  "certificates.booking_export": "Booking Export",
+  "certificates.containers_export": "Containers Export",
+  "certificate.container_id": "Container id",
+  "certificates.export_container_no": "Container no."
 }
