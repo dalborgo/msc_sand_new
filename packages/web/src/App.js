@@ -3,7 +3,7 @@ import { Router } from 'react-router-dom'
 import { createBrowserHistory } from 'history'
 import { create } from 'jss'
 import rtl from 'jss-rtl'
-import { jssPreset, StylesProvider, ThemeProvider } from '@material-ui/core'
+import { jssPreset, StylesProvider, ThemeProvider, Typography } from '@material-ui/core'
 import MomentAdapter from '@material-ui/pickers/adapter/moment'
 import GlobalStyles from 'src/components/GlobalStyles'
 import ScrollReset from 'src/components/ScrollReset'
@@ -62,7 +62,7 @@ const ConfirmIntlProvider = ({ children }) => {
         {
           cancellationText: intl.formatMessage(messages['common_cancel']),
           confirmationText: intl.formatMessage(messages['common_confirm']),
-          title: intl.formatMessage(messages['common_confirm_operation']),
+          title: <Typography variant="h5">{intl.formatMessage(messages['common_confirm_operation'])}</Typography>,
           dialogProps: {
             transitionDuration: 0,
             id: 'confirmDialog',

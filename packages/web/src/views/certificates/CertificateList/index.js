@@ -44,9 +44,11 @@ const certificateSelector = state => ({
   typeOfGoods: state.filter.typeOfGoods,
   bookingRef: state.filter.bookingRef,
   portLoading: state.filter.portLoading,
+  portDischarge: state.filter.portDischarge,
   bookingDateFrom: state.filter.bookingDateFrom,
   bookingDateTo: state.filter.bookingDateTo,
   countryPortLoading: state.filter.countryPortLoading,
+  countryPortDischarge: state.filter.countryPortDischarge,
   getQueryKey: state.getQueryKey,
   reset: state.reset,
 })
@@ -62,22 +64,37 @@ const CertificateList = () => {
   const intl = useIntl()
   const {
     bookingDateFrom,
-    portLoading,
     bookingDateTo,
     bookingRef,
+    countryPortDischarge,
     countryPortLoading,
     getQueryKey,
     openFilter,
+    portDischarge,
+    portLoading,
     reset,
     submitFilter,
     switchOpenFilter,
     typeOfGoods,
   } = useCertificateStore(certificateSelector, shallow)
-  const isFilterActive = useMemo(() => Boolean( bookingRef || portLoading || countryPortLoading || typeOfGoods || bookingDateFrom || bookingDateTo), [bookingDateFrom, bookingDateTo, bookingRef, countryPortLoading, typeOfGoods])
+  const isFilterActive = useMemo(() => Boolean(countryPortDischarge || portDischarge || bookingRef || portLoading || countryPortLoading || typeOfGoods || bookingDateFrom || bookingDateTo), [bookingDateFrom, bookingDateTo, bookingRef, countryPortDischarge, countryPortLoading, portDischarge, portLoading, typeOfGoods])
   const handleExport = useCallback(async event => {
     try {
-      const filter = { bookingRef, portLoading, countryPortLoading, typeOfGoods, bookingDateFrom, bookingDateTo }
-      if (isFilterActive) {await confirm({ description: parse(getConfirmExportText(filter, intl)) })}
+      const filter = {
+        countryPortDischarge,
+        portDischarge,
+        bookingRef,
+        portLoading,
+        countryPortLoading,
+        typeOfGoods,
+        bookingDateFrom,
+        bookingDateTo,
+      }
+      if (isFilterActive) {
+        await confirm({
+          description: parse(getConfirmExportText(filter, intl)),
+        })
+      }
       setLoading(true)
       const { results } = await exportQuery('certificates/export', filter)
       const isBooking = event.target?.parentElement?.id === 'exportBooking'
@@ -88,7 +105,7 @@ const CertificateList = () => {
       const { message } = err || {}
       message && enqueueSnackbar(messages[message] ? intl.formatMessage(messages[message]) : message)
     }
-  }, [portLoading, bookingRef, countryPortLoading, typeOfGoods, bookingDateFrom, bookingDateTo, isFilterActive, setLoading, intl, priority, confirm, enqueueSnackbar])
+  }, [countryPortDischarge, portDischarge, bookingRef, portLoading, countryPortLoading, typeOfGoods, bookingDateFrom, bookingDateTo, isFilterActive, setLoading, intl, priority, confirm, enqueueSnackbar])
   const { data, refetch, ...rest } = useQuery(getQueryKey(),
     {
       keepPreviousData: true,
@@ -104,7 +121,7 @@ const CertificateList = () => {
   }, [refetch])
   
   const effectiveFetching = getEffectiveFetching(rest, isRefetch)
-  useEffect(() => reset, [reset]) //occhio reset senza parentesi: si passa la funzione non si esegue
+  useEffect(() => reset, [reset]) // reset senza parentesi: si passa la funzione non si esegue
   const onFilterSubmit = useCallback(filter => {
     const normalizeFilter = {
       ...filter,
@@ -119,12 +136,14 @@ const CertificateList = () => {
       bookingDateFrom={bookingDateFrom}
       bookingDateTo={bookingDateTo}
       bookingRef={bookingRef}
+      countryPortDischarge={countryPortDischarge}
       countryPortLoading={countryPortLoading}
       onSubmit={onFilterSubmit}
+      portDischarge={portDischarge}
       portLoading={portLoading}
       typeOfGoods={typeOfGoods}
     />
-  ), [bookingRef, portLoading, bookingDateFrom, bookingDateTo, countryPortLoading, onFilterSubmit, typeOfGoods])
+  ), [bookingDateFrom, bookingDateTo, bookingRef, countryPortDischarge, countryPortLoading, onFilterSubmit, portDischarge, portLoading, typeOfGoods])
   return (
     <Page
       title={intl.formatMessage(messages['menu_certificate_list'])}
@@ -158,7 +177,7 @@ const CertificateList = () => {
                 </Button>
               </Box>
               &nbsp;&nbsp;
-              <Box>
+              <Box mr={2}>
                 <Button
                   disabled={loading}
                   id="exportBooking"

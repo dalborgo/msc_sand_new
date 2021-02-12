@@ -11,7 +11,7 @@ import BookingAutocomplete from 'src/views/booking/NewBooking/BookingForm/Bookin
 import { getCountryList, getPortList } from '@adapter/common/src/msc'
 
 const { typesOfGoods } = useNewBookingStore.getState()
-const FilterForm = memo(function FilterForm ({ bookingRef, portLoading, typeOfGoods, bookingDateFrom, bookingDateTo, countryPortLoading, onSubmit }) {
+const FilterForm = memo(function FilterForm ({ countryPortDischarge, portDischarge, bookingRef, portLoading, typeOfGoods, bookingDateFrom, bookingDateTo, countryPortLoading, onSubmit }) {
   console.log('%cRENDER_FORM', 'color: pink')
   const intl = useIntl()
   return (
@@ -22,7 +22,9 @@ const FilterForm = memo(function FilterForm ({ bookingRef, portLoading, typeOfGo
           bookingDateTo,
           bookingRef,
           countryPortLoading,
+          countryPortDischarge,
           portLoading,
+          portDischarge,
           typeOfGoods,
         }
       }
@@ -135,6 +137,31 @@ const FilterForm = memo(function FilterForm ({ bookingRef, portLoading, typeOfGo
                 onChange={
                   (_, value) => {
                     setFieldValue('portLoading', value)
+                  }
+                }
+              />
+            </Box>
+            <Box mb={3}>
+              <BookingAutocomplete
+                label={intl.formatMessage(messages['booking_country_port_discharge'])}
+                list={getCountryList()}
+                name="countryPortDischarge"
+                onChange={
+                  (_, value) => {
+                    setFieldValue('countryPortDischarge', value)
+                    setFieldValue('portDischarge', null)
+                  }
+                }
+              />
+            </Box>
+            <Box mb={3}>
+              <BookingAutocomplete
+                label={intl.formatMessage(messages['booking_port_discharge'])}
+                list={getPortList(values['countryPortDischarge']?.value)}
+                name="portDischarge"
+                onChange={
+                  (_, value) => {
+                    setFieldValue('portDischarge', value)
                   }
                 }
               />

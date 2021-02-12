@@ -7,7 +7,7 @@ import { numeric } from '@adapter/common'
 
 export const getConfirmExportText = (filter, intl) => {
   let str = ''
-  const { bookingRef, portLoading, typeOfGoods, bookingDateFrom, bookingDateTo, countryPortLoading } = filter
+  const { bookingRef, portLoading, typeOfGoods, bookingDateFrom, bookingDateTo, countryPortLoading, portDischarge, countryPortDischarge } = filter
   str += `${intl.formatMessage(messages['certificates_confirm_export_text'])}<br/>`
   if (bookingRef) {
     str += `${intl.formatMessage(messages['certificates_column_booking_ref'])}: <strong>${bookingRef}</strong><br/>`
@@ -26,6 +26,12 @@ export const getConfirmExportText = (filter, intl) => {
   }
   if (portLoading) {
     str += `${intl.formatMessage(messages['booking_port_loading'])}: <strong>${portLoading.value}${portLoading.key ? ` (${portLoading.key})` : ''}</strong><br/>`
+  }
+  if (countryPortDischarge) {
+    str += `${intl.formatMessage(messages['booking_country_port_loading'])}: <strong>${countryPortDischarge.value}</strong><br/>`
+  }
+  if (portDischarge) {
+    str += `${intl.formatMessage(messages['booking_port_loading'])}: <strong>${portDischarge.value}${portDischarge.key ? ` (${portDischarge.key})` : ''}</strong><br/>`
   }
   return str
 }
@@ -116,6 +122,30 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
         gap++
         ws.addRow({
           policyNumber: intl.formatMessage(messages['booking_country_port_loading']) + ':',
+          bookingRef: filter[key]?.value,
+        })
+        Object.assign(ws.getRow(gap).getCell(2), bold)
+      }
+      if (key === 'portLoading') {
+        gap++
+        ws.addRow({
+          policyNumber: intl.formatMessage(messages['booking_port_loading']) + ':',
+          bookingRef: filter[key]?.value,
+        })
+        Object.assign(ws.getRow(gap).getCell(2), bold)
+      }
+      if (key === 'countryPortDischarge') {
+        gap++
+        ws.addRow({
+          policyNumber: intl.formatMessage(messages['booking_country_port_discharge']) + ':',
+          bookingRef: filter[key]?.value,
+        })
+        Object.assign(ws.getRow(gap).getCell(2), bold)
+      }
+      if (key === 'portDischarge') {
+        gap++
+        ws.addRow({
+          policyNumber: intl.formatMessage(messages['booking_port_discharge']) + ':',
           bookingRef: filter[key]?.value,
         })
         Object.assign(ws.getRow(gap).getCell(2), bold)

@@ -204,6 +204,10 @@
     "defaultMessage": "Vessel Phone"
   },
   {
+    "id": "cause.TokenExpiredError",
+    "defaultMessage": "Session expired!"
+  },
+  {
     "id": "certificate.container_id",
     "defaultMessage": "Container id"
   },

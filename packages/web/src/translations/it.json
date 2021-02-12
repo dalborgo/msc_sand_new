@@ -187,5 +187,6 @@
   "certificates.booking_export": "Booking Export",
   "certificates.containers_export": "Containers Export",
   "certificate.container_id": "Container id",
-  "certificates.export_container_no": "Container no."
+  "certificates.export_container_no": "Container no.",
+  "cause.TokenExpiredError": "Session expired!"
 }

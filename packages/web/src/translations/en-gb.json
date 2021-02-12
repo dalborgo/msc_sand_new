@@ -187,5 +187,6 @@
   "certificates.booking_export": "",
   "certificates.containers_export": "",
   "certificate.container_id": "",
-  "certificates.export_container_no": ""
+  "certificates.export_container_no": "",
+  "cause.TokenExpiredError": ""
 }

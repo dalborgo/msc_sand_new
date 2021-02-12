@@ -1,6 +1,10 @@
 import { defineMessages } from 'react-intl'
 
 export const messages = defineMessages({
+  cause_TokenExpiredError: {
+    id: 'cause.TokenExpiredError',
+    defaultMessage: 'Session expired!',
+  },
   certificates_container_id: {
     id: 'certificate.container_id',
     defaultMessage: 'Container id',

@@ -3,6 +3,7 @@ import { couchQueries } from '@adapter/io'
 import config from 'config'
 import log from '@adapter/common/src/winston'
 import { cFunctions } from '@adapter/common'
+import { security } from '../../../../helpers'
 
 const { MAXAGE_MINUTES = 30, AUTH = 'boobs' } = config.get('express')
 const JWT_SECRET = AUTH
@@ -92,15 +93,9 @@ function addRouters (router) {
       ...getJwtReturnObj(connClass, identity),
     })
   })
-  router.get('/jwt/codes', async function (req, res) {
-    const { connClass, route: { path } } = req
-    const query = `select RAW OBJECT_REMOVE(buc, 'type') from \`${connClass.projectBucketName}\` buc where type = "INSTALLATION"`
-    const { ok, results, message, err } = await couchQueries.exec(query, connClass.cluster)
-    if (!ok) {
-      log.error('path', path)
-      throw Error(err.context ? err.context.first_error_message : message)
-    }
-    res.send(results)
+  router.get('/jwt/check_session', async function (req, res) {
+    security.hasAuthorization(req.headers)
+    res.send({ ok: true })
   })
 }
 
