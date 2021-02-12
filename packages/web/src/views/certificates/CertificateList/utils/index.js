@@ -27,8 +27,10 @@ export const getConfirmExportText = (filter, intl) => {
 }
 
 const bold = { font: { bold: true } }
-const right = { alignment: { horizontal: 'right' } }
-const center = { alignment: { horizontal: 'center' } }
+const right = { alignment: { horizontal: 'right', vertical: 'middle' } }
+const center = { alignment: { horizontal: 'center', vertical: 'middle' } }
+const normal = { alignment: { vertical: 'middle' } }
+const wrap = { alignment: { wrapText: true } }
 const lightBlue = { fill: { type: 'pattern', pattern: 'solid', fgColor: { argb: 'CEDFE4' } } }
 
 export const exportContainers = (rows, filter, intl, isBooking) => {
@@ -41,9 +43,23 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
     { key: 'numberContainers', width: 15 },
     { key: 'bookingDate', width: 15, style: { numFmt: 'dd/mm/yyyy' } },
     { key: 'currencyGoods', width: 15 },
-    { key: 'typeOfGoods', width: 25 },
     { key: 'goodsValue', width: 20, style: { numFmt: '#,##0.00' } },
+    { key: 'typeOfGoods', width: 25 },
     { key: 'goodsWeight', width: 20, style: { numFmt: '#,##0.00' } },
+    { key: 'insuranceType', width: 20 },
+    { key: 'importantCustomer', width: 20 },
+    { key: 'reeferContainer', width: 20 },
+    { key: 'sender', width: 25 },
+    { key: 'recipients', width: 25 },
+    { key: 'vesselName', width: 20 },
+    { key: 'countryCollectionPoint', width: 25 },
+    { key: 'cityCollectionPoint', width: 25 },
+    { key: 'countryDeliveryPoint', width: 25 },
+    { key: 'cityDeliveryPoint', width: 25 },
+    { key: 'from', width: 25 },
+    { key: 'to', width: 25 },
+    { key: 'moreGoodsDetails', width: 25 },
+    { key: 'specialConditions', width: 25 },
   ]
   ws.columns = columns
   const letter = ctol(columns)
@@ -57,6 +73,7 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
         first = false
         gap++
         Object.assign(ws.getRow(gap).getCell(1), lightBlue)
+        Object.assign(ws.getRow(gap).getCell(2), lightBlue)
       }
       if (key === 'typeOfGoods') {
         gap++
@@ -64,7 +81,7 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
           policyNumber: intl.formatMessage(messages['booking_type_goods']) + ':',
           bookingRef: getTypeOfGood(filter[key])?.value,
         })
-        Object.assign(ws.getRow(gap).getCell(2), bold, lightBlue)
+        Object.assign(ws.getRow(gap).getCell(2), bold)
       }
       if (key === 'bookingDateFrom') {
         gap++
@@ -72,7 +89,7 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
           policyNumber: intl.formatMessage(messages['certificates_filters_booking_date_from']) + ':',
           bookingRef: filter[key] && moment(filter[key]).format('DD/MM/YYYY'),
         })
-        Object.assign(ws.getRow(gap).getCell(2), bold, lightBlue)
+        Object.assign(ws.getRow(gap).getCell(2), bold)
       }
       if (key === 'bookingDateTo') {
         gap++
@@ -80,7 +97,7 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
           policyNumber: intl.formatMessage(messages['certificates_filters_booking_date_to']) + ':',
           bookingRef: filter[key] && moment(filter[key]).format('DD/MM/YYYY'),
         })
-        Object.assign(ws.getRow(gap).getCell(2), bold, lightBlue)
+        Object.assign(ws.getRow(gap).getCell(2), bold)
       }
     }
   }
@@ -94,18 +111,36 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
     numberContainers: intl.formatMessage(messages['certificates_export_number_containers']),
     bookingDate: intl.formatMessage(messages['booking_booking_date']),
     currencyGoods: intl.formatMessage(messages['certificates_export_currency']),
-    typeOfGoods: intl.formatMessage(messages['booking_type_goods']),
     goodsValue: intl.formatMessage(messages['booking_goods_value']),
+    typeOfGoods: intl.formatMessage(messages['booking_type_goods']),
     goodsWeight: intl.formatMessage(messages['booking_goods_weight']),
+    insuranceType: intl.formatMessage(messages['booking_insurance_type']),
+    reeferContainer: intl.formatMessage(messages['booking_reefer_container']),
+    importantCustomer: intl.formatMessage(messages['booking_important_customer']),
+    sender: intl.formatMessage(messages['booking_sender']),
+    recipients: intl.formatMessage(messages['booking_recipient']),
+    vesselName: intl.formatMessage(messages['booking_vessel_name']),
+    countryCollectionPoint: intl.formatMessage(messages['booking_country_collection_point']),
+    cityCollectionPoint: intl.formatMessage(messages['booking_country_collection_point']),
+    countryDeliveryPoint: intl.formatMessage(messages['booking_country_delivery_point']),
+    cityDeliveryPoint: intl.formatMessage(messages['booking_city_delivery_point']),
+    from: intl.formatMessage(messages['booking_country_plus_port_loading']),
+    to: intl.formatMessage(messages['booking_country_plus_port_discharge']),
+    moreGoodsDetails: intl.formatMessage(messages['booking_more_goods_details']),
+    specialConditions: intl.formatMessage(messages['booking_special_conditions']),
   })
-  const alignCenterCols = ['bookingDate', 'currencyGoods']
+  const alignCenterCols = ['bookingDate', 'currencyGoods', 'importantCustomer', 'typeOfGoods', 'insuranceType', 'reeferContainer']
   const alignRightCols = ['goodsValue', 'numberContainers', 'goodsWeight']
+  const alignWrapCols = ['specialConditions', 'moreGoodsDetails']
   for (let colIndex = 1; colIndex <= columns.length; colIndex += 1) {
     if (alignRightCols.includes(columns[colIndex - 1].key)) {
       Object.assign(ws.getColumn(colIndex), right)
-    }
-    if (alignCenterCols.includes(columns[colIndex - 1].key)) {
+    } else if (alignCenterCols.includes(columns[colIndex - 1].key)) {
       Object.assign(ws.getColumn(colIndex), center)
+    } else if (alignWrapCols.includes(columns[colIndex - 1].key)) {
+      Object.assign(ws.getColumn(colIndex), wrap)
+    } else {
+      Object.assign(ws.getColumn(colIndex), normal)
     }
     Object.assign(ws.getRow(gap + 1).getCell(colIndex), lightBlue)
   }
@@ -116,9 +151,23 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
       numberContainers: row.numberContainers || 0,
       bookingDate: row.bookingDate && new Date(row.bookingDate),
       currencyGoods: row.currencyGoods,
-      typeOfGoods: getTypeOfGood(row.typeOfGoods)?.value,
       goodsValue: numeric.toFloat((row.goodsValue / 1000) || 0),
+      typeOfGoods: getTypeOfGood(row.typeOfGoods)?.value,
       goodsWeight: numeric.toFloat((row.goodsWeight / 1000) || 0),
+      insuranceType: row.insuranceType,
+      importantCustomer: row.importantCustomer ? intl.formatMessage(messages['common_yes']) : intl.formatMessage(messages['common_no']),
+      reeferContainer: row.reeferContainer ? intl.formatMessage(messages['common_yes']) : intl.formatMessage(messages['common_no']),
+      sender: row.sender,
+      recipients: row.recipients.join(', '),
+      vesselName: row.vesselName,
+      countryCollectionPoint: row.countryCollectionPoint?.value,
+      cityCollectionPoint: row.cityCollectionPoint,
+      countryDeliveryPoint: row?.countryDeliveryPoint?.value,
+      cityDeliveryPoint: row.cityDeliveryPoint,
+      from: `${row?.countryPortLoading?.value ?? ''}${row.portLoading?.value ? ` - ${row.portLoading?.value}` : ''}${row.portLoading?.key ? ` (${row.portLoading?.key})` : ''}`,
+      to: `${row?.countryPortDischarge?.value ?? ''}${row.portDischarge?.value ? ` - ${row.portDischarge?.value}` : ''}${row.portDischarge?.key ? ` (${row.portDischarge?.key})` : ''}`,
+      moreGoodsDetails: row.moreGoodsDetails,
+      specialConditions: row.specialConditions,
     }
     if (isBooking) {
       ws.addRow(bookingRow)

@@ -50,6 +50,7 @@ const HeaderDataFields = ({ recipients }) => {
                               }
                             }
                             size="small"
+                            tabIndex={-1}
                           >
                             <Add/>
                           </IconButton>
