@@ -41,8 +41,10 @@ const certificateSelector = state => ({
   submitFilter: state.submitFilter,
   switchOpenFilter: state.switchOpenFilter,
   typeOfGoods: state.filter.typeOfGoods,
+  bookingRef: state.filter.bookingRef,
   bookingDateFrom: state.filter.bookingDateFrom,
   bookingDateTo: state.filter.bookingDateTo,
+  countryPortLoading: state.filter.countryPortLoading,
   getQueryKey: state.getQueryKey,
   reset: state.reset,
 })
@@ -56,20 +58,22 @@ const CertificateList = () => {
   const confirm = useConfirm()
   const intl = useIntl()
   const {
-    getQueryKey,
     bookingDateFrom,
     bookingDateTo,
+    bookingRef,
+    countryPortLoading,
+    getQueryKey,
     openFilter,
     reset,
     submitFilter,
     switchOpenFilter,
     typeOfGoods,
   } = useCertificateStore(certificateSelector, shallow)
+  const isFilterActive = useMemo(() => Boolean( bookingRef || countryPortLoading || typeOfGoods || bookingDateFrom || bookingDateTo), [bookingDateFrom, bookingDateTo, bookingRef, countryPortLoading, typeOfGoods])
   const handleExport = useCallback(async event => {
     try {
-      const filter = { typeOfGoods, bookingDateFrom, bookingDateTo }
-      const hasFilter = Boolean(typeOfGoods || bookingDateFrom || bookingDateTo)
-      if (hasFilter) {await confirm({ description: parse(getConfirmExportText(filter, intl)) })}
+      const filter = { bookingRef, countryPortLoading, typeOfGoods, bookingDateFrom, bookingDateTo }
+      if (isFilterActive) {await confirm({ description: parse(getConfirmExportText(filter, intl)) })}
       setLoading(true)
       const { results } = await exportQuery('certificates/export', filter)
       const isBooking = event.target?.parentElement?.id === 'exportBooking'
@@ -80,8 +84,7 @@ const CertificateList = () => {
       const { message } = err || {}
       message && enqueueSnackbar(messages[message] ? intl.formatMessage(messages[message]) : message)
     }
-  }, [bookingDateFrom, bookingDateTo, confirm, enqueueSnackbar, intl, setLoading, typeOfGoods])
-  const isFilterActive = useMemo(() => Boolean(typeOfGoods || bookingDateFrom || bookingDateTo), [bookingDateFrom, bookingDateTo, typeOfGoods])
+  }, [bookingRef, bookingDateFrom, bookingDateTo, confirm, countryPortLoading, enqueueSnackbar, intl, isFilterActive, setLoading, typeOfGoods])
   const { data, refetch, ...rest } = useQuery(getQueryKey(),
     {
       keepPreviousData: true,
@@ -111,10 +114,12 @@ const CertificateList = () => {
     <FilterForm
       bookingDateFrom={bookingDateFrom}
       bookingDateTo={bookingDateTo}
+      bookingRef={bookingRef}
+      countryPortLoading={countryPortLoading}
       onSubmit={onFilterSubmit}
       typeOfGoods={typeOfGoods}
     />
-  ), [bookingDateFrom, bookingDateTo, onFilterSubmit, typeOfGoods])
+  ), [bookingRef, bookingDateFrom, bookingDateTo, countryPortLoading, onFilterSubmit, typeOfGoods])
   return (
     <Page
       title={intl.formatMessage(messages['menu_certificate_list'])}

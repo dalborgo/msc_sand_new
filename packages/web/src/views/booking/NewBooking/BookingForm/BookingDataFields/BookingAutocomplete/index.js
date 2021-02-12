@@ -12,7 +12,7 @@ const useStyles = makeStyles(() => ({
   listBox: { overflowX: 'hidden' },
 }))
 
-const BookingAutocomplete = memo(({ list, name, label, onChange }) => {
+const BookingAutocomplete = memo(({ list, name, label, onChange, required = false }) => {
   const classes = useStyles()
   const intl = useIntl()
   return (
@@ -60,13 +60,13 @@ const BookingAutocomplete = memo(({ list, name, label, onChange }) => {
           )
         }
       }
-      required
+      required={required}
       textFieldProps={
         {
           label,
           variant: 'outlined',
           margin: 'none',
-          required: true,
+          required,
         }
       }
     />

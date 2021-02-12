@@ -1,6 +1,5 @@
 import { messages } from 'src/translations/messages'
 import ExcelJS from 'exceljs'
-import { ctol } from 'src/utils/formatters'
 import saveAs from 'file-saver'
 import moment from 'moment'
 import { getTypeOfGood } from '@adapter/common/src/msc'
@@ -8,16 +7,22 @@ import { numeric } from '@adapter/common'
 
 export const getConfirmExportText = (filter, intl) => {
   let str = ''
-  const { typeOfGoods, bookingDateFrom, bookingDateTo } = filter
+  const { bookingRef, typeOfGoods, bookingDateFrom, bookingDateTo, countryPortLoading } = filter
   str += intl.formatMessage(messages['certificates_confirm_export_text']) + '<br/>'
-  if (typeOfGoods) {
-    str += intl.formatMessage(messages['booking_type_goods']) + ': <strong>' + getTypeOfGood(typeOfGoods)?.value + '</strong><br/>'
+  if (bookingRef) {
+    str += intl.formatMessage(messages['certificates_column_booking_ref']) + ': <strong>' + bookingRef + '</strong><br/>'
   }
   if (bookingDateFrom) {
     str += intl.formatMessage(messages['certificates_filters_booking_date_from']) + ': <strong>' + moment(bookingDateFrom).format('DD/MM/YYYY') + '</strong><br/>'
   }
   if (bookingDateTo) {
     str += intl.formatMessage(messages['certificates_filters_booking_date_to']) + ': <strong>' + moment(bookingDateTo).format('DD/MM/YYYY') + '</strong><br/>'
+  }
+  if (typeOfGoods) {
+    str += intl.formatMessage(messages['booking_type_goods']) + ': <strong>' + getTypeOfGood(typeOfGoods)?.value + '</strong><br/>'
+  }
+  if (countryPortLoading) {
+    str += intl.formatMessage(messages['booking_country_port_loading']) + ': <strong>' + countryPortLoading.value + '</strong><br/>'
   }
   return str
 }
@@ -58,7 +63,6 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
     { key: 'specialConditions', width: 25 },
   ]
   ws.columns = columns
-  const letter = ctol(columns)
   ws.addRow({ policyNumber: isBooking ? intl.formatMessage(messages['certificates_booking_export']) : intl.formatMessage(messages['certificates_containers_export']) })
   Object.assign(ws.getRow(1).getCell(1), bold)
   let gap = 1, first = true
@@ -71,11 +75,11 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
         Object.assign(ws.getRow(gap).getCell(1), lightBlue)
         Object.assign(ws.getRow(gap).getCell(2), lightBlue)
       }
-      if (key === 'typeOfGoods') {
+      if (key === 'bookingRef') {
         gap++
         ws.addRow({
-          policyNumber: intl.formatMessage(messages['booking_type_goods']) + ':',
-          bookingRef: getTypeOfGood(filter[key])?.value,
+          policyNumber: intl.formatMessage(messages['certificates_column_booking_ref']) + ':',
+          bookingRef: filter[key],
         })
         Object.assign(ws.getRow(gap).getCell(2), bold)
       }
@@ -92,6 +96,22 @@ export const exportContainers = (rows, filter, intl, isBooking) => {
         ws.addRow({
           policyNumber: intl.formatMessage(messages['certificates_filters_booking_date_to']) + ':',
           bookingRef: filter[key] && moment(filter[key]).format('DD/MM/YYYY'),
+        })
+        Object.assign(ws.getRow(gap).getCell(2), bold)
+      }
+      if (key === 'typeOfGoods') {
+        gap++
+        ws.addRow({
+          policyNumber: intl.formatMessage(messages['booking_type_goods']) + ':',
+          bookingRef: getTypeOfGood(filter[key])?.value,
+        })
+        Object.assign(ws.getRow(gap).getCell(2), bold)
+      }
+      if (key === 'countryPortLoading') {
+        gap++
+        ws.addRow({
+          policyNumber: intl.formatMessage(messages['booking_country_port_loading']) + ':',
+          bookingRef: filter[key]?.value,
         })
         Object.assign(ws.getRow(gap).getCell(2), bold)
       }

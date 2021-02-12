@@ -1,23 +1,28 @@
 import React, { memo } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { FastField, Field, Form, Formik } from 'formik'
+import { TextField } from 'formik-material-ui'
 import { Box, Button, TextField as TF } from '@material-ui/core'
 import { messages } from 'src/translations/messages'
 import { useNewBookingStore } from 'src/zustandStore'
 import { DatePicker } from '@material-ui/pickers'
 import { initialState } from 'src/zustandStore/useCertificateStore'
+import BookingAutocomplete from 'src/views/booking/NewBooking/BookingForm/BookingDataFields/BookingAutocomplete'
+import { getCountryList } from '@adapter/common/src/msc'
 
 const { typesOfGoods } = useNewBookingStore.getState()
-const FilterForm = memo(function FilterForm ({ typeOfGoods, bookingDateFrom, bookingDateTo, onSubmit }) {
+const FilterForm = memo(function FilterForm ({ bookingRef, typeOfGoods, bookingDateFrom, bookingDateTo, countryPortLoading, onSubmit }) {
   console.log('%cRENDER_FORM', 'color: pink')
   const intl = useIntl()
   return (
     <Formik
       initialValues={
         {
-          typeOfGoods: typeOfGoods,
-          bookingDateFrom: bookingDateFrom,
-          bookingDateTo: bookingDateTo,
+          bookingDateFrom,
+          bookingDateTo,
+          bookingRef,
+          countryPortLoading,
+          typeOfGoods,
         }
       }
       onSubmit={onSubmit}
@@ -27,35 +32,11 @@ const FilterForm = memo(function FilterForm ({ typeOfGoods, bookingDateFrom, boo
           <Form>
             <Box mb={3}>
               <FastField
-                as={TF}
+                component={TextField}
                 fullWidth
-                label={intl.formatMessage(messages['booking_type_goods'])}
-                name="typeOfGoods"
-                onChange={
-                  event => {
-                    handleChange(event)
-                  }
-                }
-                onFocus={() => null}
-                select
-                SelectProps={{ native: true }}
-                variant="outlined"
-              >
-                <option
-                  key={''}
-                  value={''}
-                />
-                {
-                  typesOfGoods.map(({ value, key }) => (
-                    <option
-                      key={key}
-                      value={key}
-                    >
-                      {value}
-                    </option>
-                  ))
-                }
-              </FastField>
+                label={intl.formatMessage(messages['certificates_column_booking_ref'])}
+                name="bookingRef"
+              />
             </Box>
             <Box mb={3}>
               <Field
@@ -96,6 +77,50 @@ const FilterForm = memo(function FilterForm ({ typeOfGoods, bookingDateFrom, boo
                 renderInput={
                   props => {
                     return <TF {...props} fullWidth helperText={null}/>
+                  }
+                }
+              />
+            </Box>
+            <Box mb={3}>
+              <FastField
+                as={TF}
+                fullWidth
+                label={intl.formatMessage(messages['booking_type_goods'])}
+                name="typeOfGoods"
+                onChange={
+                  event => {
+                    handleChange(event)
+                  }
+                }
+                onFocus={() => null}
+                select
+                SelectProps={{ native: true }}
+                variant="outlined"
+              >
+                <option
+                  key={''}
+                  value={''}
+                />
+                {
+                  typesOfGoods.map(({ value, key }) => (
+                    <option
+                      key={key}
+                      value={key}
+                    >
+                      {value}
+                    </option>
+                  ))
+                }
+              </FastField>
+            </Box>
+            <Box mb={3}>
+              <BookingAutocomplete
+                label={intl.formatMessage(messages['booking_country_port_loading'])}
+                list={getCountryList()}
+                name="countryPortLoading"
+                onChange={
+                  (_, value) => {
+                    setFieldValue('countryPortLoading', value)
                   }
                 }
               />

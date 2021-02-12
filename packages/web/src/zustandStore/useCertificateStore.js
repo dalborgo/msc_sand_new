@@ -9,6 +9,8 @@ export const initialState = {
     typeOfGoods: '',
     bookingDateFrom: null,
     bookingDateTo: null,
+    bookingRef: '',
+    countryPortLoading: null,
   },
 }
 
@@ -24,10 +26,12 @@ const useCertificateStore = create(immerMiddleware((set, get) => ({
   switchOpenFilter: () => set(state => {
     state.openFilter = !state.openFilter
   }),
-  submitFilter: ({ typeOfGoods, bookingDateFrom, bookingDateTo }) => set(state => {
+  submitFilter: ({ bookingRef, typeOfGoods, bookingDateFrom, bookingDateTo, countryPortLoading }) => set(state => {
     state.filter.typeOfGoods = typeOfGoods
+    state.filter.bookingRef = bookingRef
     state.filter.bookingDateFrom = bookingDateFrom
     state.filter.bookingDateTo = bookingDateTo
+    state.filter.countryPortLoading = countryPortLoading
     state.openFilter = !state.openFilter
   }),
 })))

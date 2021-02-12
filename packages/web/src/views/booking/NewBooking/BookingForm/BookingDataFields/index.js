@@ -130,6 +130,7 @@ const BookingDataFields = ({ handleChange, setFieldValue }) => {
             list={countryList}
             name="countryCollectionPoint"
             onChange={onCountryCollectionPointChange}
+            required
           />
         </Grid>
       }
@@ -141,6 +142,7 @@ const BookingDataFields = ({ handleChange, setFieldValue }) => {
             fullWidth
             label={intl.formatMessage(messages['booking_city_collection_point'])}
             name="cityCollectionPoint"
+            required
           />
         </Grid>
       }
@@ -152,6 +154,7 @@ const BookingDataFields = ({ handleChange, setFieldValue }) => {
             list={countryList}
             name="countryPortLoading"
             onChange={onCountryPortLoadingChange}
+            required
           />
         </Grid>
       }
@@ -163,6 +166,7 @@ const BookingDataFields = ({ handleChange, setFieldValue }) => {
             list={loadingPorts}
             name="portLoading"
             onChange={onPortLoadingChange}
+            required
           />
         </Grid>
       }
@@ -174,6 +178,7 @@ const BookingDataFields = ({ handleChange, setFieldValue }) => {
             list={countryList}
             name="countryDeliveryPoint"
             onChange={onCountryDeliveryPointChange}
+            required
           />
         </Grid>
       }
@@ -185,6 +190,7 @@ const BookingDataFields = ({ handleChange, setFieldValue }) => {
             fullWidth
             label={intl.formatMessage(messages['booking_city_delivery_point'])}
             name="cityDeliveryPoint"
+            required
           />
         </Grid>
       }
@@ -196,6 +202,7 @@ const BookingDataFields = ({ handleChange, setFieldValue }) => {
             list={countryList}
             name="countryPortDischarge"
             onChange={onCountryPortDischargeChange}
+            required
           />
         </Grid>
       }
@@ -207,6 +214,7 @@ const BookingDataFields = ({ handleChange, setFieldValue }) => {
             list={dischargePorts}
             name="portDischarge"
             onChange={onPortDischargeChange}
+            required
           />
         </Grid>
       }

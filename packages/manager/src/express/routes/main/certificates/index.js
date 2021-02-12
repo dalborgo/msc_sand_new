@@ -27,6 +27,8 @@ const listFields = ['code', 'policyNumber', 'bookingRef', 'portDischarge', 'port
 
 function applyFilter (knex_, filter) {
   if (filter.typeOfGoods) {knex_.where({ typeOfGoods: filter.typeOfGoods })}
+  if (filter.countryPortLoading) {knex_.where({ 'countryPortLoading.value': filter.countryPortLoading.value })}
+  if (filter.bookingRef) {knex_.whereRaw(`LOWER(bookingRef) like "%${filter.bookingRef.toLowerCase()}%"`)}
   const dateFrom = filter.bookingDateFrom || '1900-01-01'
   const dateTo = filter.bookingDateTo || '2100-01-01'
   if (filter.bookingDateFrom || filter.bookingDateTo) {knex_.whereBetween('bookingDate', [dateFrom, dateTo])}
