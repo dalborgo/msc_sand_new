@@ -15,6 +15,7 @@ const Typo = withStyles(typoStyle)(props => {
   return (
     <Typography
       className={classes.root}
+      color="textPrimary"
       display="inline"
       variant="body2"
     >

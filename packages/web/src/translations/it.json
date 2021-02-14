@@ -188,5 +188,8 @@
   "certificates.containers_export": "Containers Export",
   "certificate.container_id": "Container id",
   "certificates.export_container_no": "Container no.",
-  "cause.TokenExpiredError": "Session expired!"
+  "cause.TokenExpiredError": "Session expired!",
+  "certificates.export_net_prize": "Net prize",
+  "certificates.export_net_commission": "Net commission",
+  "certificates.filters_port_group": "Port filters"
 }

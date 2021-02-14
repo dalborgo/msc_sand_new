@@ -1,19 +1,93 @@
-import React, { memo } from 'react'
+import React, { memo, useMemo } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { FastField, Field, Form, Formik } from 'formik'
 import { TextField } from 'formik-material-ui'
-import { Box, Button, TextField as TF } from '@material-ui/core'
+import {
+  Box,
+  Button,
+  TextField as TF,
+  Typography,
+  withStyles,
+} from '@material-ui/core'
 import { messages } from 'src/translations/messages'
 import { useNewBookingStore } from 'src/zustandStore'
 import { DatePicker } from '@material-ui/pickers'
 import { initialState } from 'src/zustandStore/useCertificateStore'
 import BookingAutocomplete from 'src/views/booking/NewBooking/BookingForm/BookingDataFields/BookingAutocomplete'
 import { getCountryList, getPortList } from '@adapter/common/src/msc'
+import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
+import MuiAccordion from '@material-ui/core/Accordion'
+import MuiAccordionSummary from '@material-ui/core/AccordionSummary'
+import MuiAccordionDetails from '@material-ui/core/AccordionDetails'
+import { THEMES } from 'src/constants'
+
+const Accordion = withStyles({
+  root: {
+    border: 0,
+    boxShadow: 'none',
+    '&:not(:last-child)': {
+      borderBottom: 0,
+    },
+    '&:before': {
+      display: 'none',
+    },
+    '&$expanded': {
+      margin: 'auto',
+    },
+  },
+  expanded: {},
+})(MuiAccordion)
+
+const AccordionDetails = withStyles(() => ({
+  root: {
+    display: 'block',
+  },
+}))(MuiAccordionDetails)
+
+const AccordionSummary = withStyles(theme => ({
+  root: {
+    color: theme.palette.text.secondary,
+    backgroundColor: 'none',
+    ...theme.name === THEMES.LIGHT ?
+      {
+        borderBottom: '1px solid #c4c4c4',
+      }
+      : {},
+    ...theme.name === THEMES.ONE_DARK ?
+      {
+        borderBottom: '1px solid #5a5d63',
+      }
+      : {},
+    marginBottom: theme.spacing(2),
+    padding: theme.spacing(0, 1),
+    minHeight: 0,
+    '&$expanded': {
+      minHeight: 0,
+    },
+  },
+  content: {
+    '&$expanded': {
+      margin: '0px 0',
+    },
+  },
+  expanded: {},
+}))(MuiAccordionSummary)
 
 const { typesOfGoods } = useNewBookingStore.getState()
-const FilterForm = memo(function FilterForm ({ countryPortDischarge, portDischarge, bookingRef, portLoading, typeOfGoods, bookingDateFrom, bookingDateTo, countryPortLoading, onSubmit }) {
+const FilterForm = memo(function FilterForm ({
+  bookingDateFrom,
+  bookingDateTo,
+  bookingRef,
+  countryPortDischarge,
+  countryPortLoading,
+  onSubmit,
+  portDischarge,
+  portLoading,
+  typeOfGoods,
+}) {
   console.log('%cRENDER_FORM', 'color: pink')
   const intl = useIntl()
+  const isPortFiltersExpanded = useMemo(() => Boolean(countryPortDischarge || portDischarge || portLoading || countryPortLoading), [countryPortDischarge, countryPortLoading, portDischarge, portLoading])
   return (
     <Formik
       initialValues={
@@ -84,7 +158,7 @@ const FilterForm = memo(function FilterForm ({ countryPortDischarge, portDischar
                 }
               />
             </Box>
-            <Box mb={3}>
+            <Box mb={1.5}>
               <FastField
                 as={TF}
                 fullWidth
@@ -116,57 +190,68 @@ const FilterForm = memo(function FilterForm ({ countryPortDischarge, portDischar
                 }
               </FastField>
             </Box>
-            <Box mb={3}>
-              <BookingAutocomplete
-                label={intl.formatMessage(messages['booking_country_port_loading'])}
-                list={getCountryList()}
-                name="countryPortLoading"
-                onChange={
-                  (_, value) => {
-                    setFieldValue('countryPortLoading', value)
-                    setFieldValue('portLoading', null)
-                  }
-                }
-              />
-            </Box>
-            <Box mb={3}>
-              <BookingAutocomplete
-                label={intl.formatMessage(messages['booking_port_loading'])}
-                list={getPortList(values['countryPortLoading']?.value)}
-                name="portLoading"
-                onChange={
-                  (_, value) => {
-                    setFieldValue('portLoading', value)
-                  }
-                }
-              />
-            </Box>
-            <Box mb={3}>
-              <BookingAutocomplete
-                label={intl.formatMessage(messages['booking_country_port_discharge'])}
-                list={getCountryList()}
-                name="countryPortDischarge"
-                onChange={
-                  (_, value) => {
-                    setFieldValue('countryPortDischarge', value)
-                    setFieldValue('portDischarge', null)
-                  }
-                }
-              />
-            </Box>
-            <Box mb={3}>
-              <BookingAutocomplete
-                label={intl.formatMessage(messages['booking_port_discharge'])}
-                list={getPortList(values['countryPortDischarge']?.value)}
-                name="portDischarge"
-                onChange={
-                  (_, value) => {
-                    setFieldValue('portDischarge', value)
-                  }
-                }
-              />
-            </Box>
-            <Box display="flex" justifyContent="flex-end">
+            <Accordion defaultExpanded={isPortFiltersExpanded}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon/>}
+              >
+                <Typography>
+                  <FormattedMessage defaultMessage="Port filters" id="certificates.filters_port_group"/>
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Box mb={3}>
+                  <BookingAutocomplete
+                    label={intl.formatMessage(messages['booking_country_port_loading'])}
+                    list={getCountryList()}
+                    name="countryPortLoading"
+                    onChange={
+                      (_, value) => {
+                        setFieldValue('countryPortLoading', value)
+                        setFieldValue('portLoading', null)
+                      }
+                    }
+                  />
+                </Box>
+                <Box mb={3}>
+                  <BookingAutocomplete
+                    label={intl.formatMessage(messages['booking_port_loading'])}
+                    list={getPortList(values['countryPortLoading']?.value)}
+                    name="portLoading"
+                    onChange={
+                      (_, value) => {
+                        setFieldValue('portLoading', value)
+                      }
+                    }
+                  />
+                </Box>
+                <Box mb={3}>
+                  <BookingAutocomplete
+                    label={intl.formatMessage(messages['booking_country_port_discharge'])}
+                    list={getCountryList()}
+                    name="countryPortDischarge"
+                    onChange={
+                      (_, value) => {
+                        setFieldValue('countryPortDischarge', value)
+                        setFieldValue('portDischarge', null)
+                      }
+                    }
+                  />
+                </Box>
+                <Box mb={0}>
+                  <BookingAutocomplete
+                    label={intl.formatMessage(messages['booking_port_discharge'])}
+                    list={getPortList(values['countryPortDischarge']?.value)}
+                    name="portDischarge"
+                    onChange={
+                      (_, value) => {
+                        setFieldValue('portDischarge', value)
+                      }
+                    }
+                  />
+                </Box>
+              </AccordionDetails>
+            </Accordion>
+            <Box display="flex" justifyContent="flex-end" mt={1.5}>
               <Box mr={2}>
                 <Button onClick={() => setValues(initialState.filter)} size="small" variant="contained">
                   <FormattedMessage defaultMessage="Clear" id="common.clear"/>

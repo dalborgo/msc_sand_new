@@ -264,8 +264,20 @@
     "defaultMessage": "Currency"
   },
   {
+    "id": "certificates.export_net_commission",
+    "defaultMessage": "Net commission"
+  },
+  {
+    "id": "certificates.export_net_prize",
+    "defaultMessage": "Net prize"
+  },
+  {
     "id": "certificates.export_number_containers",
     "defaultMessage": "# Containers"
+  },
+  {
+    "id": "certificates.filters_port_group",
+    "defaultMessage": "Port filters"
   },
   {
     "id": "certificates.list.header_title",

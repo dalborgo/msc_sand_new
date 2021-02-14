@@ -1,6 +1,14 @@
 import { defineMessages } from 'react-intl'
 
 export const messages = defineMessages({
+  certificates_export_net_prize: {
+    id: 'certificates.export_net_prize',
+    defaultMessage: 'Net prize',
+  },
+  certificates_export_net_commission: {
+    id: 'certificates.export_net_commission',
+    defaultMessage: 'Net commission',
+  },
   cause_TokenExpiredError: {
     id: 'cause.TokenExpiredError',
     defaultMessage: 'Session expired!',

@@ -6,7 +6,6 @@ const numberFields = ['numberContainers', 'goodsQuantity']
 const inMillisFields = ['goodsWeight', 'goodsValue', 'rate']
 const dateFields = ['bookingDate']
 export const checkValues = values => {
-  console.log(values)
   const newValues = validation.objectRemoveEmpty(validation.trimAll(values))
   if (!newValues.sender) {newValues.sender = 'MSC for whom it may concern'}
   if (!newValues.recipients[0]) {newValues.recipients[0] = 'To the orders as per Bill of Lading'}

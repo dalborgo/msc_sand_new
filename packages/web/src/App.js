@@ -62,7 +62,7 @@ const ConfirmIntlProvider = ({ children }) => {
         {
           cancellationText: intl.formatMessage(messages['common_cancel']),
           confirmationText: intl.formatMessage(messages['common_confirm']),
-          title: <Typography variant="h5">{intl.formatMessage(messages['common_confirm_operation'])}</Typography>,
+          title: <Typography component="span" variant="h5">{intl.formatMessage(messages['common_confirm_operation'])}</Typography>,
           dialogProps: {
             transitionDuration: 0,
             id: 'confirmDialog',
@@ -88,9 +88,9 @@ const ConfirmIntlProvider = ({ children }) => {
 
 const App = () => {
   const { settings } = useSettings()
-  const { locale = 'it' } = settings //in futuro default lingua browser per homepage prima del login
+  const { locale = 'it' } = settings // in futuro default lingua browser per homepage prima del login
   const { reset } = useQueryErrorResetBoundary()
-  //useMemo(() => {moment.locale(locale)}, [locale])  //altrimenti prende il secondo importato
+  //useMemo(() => {moment.locale(locale)}, [locale])  // altrimenti prende il secondo importato
   const theme = createTheme({
     direction: settings.direction,
     responsiveFontSizes: settings.responsiveFontSizes,

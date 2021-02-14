@@ -28,10 +28,10 @@ export const getConfirmExportText = (filter, intl) => {
     str += `${intl.formatMessage(messages['booking_port_loading'])}: <strong>${portLoading.value}${portLoading.key ? ` (${portLoading.key})` : ''}</strong><br/>`
   }
   if (countryPortDischarge) {
-    str += `${intl.formatMessage(messages['booking_country_port_loading'])}: <strong>${countryPortDischarge.value}</strong><br/>`
+    str += `${intl.formatMessage(messages['booking_country_port_discharge'])}: <strong>${countryPortDischarge.value}</strong><br/>`
   }
   if (portDischarge) {
-    str += `${intl.formatMessage(messages['booking_port_loading'])}: <strong>${portDischarge.value}${portDischarge.key ? ` (${portDischarge.key})` : ''}</strong><br/>`
+    str += `${intl.formatMessage(messages['booking_port_discharge'])}: <strong>${portDischarge.value}${portDischarge.key ? ` (${portDischarge.key})` : ''}</strong><br/>`
   }
   return str
 }
@@ -69,6 +69,8 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
     { key: 'cityDeliveryPoint', width: 25 },
     { key: 'from', width: 25 },
     { key: 'to', width: 25 },
+    { key: 'netPrize', width: 15, style: { numFmt: '#,##0.00' } },
+    { key: 'netCommission', width: 15, style: { numFmt: '#,##0.00' } },
     { key: 'moreGoodsDetails', width: 25 },
     { key: 'specialConditions', width: 25 },
   ]
@@ -130,7 +132,7 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
         gap++
         ws.addRow({
           policyNumber: intl.formatMessage(messages['booking_port_loading']) + ':',
-          bookingRef: filter[key]?.value,
+          bookingRef: filter[key]?.value+''+(filter[key]?.key ? ' ('+filter[key]?.key+')' : ''),
         })
         Object.assign(ws.getRow(gap).getCell(2), bold)
       }
@@ -146,7 +148,7 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
         gap++
         ws.addRow({
           policyNumber: intl.formatMessage(messages['booking_port_discharge']) + ':',
-          bookingRef: filter[key]?.value,
+          bookingRef: filter[key]?.value+''+(filter[key]?.key ? ' ('+filter[key]?.key+')' : ''),
         })
         Object.assign(ws.getRow(gap).getCell(2), bold)
       }
@@ -178,6 +180,8 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
     cityDeliveryPoint: intl.formatMessage(messages['booking_city_delivery_point']),
     from: intl.formatMessage(messages['booking_country_plus_port_loading']),
     to: intl.formatMessage(messages['booking_country_plus_port_discharge']),
+    netPrize: intl.formatMessage(messages['certificates_export_net_prize']),
+    netCommission: intl.formatMessage(messages['certificates_export_net_commission']),
     moreGoodsDetails: intl.formatMessage(messages['booking_more_goods_details']),
     specialConditions: intl.formatMessage(messages['booking_special_conditions']),
   })
@@ -199,16 +203,19 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
   }
   let bookingRefPrev = '', containerCount = 1
   for (let row of rows) {
+    const goodsValue = numeric.toFloat((row.goodsValue / 1000) || 0)
+    const rate = numeric.toFloat((row.rate / 1000) || 0)
+    const netPrize = goodsValue * rate / 100
     const bookingRow = {
       policyNumber: row.policyNumber,
       bookingRef: row.bookingRef,
       numberContainers: row.numberContainers || 0,
       bookingDate: row.bookingDate && new Date(row.bookingDate),
       currencyGoods: row.currencyGoods,
-      goodsValue: numeric.toFloat((row.goodsValue / 1000) || 0),
+      goodsValue,
       typeOfGoods: getTypeOfGood(row.typeOfGoods)?.value,
       goodsWeight: numeric.toFloat((row.goodsWeight / 1000) || 0),
-      rate: numeric.toFloat((row.rate / 1000) || 0),
+      rate,
       insuranceType: row.insuranceType,
       importantCustomer: row.importantCustomer ? intl.formatMessage(messages['common_yes']) : intl.formatMessage(messages['common_no']),
       reeferContainer: row.reeferContainer ? intl.formatMessage(messages['common_yes']) : intl.formatMessage(messages['common_no']),
@@ -221,6 +228,8 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
       cityDeliveryPoint: row.cityDeliveryPoint,
       from: `${row?.countryPortLoading?.value ?? ''}${row.portLoading?.value ? ` - ${row.portLoading?.value}` : ''}${row.portLoading?.key ? ` (${row.portLoading?.key})` : ''}`,
       to: `${row?.countryPortDischarge?.value ?? ''}${row.portDischarge?.value ? ` - ${row.portDischarge?.value}` : ''}${row.portDischarge?.key ? ` (${row.portDischarge?.key})` : ''}`,
+      netPrize,
+      netCommission: netPrize / 2,
       moreGoodsDetails: row.moreGoodsDetails,
       specialConditions: row.specialConditions,
     }
@@ -239,6 +248,8 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
           numberContainers: `${intl.formatMessage(messages['certificates_export_container_no'])} ${containerCount}`,
           goodsValue: bookingRow.goodsValue / bookingRow.numberContainers,
           goodsWeight: bookingRow.goodsWeight / bookingRow.numberContainers,
+          netPrize: bookingRow.netPrize / bookingRow.numberContainers,
+          netCommission: bookingRow.netCommission / bookingRow.numberContainers,
         })
       }
     }

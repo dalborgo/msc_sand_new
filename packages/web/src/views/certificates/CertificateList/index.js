@@ -173,7 +173,7 @@ const CertificateList = () => {
                   size="small"
                   variant="outlined"
                 >
-                  {intl.formatMessage(messages['certificates_export_booking'])}
+                  {intl.formatMessage(messages['certificates_export_containers'])}
                 </Button>
               </Box>
               &nbsp;&nbsp;
@@ -185,7 +185,7 @@ const CertificateList = () => {
                   size="small"
                   variant="outlined"
                 >
-                  {intl.formatMessage(messages['certificates_export_containers'])}
+                  {intl.formatMessage(messages['certificates_export_booking'])}
                 </Button>
               </Box>
               <Box>
