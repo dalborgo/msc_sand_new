@@ -4,6 +4,7 @@ import { useSnackbar } from 'notistack'
 import { Avatar, Box, ButtonBase, Hidden, makeStyles, Menu, MenuItem, Typography } from '@material-ui/core'
 import useAuth from 'src/hooks/useAuth'
 import log from '@adapter/common/src/log'
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -75,8 +76,9 @@ const Account = () => {
         PaperProps={{ className: classes.popover }}
         transitionDuration={0}
       >
-        <MenuItem onClick={handleLogout}>
-          Logout
+        <MenuItem dense onClick={handleLogout}>
+          <ExitToAppIcon/>
+          &nbsp;&nbsp;Logout
         </MenuItem>
       </Menu>
     </>

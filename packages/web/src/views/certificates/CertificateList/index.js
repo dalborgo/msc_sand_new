@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import Page from 'src/components/Page'
-import { Box, Button, makeStyles } from '@material-ui/core'
+import { Box, makeStyles } from '@material-ui/core'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { messages } from 'src/translations/messages'
 import StandardHeader from 'src/components/StandardHeader'
@@ -24,6 +24,7 @@ import { useSnackbar } from 'notistack'
 import { exportContainers, getConfirmExportText } from './utils'
 import parse from 'html-react-parser'
 import useAuth from 'src/hooks/useAuth'
+import ExportMenu from './ExportMenu'
 
 const useStyles = makeStyles(theme => ({
   block: {
@@ -53,13 +54,19 @@ const certificateSelector = state => ({
   reset: state.reset,
 })
 const loadingSel = state => ({ setLoading: state.setLoading, loading: state.loading })
+
 const CertificateList = () => {
   const classes = useStyles()
   const { user: { priority } } = useAuth()
   const snackQueryError = useSnackQueryError()
   const { enqueueSnackbar } = useSnackbar()
   const [isRefetch, setIsRefetch] = useState(false)
-  const { setLoading, loading } = useGeneralStore(loadingSel, shallow)
+  const { setLoading } = useGeneralStore(loadingSel, shallow)
+  const [anchorElExportMenu, setAnchorElExportMenu] = React.useState(null)
+  
+  const handleCloseExportMenu = () => {
+    setAnchorElExportMenu(null)
+  }
   const confirm = useConfirm()
   const intl = useIntl()
   const {
@@ -99,6 +106,7 @@ const CertificateList = () => {
       const { results } = await exportQuery('certificates/export', filter)
       const isBooking = event.target?.parentElement?.id === 'exportBooking'
       exportContainers(results, filter, intl, isBooking, priority)
+      handleCloseExportMenu()
       setLoading(false)
     } catch (err) {
       setLoading(false)
@@ -166,35 +174,15 @@ const CertificateList = () => {
           rightComponent={
             <Box alignItems="center" display="flex">
               <Box>
-                <Button
-                  disabled={loading}
-                  id="exportContainers"
-                  onClick={handleExport}
-                  size="small"
-                  variant="outlined"
-                >
-                  {intl.formatMessage(messages['certificates_export_containers'])}
-                </Button>
-              </Box>
-              &nbsp;&nbsp;
-              <Box mr={2}>
-                <Button
-                  disabled={loading}
-                  id="exportBooking"
-                  onClick={handleExport}
-                  size="small"
-                  variant="outlined"
-                >
-                  {intl.formatMessage(messages['certificates_export_booking'])}
-                </Button>
-              </Box>
-              <Box>
                 <IconButtonLoader
                   isFetching={effectiveFetching}
                   onClick={refetchOnClick}
                 />
               </Box>
               <Box ml={0.5}>
+                <ExportMenu anchorEl={anchorElExportMenu} handleExport={handleExport} onClose={handleCloseExportMenu} setAnchorEl={setAnchorElExportMenu}/>
+              </Box>
+              <Box ml={1}>
                 <FilterButton
                   isActive={isFilterActive}
                   onClick={switchOpenFilter}

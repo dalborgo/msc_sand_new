@@ -389,7 +389,7 @@
   },
   {
     "id": "common.export",
-    "defaultMessage": "Menu esportazione dati"
+    "defaultMessage": "Export"
   },
   {
     "id": "common.exportAll",

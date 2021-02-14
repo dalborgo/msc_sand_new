@@ -186,7 +186,7 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
     specialConditions: intl.formatMessage(messages['booking_special_conditions']),
   })
   const alignCenterCols = ['bookingDate', 'currencyGoods', 'importantCustomer', 'typeOfGoods', 'insuranceType', 'reeferContainer']
-  const alignRightCols = ['goodsValue', 'rate', 'goodsWeight', 'numberContainers'] // tieni numberContainers ultimo
+  const alignRightCols = ['goodsValue', 'rate', 'goodsWeight', 'numberContainers', 'netPrize', 'netCommission'] // tieni numberContainers ultimo
   if (!isBooking) {alignRightCols.pop()}
   const alignWrapCols = ['specialConditions', 'moreGoodsDetails']
   for (let colIndex = 1; colIndex <= columns.length; colIndex += 1) {

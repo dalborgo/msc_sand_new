@@ -2,13 +2,7 @@ import React, { memo, useMemo } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { FastField, Field, Form, Formik } from 'formik'
 import { TextField } from 'formik-material-ui'
-import {
-  Box,
-  Button,
-  TextField as TF,
-  Typography,
-  withStyles,
-} from '@material-ui/core'
+import { Box, Button, TextField as TF, Typography } from '@material-ui/core'
 import { messages } from 'src/translations/messages'
 import { useNewBookingStore } from 'src/zustandStore'
 import { DatePicker } from '@material-ui/pickers'
@@ -16,62 +10,7 @@ import { initialState } from 'src/zustandStore/useCertificateStore'
 import BookingAutocomplete from 'src/views/booking/NewBooking/BookingForm/BookingDataFields/BookingAutocomplete'
 import { getCountryList, getPortList } from '@adapter/common/src/msc'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
-import MuiAccordion from '@material-ui/core/Accordion'
-import MuiAccordionSummary from '@material-ui/core/AccordionSummary'
-import MuiAccordionDetails from '@material-ui/core/AccordionDetails'
-import { THEMES } from 'src/constants'
-
-const Accordion = withStyles({
-  root: {
-    border: 0,
-    boxShadow: 'none',
-    '&:not(:last-child)': {
-      borderBottom: 0,
-    },
-    '&:before': {
-      display: 'none',
-    },
-    '&$expanded': {
-      margin: 'auto',
-    },
-  },
-  expanded: {},
-})(MuiAccordion)
-
-const AccordionDetails = withStyles(() => ({
-  root: {
-    display: 'block',
-  },
-}))(MuiAccordionDetails)
-
-const AccordionSummary = withStyles(theme => ({
-  root: {
-    color: theme.palette.text.secondary,
-    backgroundColor: 'none',
-    ...theme.name === THEMES.LIGHT ?
-      {
-        borderBottom: '1px solid #c4c4c4',
-      }
-      : {},
-    ...theme.name === THEMES.ONE_DARK ?
-      {
-        borderBottom: '1px solid #5a5d63',
-      }
-      : {},
-    marginBottom: theme.spacing(2),
-    padding: theme.spacing(0, 1),
-    minHeight: 0,
-    '&$expanded': {
-      minHeight: 0,
-    },
-  },
-  content: {
-    '&$expanded': {
-      margin: '0px 0',
-    },
-  },
-  expanded: {},
-}))(MuiAccordionSummary)
+import { Accordion, AccordionDetails, AccordionSummary } from './comps'
 
 const { typesOfGoods } = useNewBookingStore.getState()
 const FilterForm = memo(function FilterForm ({
