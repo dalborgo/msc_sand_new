@@ -104,7 +104,7 @@ const CertificateList = () => {
       }
       setLoading(true)
       const { results } = await exportQuery('certificates/export', filter)
-      const isBooking = event.target?.parentElement?.id === 'exportBooking'
+      const isBooking = event.target?.id === 'exportBooking'
       exportContainers(results, filter, intl, isBooking, priority)
       handleCloseExportMenu()
       setLoading(false)
