@@ -10,7 +10,7 @@ import { Form, Formik } from 'formik'
 import BookingForm from './BookingForm'
 import { checkValues } from './validate'
 import { axiosLocalInstance, useSnackQueryError } from 'src/utils/reactQueryFunctions'
-import { useMutation, useQueryClient } from 'react-query'
+import { useMutation, useQuery, useQueryClient } from 'react-query'
 import { useGeneralStore } from 'src/zustandStore'
 import shallow from 'zustand/shallow'
 import { useSnackbar } from 'notistack'
@@ -43,6 +43,7 @@ const newBookingSelector = state => ({
 const loadingSel = state => ({ setLoading: state.setLoading })
 const NewBooking = () => {
   const snackQueryError = useSnackQueryError()
+  useQuery('jwt/check_session', { onError: snackQueryError })
   const { enqueueSnackbar } = useSnackbar()
   const classes = useStyles()
   const {

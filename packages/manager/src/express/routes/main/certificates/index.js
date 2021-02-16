@@ -6,6 +6,7 @@ import path from 'path'
 import fs from 'fs'
 import Q from 'q'
 import log from '@adapter/common/src/winston'
+import { security } from '../../../../helpers'
 
 const { utils, axios } = require(__helpers)
 const INITIAL_COUNT = 1000
@@ -68,6 +69,7 @@ function addRouters (router) {
     })
   })
   router.get('/certificates/list', async function (req, res) {
+    security.hasAuthorization(req.headers)
     const { connClass, query } = req
     utils.controlParameters(query, [])
     const {

@@ -3,7 +3,7 @@ import { couchQueries } from '@adapter/io'
 import config from 'config'
 import log from '@adapter/common/src/winston'
 import { cFunctions } from '@adapter/common'
-import { security } from '../../../../helpers'
+const { security } = require(__helpers)
 
 const { MAXAGE_MINUTES = 30, AUTH = 'boobs' } = config.get('express')
 const JWT_SECRET = AUTH

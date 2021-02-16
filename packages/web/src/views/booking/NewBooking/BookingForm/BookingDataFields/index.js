@@ -5,8 +5,8 @@ import { useIntl } from 'react-intl'
 import { messages } from 'src/translations/messages'
 import useNewBookingStore from 'src/zustandStore/useNewBookingStore'
 import shallow from 'zustand/shallow'
-import BookingAutocomplete from './BookingAutocomplete'
 import { DatePicker } from '@material-ui/pickers'
+import BookingAutocomplete from 'src/components/BookingAutocomplete'
 
 const { countryList, insuranceTypes } = useNewBookingStore.getState()
 const newBookingSelector = state => ({
