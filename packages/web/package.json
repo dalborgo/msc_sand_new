@@ -63,12 +63,12 @@
     "react-modal-image": "^2.5.0",
     "react-number-format": "^4.4.4",
     "react-perfect-scrollbar": "^1.5.8",
-    "react-query": "^3.9.7",
+    "react-query": "^3.9.8",
     "react-router": "^5.2.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.4",
     "read-blob": "^1.1.2",
-    "zustand": "^3.3.1"
+    "zustand": "^3.3.2"
   },
   "devDependencies": {
     "@welldone-software/why-did-you-render": "^6.0.5",

@@ -231,7 +231,6 @@ const NavBar = ({ setMobileNavOpen, openMobile }) => {
             </Box>
           </Box>
         </Box>
-
       </PerfectScrollbar>
     </Box>
   )
