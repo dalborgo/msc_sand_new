@@ -193,5 +193,15 @@
   "certificates.export_net_commission": "",
   "certificates.filters_port_group": "",
   "certificates.export_muw_commission": "",
-  "certificates.export_broker_fees": ""
+  "certificates.export_broker_fees": "",
+  "certificates.filters_value_group": "",
+  "booking.goods_value_min_filter": "",
+  "booking.goods_value_max_filter": "",
+  "certificates.filter_max": "",
+  "certificates.filter_min": "",
+  "certificates.filter_value_goods": "",
+  "certificates.filter_max_curr": "",
+  "certificates.filter_min_curr": "",
+  "certificates.max_goods_value": "",
+  "certificates.min_goods_value": ""
 }

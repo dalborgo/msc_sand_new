@@ -1,6 +1,6 @@
 import { couchQueries, ioFiles } from '@adapter/io'
 import { generateCertificatesInput } from './utils'
-import { validation } from '@adapter/common'
+import { numeric, validation } from '@adapter/common'
 import padStart from 'lodash/padStart'
 import path from 'path'
 import fs from 'fs'
@@ -35,7 +35,10 @@ export function applyFilter (knex_, filter) {
   if (filter.bookingRef) {knex_.whereRaw(`LOWER(bookingRef) like "%${filter.bookingRef.toLowerCase()}%"`)}
   const dateFrom = filter.bookingDateFrom || '1900-01-01'
   const dateTo = filter.bookingDateTo || '2100-01-01'
+  const minGoodsValue = filter.minGoodsValue ? numeric.normNumb(filter.minGoodsValue) : 0
+  const maxGoodsValue = filter.maxGoodsValue ? numeric.normNumb(filter.maxGoodsValue) : 999999999999
   if (filter.bookingDateFrom || filter.bookingDateTo) {knex_.whereBetween('bookingDate', [dateFrom, dateTo])}
+  if (filter.minGoodsValue || filter.maxGoodsValue) {knex_.whereBetween('goodsValue', [minGoodsValue, maxGoodsValue])}
 }
 
 function addRouters (router) {
@@ -86,6 +89,7 @@ function addRouters (router) {
     const knexStats_ = knex(bucketName)
       .select(knex.raw('IFNULL(SUM(numberContainers),0) totalContainers, SUM(CASE WHEN importantCustomer = TRUE THEN 1 ELSE 0 END) totalImportantCustomers'))
       .where({ type: 'CERTIFICATE' })
+    console.log('filter:', filter)
     applyFilter(knex_, filter)
     applyFilter(knexStats_, filter)
     const statement = knex_.toQuery()

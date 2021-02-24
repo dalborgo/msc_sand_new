@@ -1,6 +1,18 @@
 import { defineMessages } from 'react-intl'
 
 export const messages = defineMessages({
+  certificates_filter_min: {
+    id: 'certificates.filter_min',
+    defaultMessage: 'Min',
+  },
+  certificates_filter_max: {
+    id: 'certificates.filter_max',
+    defaultMessage: 'Max',
+  },
+  certificates_filter_value_goods: {
+    id: 'certificates.filter_value_goods',
+    defaultMessage: 'Goods',
+  },
   certificates_export_net_prize: {
     id: 'certificates.export_net_prize',
     defaultMessage: 'Net prize',
@@ -148,6 +160,14 @@ export const messages = defineMessages({
   certificates_column_booking_ref: {
     id: 'certificates.booking_ref',
     defaultMessage: 'Booking id',
+  },
+  certificates_column_min_goods_value: {
+    id: 'certificates.min_goods_value',
+    defaultMessage: 'Min goods value',
+  },
+  certificates_column_max_goods_value: {
+    id: 'certificates.max_goods_value',
+    defaultMessage: 'Max goods value',
   },
   certificates_column_port_loading: {
     id: 'certificates.port_loading',

@@ -193,5 +193,15 @@
   "certificates.export_net_commission": "MUW commission",
   "certificates.filters_port_group": "Port filters",
   "certificates.export_muw_commission": "MUW commission",
-  "certificates.export_broker_fees": "Broker fees"
+  "certificates.export_broker_fees": "Broker fees",
+  "certificates.filters_value_group": "Value filters",
+  "booking.goods_value_min_filter": "Min",
+  "booking.goods_value_max_filter": "Max",
+  "certificates.filter_max": "Max",
+  "certificates.filter_min": "Min",
+  "certificates.filter_value_goods": "Goods",
+  "certificates.filter_max_curr": "Max €",
+  "certificates.filter_min_curr": "Min €",
+  "certificates.max_goods_value": "Max goods value",
+  "certificates.min_goods_value": "Min goods value"
 }

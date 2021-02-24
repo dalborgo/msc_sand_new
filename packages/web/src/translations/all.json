@@ -120,6 +120,14 @@
     "defaultMessage": "Value of the goods maximum: {max}"
   },
   {
+    "id": "booking.goods_value_max_filter",
+    "defaultMessage": "Max"
+  },
+  {
+    "id": "booking.goods_value_min_filter",
+    "defaultMessage": "Min"
+  },
+  {
     "id": "booking.goods_weigh",
     "defaultMessage": "Goods weight (kg)"
   },
@@ -284,12 +292,44 @@
     "defaultMessage": "# Containers"
   },
   {
+    "id": "certificates.filter_max",
+    "defaultMessage": "Max"
+  },
+  {
+    "id": "certificates.filter_max_curr",
+    "defaultMessage": "Max €"
+  },
+  {
+    "id": "certificates.filter_min",
+    "defaultMessage": "Min"
+  },
+  {
+    "id": "certificates.filter_min_curr",
+    "defaultMessage": "Min €"
+  },
+  {
+    "id": "certificates.filter_value_goods",
+    "defaultMessage": "Goods"
+  },
+  {
     "id": "certificates.filters_port_group",
     "defaultMessage": "Port filters"
   },
   {
+    "id": "certificates.filters_value_group",
+    "defaultMessage": "Value filters"
+  },
+  {
     "id": "certificates.list.header_title",
     "defaultMessage": "Retrieve Certificate"
+  },
+  {
+    "id": "certificates.max_goods_value",
+    "defaultMessage": "Max goods value"
+  },
+  {
+    "id": "certificates.min_goods_value",
+    "defaultMessage": "Min goods value"
   },
   {
     "id": "certificates.policy_number",

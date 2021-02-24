@@ -15,7 +15,9 @@ export const getConfirmExportText = (filter, intl) => {
     bookingDateTo,
     countryPortLoading,
     portDischarge,
-    countryPortDischarge
+    countryPortDischarge,
+    maxGoodsValue,
+    minGoodsValue,
   } = filter
   str += `${intl.formatMessage(messages['certificates_confirm_export_text'])}<br/>`
   if (bookingRef) {
@@ -41,6 +43,12 @@ export const getConfirmExportText = (filter, intl) => {
   }
   if (portDischarge) {
     str += `${intl.formatMessage(messages['booking_port_discharge'])}: <strong>${portDischarge.value}${portDischarge.key ? ` (${portDischarge.key})` : ''}</strong><br/>`
+  }
+  if (minGoodsValue) {
+    str += `${intl.formatMessage(messages['certificates_column_min_goods_value'])}: <strong>${minGoodsValue}</strong><br/>`
+  }
+  if (maxGoodsValue) {
+    str += `${intl.formatMessage(messages['certificates_column_max_goods_value'])}: <strong>${maxGoodsValue}</strong><br/>`
   }
   return str
 }

@@ -2,7 +2,6 @@ import React, { memo } from 'react'
 import { Grid, Typography, withStyles } from '@material-ui/core'
 import { FormattedMessage } from 'react-intl'
 import isNumber from 'lodash/isNumber'
-import isNil from 'lodash/isNil'
 
 const typoStyle = theme => ({
   root: {
@@ -35,7 +34,7 @@ const StatsList = ({ stats }) => {
           <FormattedMessage defaultMessage="Total certificates:" id="certificates.stats_total"/>
         </Typo>
         <Typo bold>
-          {isNil(stats?.total) ? '' : 0}
+          {isNumber(stats?.total) ? stats?.total : ''}
         </Typo>
       </Grid>
       <Grid item style={{ minWidth: 170 }}>
@@ -43,7 +42,7 @@ const StatsList = ({ stats }) => {
           <FormattedMessage defaultMessage="Total containers:" id="certificates.stats_total_containers"/>
         </Typo>
         <Typo bold>
-          {stats?.totalContainers}
+          {isNumber(stats?.totalContainers) ? stats?.totalContainers : ''}
         </Typo>
       </Grid>
       <Grid item style={{ minWidth: 195 }}>
@@ -51,7 +50,7 @@ const StatsList = ({ stats }) => {
           <FormattedMessage defaultMessage="Important customers:" id="certificates.stats_important_customers"/>
         </Typo>
         <Typo bold>
-          {isNil(stats?.totalImportantCustomers) ? '' : 0}
+          {isNumber(stats?.totalImportantCustomers) ? stats?.totalImportantCustomers : ''}
         </Typo>
       </Grid>
       <Grid item style={{ minWidth: 195 }}>

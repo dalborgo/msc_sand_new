@@ -2,7 +2,7 @@ import React, { memo, useMemo } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { FastField, Field, Form, Formik } from 'formik'
 import { TextField } from 'formik-material-ui'
-import { Box, Button, TextField as TF, Typography } from '@material-ui/core'
+import { Box, Button, Grid, InputLabel, TextField as TF, Typography } from '@material-ui/core'
 import { messages } from 'src/translations/messages'
 import { useNewBookingStore } from 'src/zustandStore'
 import { DatePicker } from '@material-ui/pickers'
@@ -11,6 +11,7 @@ import BookingAutocomplete from 'src/components/BookingAutocomplete'
 import { getCountryList, getPortList } from '@adapter/common/src/msc'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { Accordion, AccordionDetails, AccordionSummary } from './comps'
+import NumberFormatComp from '../../../../components/NumberFormatComp'
 
 const { typesOfGoods } = useNewBookingStore.getState()
 const FilterForm = memo(function FilterForm ({
@@ -23,10 +24,13 @@ const FilterForm = memo(function FilterForm ({
   portDischarge,
   portLoading,
   typeOfGoods,
+  maxGoodsValue,
+  minGoodsValue,
 }) {
   console.log('%cRENDER_FORM', 'color: pink')
   const intl = useIntl()
   const isPortFiltersExpanded = useMemo(() => Boolean(countryPortDischarge || portDischarge || portLoading || countryPortLoading), [countryPortDischarge, countryPortLoading, portDischarge, portLoading])
+  const isValueFiltersExpanded = useMemo(() => Boolean(minGoodsValue || maxGoodsValue), [minGoodsValue, maxGoodsValue])
   return (
     <Formik
       initialValues={
@@ -39,6 +43,8 @@ const FilterForm = memo(function FilterForm ({
           portLoading,
           portDischarge,
           typeOfGoods,
+          minGoodsValue,
+          maxGoodsValue,
         }
       }
       onSubmit={onSubmit}
@@ -187,6 +193,58 @@ const FilterForm = memo(function FilterForm ({
                       }
                     }
                   />
+                </Box>
+              </AccordionDetails>
+            </Accordion>
+            <Accordion defaultExpanded={isValueFiltersExpanded}>
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon/>}
+              >
+                <Typography>
+                  <FormattedMessage defaultMessage="Value filters" id="certificates.filters_value_group"/>
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <Box mb={3}>
+                  <Grid alignItems="center" container spacing={1}>
+                    <Grid item xs={4}>
+                      <InputLabel>
+                        {intl.formatMessage(messages['certificates_filter_value_goods'])}
+                      </InputLabel>
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Field
+                        as={TF}
+                        InputProps={
+                          {
+                            inputComponent: NumberFormatComp,
+                            inputProps: {
+                              thousandSeparator: '.',
+                              decimalScale: 2,
+                            },
+                          }
+                        }
+                        label={intl.formatMessage(messages['certificates_filter_min'])}
+                        name="minGoodsValue"
+                      />
+                    </Grid>
+                    <Grid item xs={4}>
+                      <Field
+                        as={TF}
+                        InputProps={
+                          {
+                            inputComponent: NumberFormatComp,
+                            inputProps: {
+                              thousandSeparator: '.',
+                              decimalScale: 2,
+                            },
+                          }
+                        }
+                        label={intl.formatMessage(messages['certificates_filter_max'])}
+                        name="maxGoodsValue"
+                      />
+                    </Grid>
+                  </Grid>
                 </Box>
               </AccordionDetails>
             </Accordion>
