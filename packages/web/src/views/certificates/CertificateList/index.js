@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import Page from 'src/components/Page'
-import { Box, makeStyles } from '@material-ui/core'
+import { Box, Button, makeStyles } from '@material-ui/core'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { messages } from 'src/translations/messages'
 import StandardHeader from 'src/components/StandardHeader'
@@ -18,7 +18,7 @@ import { getEffectiveFetching } from 'src/utils/logics'
 import FilterForm from './FilterForm'
 import { cDate } from '@adapter/common'
 import StatsList from './StatsList'
-import { exportQuery } from 'src/utils/axios'
+import { exportQuery, manageFile } from 'src/utils/axios'
 import { useConfirm } from 'material-ui-confirm'
 import { useSnackbar } from 'notistack'
 import { exportContainers, getConfirmExportText } from './utils'
@@ -114,6 +114,40 @@ const CertificateList = () => {
       message && enqueueSnackbar(messages[message] ? intl.formatMessage(messages[message]) : message)
     }
   }, [countryPortDischarge, portDischarge, bookingRef, portLoading, countryPortLoading, typeOfGoods, bookingDateFrom, bookingDateTo, isFilterActive, setLoading, intl, priority, confirm, enqueueSnackbar])
+  const handleExport2 = useCallback(async () => {
+    try {
+      const filter = {
+        countryPortDischarge,
+        portDischarge,
+        bookingRef,
+        portLoading,
+        countryPortLoading,
+        typeOfGoods,
+        bookingDateFrom,
+        bookingDateTo,
+      }
+      if (isFilterActive) {
+        await confirm({
+          description: parse(getConfirmExportText(filter, intl)),
+        })
+      }
+      const code = 'prova'
+      setLoading(true)
+      const { ok, message } = await manageFile(
+        `soa/print/${code}`,
+        `${code}.pdf`,
+        'application/pdf',
+        { toSave: false },
+        { toDownload: false }
+      )
+      setLoading(false)
+      !ok && enqueueSnackbar(message)
+    } catch (err) {
+      setLoading(false)
+      const { message } = err || {}
+      message && enqueueSnackbar(messages[message] ? intl.formatMessage(messages[message]) : message)
+    }
+  }, [countryPortDischarge, portDischarge, bookingRef, portLoading, countryPortLoading, typeOfGoods, bookingDateFrom, bookingDateTo, isFilterActive, setLoading, intl, confirm, enqueueSnackbar])
   const { data, refetch, ...rest } = useQuery(getQueryKey(),
     {
       keepPreviousData: true,
@@ -129,7 +163,7 @@ const CertificateList = () => {
   }, [refetch])
   
   const effectiveFetching = getEffectiveFetching(rest, isRefetch)
-  useEffect(() => reset, [reset]) // reset senza parentesi: si passa la funzione non si esegue
+  useEffect(() => reset, [reset])// reset senza parentesi: si passa la funzione non si esegue
   const onFilterSubmit = useCallback(filter => {
     const normalizeFilter = {
       ...filter,
@@ -174,13 +208,25 @@ const CertificateList = () => {
           rightComponent={
             <Box alignItems="center" display="flex">
               <Box>
+                <Button
+                  onClick={handleExport2}
+                >
+                  SOA
+                </Button>
+              </Box>
+              <Box>
                 <IconButtonLoader
                   isFetching={effectiveFetching}
                   onClick={refetchOnClick}
                 />
               </Box>
               <Box ml={0.5}>
-                <ExportMenu anchorEl={anchorElExportMenu} handleExport={handleExport} onClose={handleCloseExportMenu} setAnchorEl={setAnchorElExportMenu}/>
+                <ExportMenu
+                  anchorEl={anchorElExportMenu}
+                  handleExport={handleExport}
+                  onClose={handleCloseExportMenu}
+                  setAnchorEl={setAnchorElExportMenu}
+                />
               </Box>
               <Box ml={1}>
                 <FilterButton

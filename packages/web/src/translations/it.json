@@ -190,6 +190,8 @@
   "certificates.export_container_no": "Container no.",
   "cause.TokenExpiredError": "Session expired!",
   "certificates.export_net_prize": "Net prize",
-  "certificates.export_net_commission": "Net commission",
-  "certificates.filters_port_group": "Port filters"
+  "certificates.export_net_commission": "MUW commission",
+  "certificates.filters_port_group": "Port filters",
+  "certificates.export_muw_commission": "MUW commission",
+  "certificates.export_broker_fees": "Broker fees"
 }

@@ -191,5 +191,7 @@
   "cause.TokenExpiredError": "",
   "certificates.export_net_prize": "",
   "certificates.export_net_commission": "",
-  "certificates.filters_port_group": ""
+  "certificates.filters_port_group": "",
+  "certificates.export_muw_commission": "",
+  "certificates.export_broker_fees": ""
 }

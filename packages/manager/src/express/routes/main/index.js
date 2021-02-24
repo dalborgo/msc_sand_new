@@ -3,6 +3,7 @@ import docs from './docs'
 import info from './info'
 import jwt from './jwt'
 import queries from './queries'
+import soa from './soa'
 import stats from './stats'
 import types from './types'
 
@@ -15,6 +16,7 @@ docs.addRouters(router)
 info.addRouters(router)
 jwt.addRouters(router)
 queries.addRouters(router)
+soa.addRouters(router)
 stats.addRouters(router)
 types.addRouters(router)
 

@@ -7,7 +7,16 @@ import { numeric } from '@adapter/common'
 
 export const getConfirmExportText = (filter, intl) => {
   let str = ''
-  const { bookingRef, portLoading, typeOfGoods, bookingDateFrom, bookingDateTo, countryPortLoading, portDischarge, countryPortDischarge } = filter
+  const {
+    bookingRef,
+    portLoading,
+    typeOfGoods,
+    bookingDateFrom,
+    bookingDateTo,
+    countryPortLoading,
+    portDischarge,
+    countryPortDischarge
+  } = filter
   str += `${intl.formatMessage(messages['certificates_confirm_export_text'])}<br/>`
   if (bookingRef) {
     str += `${intl.formatMessage(messages['certificates_column_booking_ref'])}: <strong>${bookingRef}</strong><br/>`
@@ -70,7 +79,8 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
     { key: 'from', width: 25 },
     { key: 'to', width: 25 },
     { key: 'netPrize', width: 15, style: { numFmt: '#,##0.00' } },
-    { key: 'netCommission', width: 15, style: { numFmt: '#,##0.00' } },
+    { key: 'brokerFees', width: 15, style: { numFmt: '#,##0.00' } },
+    { key: 'muwCommission', width: 15, style: { numFmt: '#,##0.00' } },
     { key: 'moreGoodsDetails', width: 25 },
     { key: 'specialConditions', width: 25 },
   ]
@@ -132,7 +142,7 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
         gap++
         ws.addRow({
           policyNumber: intl.formatMessage(messages['booking_port_loading']) + ':',
-          bookingRef: filter[key]?.value+''+(filter[key]?.key ? ' ('+filter[key]?.key+')' : ''),
+          bookingRef: filter[key]?.value + '' + (filter[key]?.key ? ' (' + filter[key]?.key + ')' : ''),
         })
         Object.assign(ws.getRow(gap).getCell(2), bold)
       }
@@ -148,7 +158,7 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
         gap++
         ws.addRow({
           policyNumber: intl.formatMessage(messages['booking_port_discharge']) + ':',
-          bookingRef: filter[key]?.value+''+(filter[key]?.key ? ' ('+filter[key]?.key+')' : ''),
+          bookingRef: filter[key]?.value + '' + (filter[key]?.key ? ' (' + filter[key]?.key + ')' : ''),
         })
         Object.assign(ws.getRow(gap).getCell(2), bold)
       }
@@ -181,12 +191,14 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
     from: intl.formatMessage(messages['booking_country_plus_port_loading']),
     to: intl.formatMessage(messages['booking_country_plus_port_discharge']),
     netPrize: intl.formatMessage(messages['certificates_export_net_prize']),
-    netCommission: intl.formatMessage(messages['certificates_export_net_commission']),
+    brokerFees: intl.formatMessage(messages['certificates_export_broker_fees']),
+    muwCommission: intl.formatMessage(messages['certificates_export_muw_commission']),
     moreGoodsDetails: intl.formatMessage(messages['booking_more_goods_details']),
     specialConditions: intl.formatMessage(messages['booking_special_conditions']),
   })
   const alignCenterCols = ['bookingDate', 'currencyGoods', 'importantCustomer', 'typeOfGoods', 'insuranceType', 'reeferContainer']
-  const alignRightCols = ['goodsValue', 'rate', 'goodsWeight', 'numberContainers', 'netPrize', 'netCommission'] // tieni numberContainers ultimo
+  // tieni numberContainers ultimo
+  const alignRightCols = ['goodsValue', 'rate', 'goodsWeight', 'netPrize', 'muwCommission', 'brokerFees', 'numberContainers']
   if (!isBooking) {alignRightCols.pop()}
   const alignWrapCols = ['specialConditions', 'moreGoodsDetails']
   for (let colIndex = 1; colIndex <= columns.length; colIndex += 1) {
@@ -229,7 +241,8 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
       from: `${row?.countryPortLoading?.value ?? ''}${row.portLoading?.value ? ` - ${row.portLoading?.value}` : ''}${row.portLoading?.key ? ` (${row.portLoading?.key})` : ''}`,
       to: `${row?.countryPortDischarge?.value ?? ''}${row.portDischarge?.value ? ` - ${row.portDischarge?.value}` : ''}${row.portDischarge?.key ? ` (${row.portDischarge?.key})` : ''}`,
       netPrize,
-      netCommission: netPrize / 2,
+      brokerFees: netPrize / 2,
+      muwCommission: netPrize * 2 / 100,
       moreGoodsDetails: row.moreGoodsDetails,
       specialConditions: row.specialConditions,
     }
@@ -249,7 +262,8 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
           goodsValue: bookingRow.goodsValue / bookingRow.numberContainers,
           goodsWeight: bookingRow.goodsWeight / bookingRow.numberContainers,
           netPrize: bookingRow.netPrize / bookingRow.numberContainers,
-          netCommission: bookingRow.netCommission / bookingRow.numberContainers,
+          brokerFees: bookingRow.brokerFees / bookingRow.numberContainers,
+          muwCommission: bookingRow.muwCommission / bookingRow.numberContainers,
         })
       }
     }

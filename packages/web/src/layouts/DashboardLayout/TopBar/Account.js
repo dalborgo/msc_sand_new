@@ -4,7 +4,7 @@ import { useSnackbar } from 'notistack'
 import { Avatar, Box, ButtonBase, Hidden, makeStyles, Menu, MenuItem, Typography } from '@material-ui/core'
 import useAuth from 'src/hooks/useAuth'
 import log from '@adapter/common/src/log'
-import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp'
 
 const useStyles = makeStyles(theme => ({
   avatar: {
@@ -22,6 +22,7 @@ const Account = () => {
   const history = useHistory()
   const ref = useRef(null)
   const { user, logout } = useAuth()
+
   const { enqueueSnackbar } = useSnackbar()
   const [isOpen, setOpen] = useState(false)
   
@@ -63,7 +64,7 @@ const Account = () => {
             color="inherit"
             variant="h6"
           >
-            {user?.display}
+            {user?.surname ? `${user?.surname} ${user?.name}` : user?.display}
           </Typography>
         </Hidden>
       </Box>

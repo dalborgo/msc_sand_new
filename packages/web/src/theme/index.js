@@ -38,7 +38,7 @@ const baseOptions = {
       transformOrigin:
         {
           vertical: -40,
-          horizontal: 'center',
+          horizontal: 'left',
         },
     },
     MuiTooltip: {
@@ -114,7 +114,7 @@ const themesOptions = [
         paper: colors.common.white,
       },
       primary: {
-        main: '#FECB00',
+        main: '#abe3ec',
       },
       secondary: {
         main: '#F67457',

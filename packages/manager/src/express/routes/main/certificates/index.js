@@ -26,7 +26,7 @@ async function getSequence (connClass) {
 
 const listFields = ['code', 'policyNumber', 'bookingRef', 'portDischarge', 'portLoading']
 
-function applyFilter (knex_, filter) {
+export function applyFilter (knex_, filter) {
   if (filter.typeOfGoods) {knex_.where({ typeOfGoods: filter.typeOfGoods })}
   if (filter.countryPortLoading) {knex_.where({ 'countryPortLoading.value': filter.countryPortLoading.value })}
   if (filter.portLoading) {knex_.where({ 'portLoading.key': filter.portLoading.key })}
@@ -40,6 +40,7 @@ function applyFilter (knex_, filter) {
 
 function addRouters (router) {
   router.post('/certificates/save', async function (req, res) {
+    security.hasAuthorization(req.headers)
     const { connClass, body } = req
     log.info('req.body', body)
     const { ok, results: sequence, message, err } = await getSequence(connClass)
@@ -60,6 +61,7 @@ function addRouters (router) {
       method: 'POST',
       responseType: 'blob',
     })*/
+    console.log('input:', input)
     res.send({
       ok: true, results: {
         containers: input.numberContainers,
@@ -101,6 +103,7 @@ function addRouters (router) {
     }
     const [stats] = statsResponse.results
     stats.total = listResponse.results.length
+    stats.totalImportantCustomers = stats.totalImportantCustomers || 0
     res.send({
       ok: true,
       results: {
@@ -110,8 +113,8 @@ function addRouters (router) {
     })
   })
   router.post('/certificates/export', async function (req, res) {
+    security.hasAuthorization(req.headers)
     const { connClass, body } = req
-    utils.controlParameters(body, [])
     const {
       bucketName = connClass.projectBucketName,
       options,
@@ -129,6 +132,7 @@ function addRouters (router) {
   })
   
   router.post('/certificates/print/:code', async function (req, res) {
+    security.hasAuthorization(req.headers)
     const basePath = 'src/express'
     const { connClass: { projectBucketCollection: collection }, params, body } = req, partial = {}
     utils.controlParameters(params, ['code'])

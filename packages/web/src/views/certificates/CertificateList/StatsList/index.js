@@ -2,6 +2,7 @@ import React, { memo } from 'react'
 import { Grid, Typography, withStyles } from '@material-ui/core'
 import { FormattedMessage } from 'react-intl'
 import isNumber from 'lodash/isNumber'
+import isNil from 'lodash/isNil'
 
 const typoStyle = theme => ({
   root: {
@@ -26,7 +27,7 @@ const Typo = withStyles(typoStyle)(props => {
 
 const StatsList = ({ stats }) => {
   const { total = 0, totalImportantCustomers = 0 } = stats || {}
-  const normalCustomers = total && isNumber(totalImportantCustomers) ? total - totalImportantCustomers : ''
+  const normalCustomers = total - totalImportantCustomers
   return (
     <Grid container>
       <Grid item style={{ minWidth: 170 }}>
@@ -34,7 +35,7 @@ const StatsList = ({ stats }) => {
           <FormattedMessage defaultMessage="Total certificates:" id="certificates.stats_total"/>
         </Typo>
         <Typo bold>
-          {stats?.total || ''}
+          {isNil(stats?.total) ? '' : 0}
         </Typo>
       </Grid>
       <Grid item style={{ minWidth: 170 }}>
@@ -50,7 +51,7 @@ const StatsList = ({ stats }) => {
           <FormattedMessage defaultMessage="Important customers:" id="certificates.stats_important_customers"/>
         </Typo>
         <Typo bold>
-          {stats?.totalImportantCustomers}
+          {isNil(stats?.totalImportantCustomers) ? '' : 0}
         </Typo>
       </Grid>
       <Grid item style={{ minWidth: 195 }}>
@@ -58,7 +59,7 @@ const StatsList = ({ stats }) => {
           <FormattedMessage defaultMessage="Normal customers:" id="certificates.stats_normal_customers"/>
         </Typo>
         <Typo bold>
-          {normalCustomers}
+          {isNumber(stats?.total) ? normalCustomers : ''}
         </Typo>
       </Grid>
     </Grid>

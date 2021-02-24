@@ -252,6 +252,10 @@
     "defaultMessage": "Export booking"
   },
   {
+    "id": "certificates.export_broker_fees",
+    "defaultMessage": "Broker fees"
+  },
+  {
     "id": "certificates.export_container_no",
     "defaultMessage": "Container no."
   },
@@ -264,8 +268,12 @@
     "defaultMessage": "Currency"
   },
   {
+    "id": "certificates.export_muw_commission",
+    "defaultMessage": "MUW commission"
+  },
+  {
     "id": "certificates.export_net_commission",
-    "defaultMessage": "Net commission"
+    "defaultMessage": "MUW commission"
   },
   {
     "id": "certificates.export_net_prize",

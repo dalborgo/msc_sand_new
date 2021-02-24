@@ -5,9 +5,13 @@ export const messages = defineMessages({
     id: 'certificates.export_net_prize',
     defaultMessage: 'Net prize',
   },
-  certificates_export_net_commission: {
-    id: 'certificates.export_net_commission',
-    defaultMessage: 'Net commission',
+  certificates_export_muw_commission: {
+    id: 'certificates.export_muw_commission',
+    defaultMessage: 'MUW commission',
+  },
+  certificates_export_broker_fees: {
+    id: 'certificates.export_broker_fees',
+    defaultMessage: 'Broker fees',
   },
   cause_TokenExpiredError: {
     id: 'cause.TokenExpiredError',

@@ -22,11 +22,12 @@ const setPriority = role => {
 
 const selectUserFields = identity => ({
   display: identity.user,
-  morse: identity.morse,
+  name: identity.name,
   priority: setPriority(identity.role),
+  surname: identity.surname,
 })
 
-const getQueryUserField = () => '`user`.`user`, `user`.`role`, `user`.`locales` '
+const getQueryUserField = () => '`user`.`user`, `user`.`name`, `user`.`surname`, `user`.`role`, `user`.`locales` '
 
 const getJwtReturnObj = (connClass, identity) => ({
   bucket: connClass.projectBucketName,
