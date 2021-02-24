@@ -3,7 +3,7 @@ import { getTypeOfGood } from '@adapter/common/src/msc'
 import { ToWords } from 'to-words'
 import get from 'lodash/get'
 
-export const generateInput = cert => {
+export const generateCertificatesInput = cert => {
   const toWords = new ToWords({ localeCode: 'en-US' })
   const typeOfGoods = getTypeOfGood(cert.typeOfGoods)
   let from, to

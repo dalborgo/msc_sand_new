@@ -1,5 +1,5 @@
 import { couchQueries, ioFiles } from '@adapter/io'
-import { generateInput } from './utils'
+import { generateSoaInput } from './utils'
 import path from 'path'
 import fs from 'fs'
 import Q from 'q'
@@ -29,9 +29,7 @@ function addRouters (router) {
     const statement = knex_.toQuery()
     const { ok, results: certificates, message, err } = await couchQueries.exec(statement, cluster, options)
     if (!ok) {return res.status(412).send({ ok, message, err })}
-    
     const basePath = 'src/express'
-
     const { code } = params
     const fileName = `soa_${code}.pdf`
     {
@@ -43,7 +41,7 @@ function addRouters (router) {
       }
     }
     const { toSave } = body
-    const input = generateInput(certificates)
+    const input = generateSoaInput(certificates)
     const filePath = path.resolve(`${basePath}/public/templates/soa.docx`)
     {
       const { ok, message, results } = await ioFiles.fillDocxTemplate(filePath, input)

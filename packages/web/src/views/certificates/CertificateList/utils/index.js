@@ -78,7 +78,7 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
     { key: 'cityDeliveryPoint', width: 25 },
     { key: 'from', width: 25 },
     { key: 'to', width: 25 },
-    { key: 'netPrize', width: 15, style: { numFmt: '#,##0.00' } },
+    { key: 'netPremium', width: 15, style: { numFmt: '#,##0.00' } },
     { key: 'brokerFees', width: 15, style: { numFmt: '#,##0.00' } },
     { key: 'muwCommission', width: 15, style: { numFmt: '#,##0.00' } },
     { key: 'moreGoodsDetails', width: 25 },
@@ -190,7 +190,7 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
     cityDeliveryPoint: intl.formatMessage(messages['booking_city_delivery_point']),
     from: intl.formatMessage(messages['booking_country_plus_port_loading']),
     to: intl.formatMessage(messages['booking_country_plus_port_discharge']),
-    netPrize: intl.formatMessage(messages['certificates_export_net_prize']),
+    netPremium: intl.formatMessage(messages['certificates_export_net_prize']),
     brokerFees: intl.formatMessage(messages['certificates_export_broker_fees']),
     muwCommission: intl.formatMessage(messages['certificates_export_muw_commission']),
     moreGoodsDetails: intl.formatMessage(messages['booking_more_goods_details']),
@@ -198,7 +198,7 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
   })
   const alignCenterCols = ['bookingDate', 'currencyGoods', 'importantCustomer', 'typeOfGoods', 'insuranceType', 'reeferContainer']
   // tieni numberContainers ultimo
-  const alignRightCols = ['goodsValue', 'rate', 'goodsWeight', 'netPrize', 'muwCommission', 'brokerFees', 'numberContainers']
+  const alignRightCols = ['goodsValue', 'rate', 'goodsWeight', 'netPremium', 'muwCommission', 'brokerFees', 'numberContainers']
   if (!isBooking) {alignRightCols.pop()}
   const alignWrapCols = ['specialConditions', 'moreGoodsDetails']
   for (let colIndex = 1; colIndex <= columns.length; colIndex += 1) {
@@ -217,7 +217,7 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
   for (let row of rows) {
     const goodsValue = numeric.toFloat((row.goodsValue / 1000) || 0)
     const rate = numeric.toFloat((row.rate / 1000) || 0)
-    const netPrize = goodsValue * rate / 100
+    const netPremium = goodsValue * rate / 100
     const bookingRow = {
       policyNumber: row.policyNumber,
       bookingRef: row.bookingRef,
@@ -240,9 +240,9 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
       cityDeliveryPoint: row.cityDeliveryPoint,
       from: `${row?.countryPortLoading?.value ?? ''}${row.portLoading?.value ? ` - ${row.portLoading?.value}` : ''}${row.portLoading?.key ? ` (${row.portLoading?.key})` : ''}`,
       to: `${row?.countryPortDischarge?.value ?? ''}${row.portDischarge?.value ? ` - ${row.portDischarge?.value}` : ''}${row.portDischarge?.key ? ` (${row.portDischarge?.key})` : ''}`,
-      netPrize,
-      brokerFees: netPrize / 2,
-      muwCommission: netPrize * 2 / 100,
+      netPremium,
+      brokerFees: netPremium / 2,
+      muwCommission: netPremium * 2 / 100,
       moreGoodsDetails: row.moreGoodsDetails,
       specialConditions: row.specialConditions,
     }
@@ -261,7 +261,7 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
           numberContainers: `${intl.formatMessage(messages['certificates_export_container_no'])} ${containerCount}`,
           goodsValue: bookingRow.goodsValue / bookingRow.numberContainers,
           goodsWeight: bookingRow.goodsWeight / bookingRow.numberContainers,
-          netPrize: bookingRow.netPrize / bookingRow.numberContainers,
+          netPremium: bookingRow.netPremium / bookingRow.numberContainers,
           brokerFees: bookingRow.brokerFees / bookingRow.numberContainers,
           muwCommission: bookingRow.muwCommission / bookingRow.numberContainers,
         })

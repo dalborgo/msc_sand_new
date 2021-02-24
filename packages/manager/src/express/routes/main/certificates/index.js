@@ -1,5 +1,5 @@
 import { couchQueries, ioFiles } from '@adapter/io'
-import { generateInput } from './utils'
+import { generateCertificatesInput } from './utils'
 import { validation } from '@adapter/common'
 import padStart from 'lodash/padStart'
 import path from 'path'
@@ -148,7 +148,7 @@ function addRouters (router) {
     }
     const { content: certificate } = await collection.get(`CERTIFICATE|${code}`)
     const { toSave } = body
-    const input = generateInput(certificate)
+    const input = generateCertificatesInput(certificate)
     const filePath = path.resolve(`${basePath}/public/templates/msc_certificate.docx`)
     {
       const { ok, message, results } = await ioFiles.fillDocxTemplate(filePath, input)
