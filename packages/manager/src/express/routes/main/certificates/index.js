@@ -39,6 +39,8 @@ export function applyFilter (knex_, filter) {
   const maxGoodsValue = filter.maxGoodsValue ? numeric.normNumb(filter.maxGoodsValue) : 999999999999
   if (filter.bookingDateFrom || filter.bookingDateTo) {knex_.whereBetween('bookingDate', [dateFrom, dateTo])}
   if (filter.minGoodsValue || filter.maxGoodsValue) {knex_.whereBetween('goodsValue', [minGoodsValue, maxGoodsValue])}
+  if(filter.typeRate === 'exception'){knex_.whereRaw('defaultRate is valued')}
+  if(filter.typeRate === 'not_exception'){knex_.whereRaw('defaultRate is missing')}
 }
 
 function addRouters (router) {
@@ -64,7 +66,6 @@ function addRouters (router) {
       method: 'POST',
       responseType: 'blob',
     })*/
-    console.log('input:', input)
     res.send({
       ok: true, results: {
         containers: input.numberContainers,
@@ -89,7 +90,6 @@ function addRouters (router) {
     const knexStats_ = knex(bucketName)
       .select(knex.raw('IFNULL(SUM(numberContainers),0) totalContainers, SUM(CASE WHEN importantCustomer = TRUE THEN 1 ELSE 0 END) totalImportantCustomers'))
       .where({ type: 'CERTIFICATE' })
-    console.log('filter:', filter)
     applyFilter(knex_, filter)
     applyFilter(knexStats_, filter)
     const statement = knex_.toQuery()

@@ -8,7 +8,7 @@ const MandatoryToggleButtonGroup = props => {
   } = props
   const onChange = React.useCallback(
     (event, value) => {
-      value && setFieldValue(name, value)
+      (value || value === '') && setFieldValue(name, value)
     },
     [setFieldValue, name]
   )

@@ -153,7 +153,7 @@ const CertificateList = () => {
       {...filters}
     />
     // eslint-disable-next-line
-  ), [onFilterSubmit, filters.bookingDateFrom, filters.bookingDateTo, filters.bookingRef, filters.countryPortDischarge, filters.countryPortLoading, filters.maxGoodsValue, filters.minGoodsValue, filters.portDischarge, filters.portLoading, filters.typeOfGoods])
+  ), [onFilterSubmit, filters.typeRate, filters.bookingDateFrom, filters.bookingDateTo, filters.bookingRef, filters.countryPortDischarge, filters.countryPortLoading, filters.maxGoodsValue, filters.minGoodsValue, filters.portDischarge, filters.portLoading, filters.typeOfGoods])
   return (
     <Page
       title={intl.formatMessage(messages['menu_certificate_list'])}

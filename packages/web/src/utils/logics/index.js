@@ -43,3 +43,14 @@ export const priorityToRole = priority => {
       return 'msc'
   }
 }
+
+export const typeRateLabel = typeRate => {
+  switch (typeRate) {
+    case 'exception':
+      return 'certificates_filter_exception'
+    case 'not_exception':
+      return 'certificates_filter_not_exception'
+    default:
+      return ''
+  }
+}

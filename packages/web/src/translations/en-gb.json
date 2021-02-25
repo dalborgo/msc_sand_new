@@ -203,5 +203,7 @@
   "certificates.filter_max_curr": "",
   "certificates.filter_min_curr": "",
   "certificates.max_goods_value": "",
-  "certificates.min_goods_value": ""
+  "certificates.min_goods_value": "",
+  "certificates.filter_exception": "",
+  "certificates.filter_not_exception": ""
 }

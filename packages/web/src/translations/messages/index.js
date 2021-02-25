@@ -1,6 +1,14 @@
 import { defineMessages } from 'react-intl'
 
 export const messages = defineMessages({
+  certificates_filter_exception: {
+    id: 'certificates.filter_exception',
+    defaultMessage: 'As a derogation',
+  },
+  certificates_filter_not_exception: {
+    id: 'certificates.filter_not_exception',
+    defaultMessage: 'Not as derogation',
+  },
   certificates_filter_min: {
     id: 'certificates.filter_min',
     defaultMessage: 'Min',
@@ -463,15 +471,11 @@ export const messages = defineMessages({
   },
   common_all: {
     id: 'common.all',
-    defaultMessage: 'Tutti',
+    defaultMessage: 'All',
   },
   common_total: {
     id: 'common.total',
-    defaultMessage: 'Totale',
-  },
-  common_covers: {
-    id: 'common.covers',
-    defaultMessage: 'Coperti',
+    defaultMessage: 'Total',
   },
   common_quantity: {
     id: 'common.quantity',
@@ -479,31 +483,15 @@ export const messages = defineMessages({
   },
   common_date: {
     id: 'common.date',
-    defaultMessage: 'Data',
+    defaultMessage: 'Date',
   },
   common_building: {
     id: 'common.building',
     defaultMessage: 'Struttura',
   },
-  common_cashed: {
-    id: 'common.income',
-    defaultMessage: 'Incassato',
-  },
-  common_type_document: {
-    id: 'common.type_of_document',
-    defaultMessage: 'Tipo di Documento',
-  },
-  common_type_payment: {
-    id: 'common.type_of_payment',
-    defaultMessage: 'Tipo di Pagamento',
-  },
-  common_discounts: {
-    id: 'common.discounts',
-    defaultMessage: 'Sconti',
-  },
   common_reversals: {
     id: 'common.reversals',
-    defaultMessage: 'Storni',
+    defaultMessage: 'Reversals',
   },
   network_error: {
     id: 'general.network_error',

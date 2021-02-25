@@ -2,7 +2,7 @@ import React, { memo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { FastField, Field, Form, Formik } from 'formik'
 import { TextField } from 'formik-material-ui'
-import { Box, Button, Grid, InputLabel, TextField as TF, Typography } from '@material-ui/core'
+import { Box, Button, Grid, InputLabel, makeStyles, TextField as TF, Typography } from '@material-ui/core'
 import { messages } from 'src/translations/messages'
 import { useNewBookingStore } from 'src/zustandStore'
 import { DatePicker } from '@material-ui/pickers'
@@ -11,15 +11,25 @@ import BookingAutocomplete from 'src/components/BookingAutocomplete'
 import { getCountryList, getPortList } from '@adapter/common/src/msc'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { Accordion, AccordionDetails, AccordionSummary } from './comps'
-import NumberFormatComp from '../../../../components/NumberFormatComp'
+import NumberFormatComp from 'src/components/NumberFormatComp'
+import MandatoryToggleButtonGroup from 'src/utils/formik/MandatoryToggleButtonGroup'
+import ToggleButton from '@material-ui/lab/ToggleButton'
+
+const useStyles = makeStyles((theme) => ({
+  toggleButton: {
+    fontSize: theme.typography.pxToRem(11),
+    padding: theme.spacing(0.8, 0.8),
+  },
+}))
 
 const { typesOfGoods } = useNewBookingStore.getState()
 const FilterForm = memo(function FilterForm (props) {
   const { onSubmit, ...filters } = props
+  const classes = useStyles()
   console.log('%cRENDER_FORM', 'color: pink')
   const intl = useIntl()
   const [isPortFiltersExpanded] = useState(Boolean(filters.countryPortDischarge || filters.portDischarge || filters.portLoading || filters.countryPortLoading))
-  const [isValueFiltersExpanded] = useState(Boolean(filters.minGoodsValue || filters.maxGoodsValue))
+  const [isValueFiltersExpanded] = useState(Boolean(filters.minGoodsValue || filters.maxGoodsValue || filters.typeRate))
   return (
     <Formik
       initialValues={filters}
@@ -120,7 +130,7 @@ const FilterForm = memo(function FilterForm (props) {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Box mb={3}>
+                <Box mb={1.5}>
                   <BookingAutocomplete
                     label={intl.formatMessage(messages['booking_country_port_loading'])}
                     list={getCountryList()}
@@ -181,7 +191,7 @@ const FilterForm = memo(function FilterForm (props) {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Box mb={3}>
+                <Box mb={1.5}>
                   <Grid alignItems="center" container spacing={1}>
                     <Grid item xs={4}>
                       <InputLabel>
@@ -219,6 +229,34 @@ const FilterForm = memo(function FilterForm (props) {
                         label={intl.formatMessage(messages['certificates_filter_max'])}
                         name="maxGoodsValue"
                       />
+                    </Grid>
+                  </Grid>
+                </Box>
+                <Box mb={0.5}>
+                  <Grid alignItems="center" container spacing={1}>
+                    <Grid item xs={4}>
+                      <InputLabel>
+                        {intl.formatMessage(messages['common_rate'])}
+                      </InputLabel>
+                    </Grid>
+                    <Grid item xs={8}>
+                      <FastField
+                        component={MandatoryToggleButtonGroup}
+                        exclusive
+                        name="typeRate"
+                        size="small"
+                        type="checkbox"
+                      >
+                        <ToggleButton classes={{ sizeSmall: classes.toggleButton }} disableRipple value="">
+                          {intl.formatMessage(messages['common_all'])}
+                        </ToggleButton>
+                        <ToggleButton classes={{ sizeSmall: classes.toggleButton }} disableRipple value="exception">
+                          {intl.formatMessage(messages['certificates_filter_exception'])}
+                        </ToggleButton>
+                        <ToggleButton classes={{ sizeSmall: classes.toggleButton }} disableRipple value="not_exception">
+                          {intl.formatMessage(messages['certificates_filter_not_exception'])}
+                        </ToggleButton>
+                      </FastField>
                     </Grid>
                   </Grid>
                 </Box>

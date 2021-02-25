@@ -292,6 +292,10 @@
     "defaultMessage": "# Containers"
   },
   {
+    "id": "certificates.filter_exception",
+    "defaultMessage": "As a derogation"
+  },
+  {
     "id": "certificates.filter_max",
     "defaultMessage": "Max"
   },
@@ -306,6 +310,10 @@
   {
     "id": "certificates.filter_min_curr",
     "defaultMessage": "Min €"
+  },
+  {
+    "id": "certificates.filter_not_exception",
+    "defaultMessage": "Not as derogation"
   },
   {
     "id": "certificates.filter_value_goods",
@@ -389,7 +397,7 @@
   },
   {
     "id": "common.all",
-    "defaultMessage": "Tutti"
+    "defaultMessage": "All"
   },
   {
     "id": "common.apply",
@@ -425,7 +433,7 @@
   },
   {
     "id": "common.date",
-    "defaultMessage": "Data"
+    "defaultMessage": "Date"
   },
   {
     "id": "common.discounts",
@@ -505,7 +513,7 @@
   },
   {
     "id": "common.reversals",
-    "defaultMessage": "Storni"
+    "defaultMessage": "Reversals"
   },
   {
     "id": "common.room",
@@ -545,7 +553,7 @@
   },
   {
     "id": "common.total",
-    "defaultMessage": "Totale"
+    "defaultMessage": "Total"
   },
   {
     "id": "common.transfers",
