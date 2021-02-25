@@ -7,48 +7,36 @@ import { numeric } from '@adapter/common'
 
 export const getConfirmExportText = (filter, intl) => {
   let str = ''
-  const {
-    bookingRef,
-    portLoading,
-    typeOfGoods,
-    bookingDateFrom,
-    bookingDateTo,
-    countryPortLoading,
-    portDischarge,
-    countryPortDischarge,
-    maxGoodsValue,
-    minGoodsValue,
-  } = filter
   str += `${intl.formatMessage(messages['certificates_confirm_export_text'])}<br/>`
-  if (bookingRef) {
-    str += `${intl.formatMessage(messages['certificates_column_booking_ref'])}: <strong>${bookingRef}</strong><br/>`
+  if (filter.bookingRef) {
+    str += `${intl.formatMessage(messages['certificates_column_booking_ref'])}: <strong>${filter.bookingRef}</strong><br/>`
   }
-  if (bookingDateFrom) {
-    str += `${intl.formatMessage(messages['certificates_filters_booking_date_from'])}: <strong>${moment(bookingDateFrom).format('DD/MM/YYYY')}</strong><br/>`
+  if (filter.bookingDateFrom) {
+    str += `${intl.formatMessage(messages['certificates_filters_booking_date_from'])}: <strong>${moment(filter.bookingDateFrom).format('DD/MM/YYYY')}</strong><br/>`
   }
-  if (bookingDateTo) {
-    str += `${intl.formatMessage(messages['certificates_filters_booking_date_to'])}: <strong>${moment(bookingDateTo).format('DD/MM/YYYY')}</strong><br/>`
+  if (filter.bookingDateTo) {
+    str += `${intl.formatMessage(messages['certificates_filters_booking_date_to'])}: <strong>${moment(filter.bookingDateTo).format('DD/MM/YYYY')}</strong><br/>`
   }
-  if (typeOfGoods) {
-    str += `${intl.formatMessage(messages['booking_type_goods'])}: <strong>${getTypeOfGood(typeOfGoods)?.value}</strong><br/>`
+  if (filter.typeOfGoods) {
+    str += `${intl.formatMessage(messages['booking_type_goods'])}: <strong>${getTypeOfGood(filter.typeOfGoods)?.value}</strong><br/>`
   }
-  if (countryPortLoading) {
-    str += `${intl.formatMessage(messages['booking_country_port_loading'])}: <strong>${countryPortLoading.value}</strong><br/>`
+  if (filter.countryPortLoading) {
+    str += `${intl.formatMessage(messages['booking_country_port_loading'])}: <strong>${filter.countryPortLoading.value}</strong><br/>`
   }
-  if (portLoading) {
-    str += `${intl.formatMessage(messages['booking_port_loading'])}: <strong>${portLoading.value}${portLoading.key ? ` (${portLoading.key})` : ''}</strong><br/>`
+  if (filter.portLoading) {
+    str += `${intl.formatMessage(messages['booking_port_loading'])}: <strong>${filter.portLoading.value}${filter.portLoading.key ? ` (${filter.portLoading.key})` : ''}</strong><br/>`
   }
-  if (countryPortDischarge) {
-    str += `${intl.formatMessage(messages['booking_country_port_discharge'])}: <strong>${countryPortDischarge.value}</strong><br/>`
+  if (filter.countryPortDischarge) {
+    str += `${intl.formatMessage(messages['booking_country_port_discharge'])}: <strong>${filter.countryPortDischarge.value}</strong><br/>`
   }
-  if (portDischarge) {
-    str += `${intl.formatMessage(messages['booking_port_discharge'])}: <strong>${portDischarge.value}${portDischarge.key ? ` (${portDischarge.key})` : ''}</strong><br/>`
+  if (filter.portDischarge) {
+    str += `${intl.formatMessage(messages['booking_port_discharge'])}: <strong>${filter.portDischarge.value}${filter.portDischarge.key ? ` (${filter.portDischarge.key})` : ''}</strong><br/>`
   }
-  if (minGoodsValue) {
-    str += `${intl.formatMessage(messages['certificates_column_min_goods_value'])}: <strong>${minGoodsValue}</strong><br/>`
+  if (filter.minGoodsValue) {
+    str += `${intl.formatMessage(messages['certificates_column_min_goods_value'])}: <strong>${filter.minGoodsValue}</strong><br/>`
   }
-  if (maxGoodsValue) {
-    str += `${intl.formatMessage(messages['certificates_column_max_goods_value'])}: <strong>${maxGoodsValue}</strong><br/>`
+  if (filter.maxGoodsValue) {
+    str += `${intl.formatMessage(messages['certificates_column_max_goods_value'])}: <strong>${filter.maxGoodsValue}</strong><br/>`
   }
   return str
 }
@@ -167,6 +155,22 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
         ws.addRow({
           policyNumber: intl.formatMessage(messages['booking_port_discharge']) + ':',
           bookingRef: filter[key]?.value + '' + (filter[key]?.key ? ' (' + filter[key]?.key + ')' : ''),
+        })
+        Object.assign(ws.getRow(gap).getCell(2), bold)
+      }
+      if (key === 'minGoodsValue') {
+        gap++
+        ws.addRow({
+          policyNumber: intl.formatMessage(messages['certificates_column_min_goods_value']) + ':',
+          bookingRef: filter[key],
+        })
+        Object.assign(ws.getRow(gap).getCell(2), bold)
+      }
+      if (key === 'maxGoodsValue') {
+        gap++
+        ws.addRow({
+          policyNumber: intl.formatMessage(messages['certificates_column_max_goods_value']) + ':',
+          bookingRef: filter[key],
         })
         Object.assign(ws.getRow(gap).getCell(2), bold)
       }

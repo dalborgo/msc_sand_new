@@ -12,6 +12,7 @@ import { useSnackbar } from 'notistack'
 import { makeStyles, Typography } from '@material-ui/core'
 import useAuth from 'src/hooks/useAuth'
 import DataLayout from './DataLayout'
+import { priorityToRole } from 'src/utils/logics'
 
 const useStyles = makeStyles(theme => ({
   dialogActions: {
@@ -41,7 +42,7 @@ export default function ConfirmDialog ({ saveCertificate, bookingFromRef }) {
   const { enqueueSnackbar } = useSnackbar()
   const save = useCallback(async () => {
     try {
-      const { ok } = await saveCertificate({ ...values, _createdBy: user.display })
+      const { ok } = await saveCertificate({ ...values, _createdBy: { user: user.display, role: priorityToRole(user.priority) } })
       if (ok) {
         handleClose()
         bookingFromRef.current.resetForm()
@@ -50,7 +51,7 @@ export default function ConfirmDialog ({ saveCertificate, bookingFromRef }) {
       const { message } = err || {}
       message && enqueueSnackbar(messages[message] ? intl.formatMessage(messages[message]) : message)
     }
-  }, [bookingFromRef, enqueueSnackbar, handleClose, intl, saveCertificate, user.display, values])
+  }, [bookingFromRef, enqueueSnackbar, handleClose, intl, saveCertificate, user.display, user.priority, values])
   
   return (
     <Dialog

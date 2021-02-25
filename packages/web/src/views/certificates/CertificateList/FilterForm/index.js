@@ -1,4 +1,4 @@
-import React, { memo, useMemo } from 'react'
+import React, { memo, useState } from 'react'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { FastField, Field, Form, Formik } from 'formik'
 import { TextField } from 'formik-material-ui'
@@ -14,39 +14,15 @@ import { Accordion, AccordionDetails, AccordionSummary } from './comps'
 import NumberFormatComp from '../../../../components/NumberFormatComp'
 
 const { typesOfGoods } = useNewBookingStore.getState()
-const FilterForm = memo(function FilterForm ({
-  bookingDateFrom,
-  bookingDateTo,
-  bookingRef,
-  countryPortDischarge,
-  countryPortLoading,
-  onSubmit,
-  portDischarge,
-  portLoading,
-  typeOfGoods,
-  maxGoodsValue,
-  minGoodsValue,
-}) {
+const FilterForm = memo(function FilterForm (props) {
+  const { onSubmit, ...filters } = props
   console.log('%cRENDER_FORM', 'color: pink')
   const intl = useIntl()
-  const isPortFiltersExpanded = useMemo(() => Boolean(countryPortDischarge || portDischarge || portLoading || countryPortLoading), [countryPortDischarge, countryPortLoading, portDischarge, portLoading])
-  const isValueFiltersExpanded = useMemo(() => Boolean(minGoodsValue || maxGoodsValue), [minGoodsValue, maxGoodsValue])
+  const [isPortFiltersExpanded] = useState(Boolean(filters.countryPortDischarge || filters.portDischarge || filters.portLoading || filters.countryPortLoading))
+  const [isValueFiltersExpanded] = useState(Boolean(filters.minGoodsValue || filters.maxGoodsValue))
   return (
     <Formik
-      initialValues={
-        {
-          bookingDateFrom,
-          bookingDateTo,
-          bookingRef,
-          countryPortLoading,
-          countryPortDischarge,
-          portLoading,
-          portDischarge,
-          typeOfGoods,
-          minGoodsValue,
-          maxGoodsValue,
-        }
-      }
+      initialValues={filters}
       onSubmit={onSubmit}
     >
       {
@@ -213,7 +189,7 @@ const FilterForm = memo(function FilterForm ({
                       </InputLabel>
                     </Grid>
                     <Grid item xs={4}>
-                      <Field
+                      <FastField
                         as={TF}
                         InputProps={
                           {
@@ -229,7 +205,7 @@ const FilterForm = memo(function FilterForm ({
                       />
                     </Grid>
                     <Grid item xs={4}>
-                      <Field
+                      <FastField
                         as={TF}
                         InputProps={
                           {

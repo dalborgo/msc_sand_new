@@ -32,3 +32,14 @@ export const getMaxGoodsValue = (reeferContainer, currencyGoods = 'EUR') => {
     return `100.000 ${currencyGoods}`
   }
 }
+
+export const priorityToRole = priority => {
+  switch (priority) {
+    case 4:
+      return 'admin'
+    case 3:
+      return 'broker'
+    default:
+      return 'msc'
+  }
+}

@@ -16,7 +16,7 @@ import shallow from 'zustand/shallow'
 import RightDrawer from 'src/components/RightDrawer'
 import { getEffectiveFetching } from 'src/utils/logics'
 import FilterForm from './FilterForm'
-import { cDate, numeric } from '@adapter/common'
+import { cDate } from '@adapter/common'
 import StatsList from './StatsList'
 import { exportQuery, manageFile } from 'src/utils/axios'
 import { useConfirm } from 'material-ui-confirm'
@@ -25,6 +25,8 @@ import { exportContainers, getConfirmExportText } from './utils'
 import parse from 'html-react-parser'
 import useAuth from 'src/hooks/useAuth'
 import ExportMenu from './ExportMenu'
+import isEmpty from 'lodash/isEmpty'
+import pickBy from 'lodash/pickBy'
 
 const useStyles = makeStyles(theme => ({
   block: {
@@ -32,28 +34,19 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     padding: 0,
-    [theme.breakpoints.down('sm')]: { //mobile
+    [theme.breakpoints.down('sm')]: {// mobile
       padding: theme.spacing(0, 2),
     },
   },
 }))
 
 const certificateSelector = state => ({
-  bookingDateFrom: state.filter.bookingDateFrom,
-  bookingDateTo: state.filter.bookingDateTo,
-  bookingRef: state.filter.bookingRef,
-  countryPortDischarge: state.filter.countryPortDischarge,
-  countryPortLoading: state.filter.countryPortLoading,
   getQueryKey: state.getQueryKey,
-  maxGoodsValue: state.filter.maxGoodsValue,
-  minGoodsValue: state.filter.minGoodsValue,
   openFilter: state.openFilter,
-  portDischarge: state.filter.portDischarge,
-  portLoading: state.filter.portLoading,
   submitFilter: state.submitFilter,
   switchOpenFilter: state.switchOpenFilter,
-  typeOfGoods: state.filter.typeOfGoods,
   reset: state.reset,
+  ...state.filter,
 })
 const loadingSel = state => ({ setLoading: state.setLoading, loading: state.loading })
 
@@ -72,36 +65,18 @@ const CertificateList = () => {
   const confirm = useConfirm()
   const intl = useIntl()
   const {
-    bookingDateFrom,
-    bookingDateTo,
-    bookingRef,
-    countryPortDischarge,
-    countryPortLoading,
     getQueryKey,
-    maxGoodsValue,
-    minGoodsValue,
     openFilter,
-    portDischarge,
-    portLoading,
     reset,
     submitFilter,
     switchOpenFilter,
-    typeOfGoods,
+    ...filters
   } = useCertificateStore(certificateSelector, shallow)
-  const isFilterActive = useMemo(() => Boolean(maxGoodsValue || minGoodsValue || countryPortDischarge || portDischarge || bookingRef || portLoading || countryPortLoading || typeOfGoods || bookingDateFrom || bookingDateTo), [bookingDateFrom, bookingDateTo, bookingRef, countryPortDischarge, countryPortLoading, maxGoodsValue, minGoodsValue, portDischarge, portLoading, typeOfGoods])
+  const isFilterActive = useMemo(() => !isEmpty(pickBy(filters, elem => Boolean(elem) === true)), [filters])
   const handleExport = useCallback(async event => {
     try {
       const filter = {
-        countryPortDischarge,
-        portDischarge,
-        bookingRef,
-        portLoading,
-        maxGoodsValue,
-        minGoodsValue,
-        countryPortLoading,
-        typeOfGoods,
-        bookingDateFrom,
-        bookingDateTo,
+        ...filters,
       }
       if (isFilterActive) {
         await confirm({
@@ -119,20 +94,11 @@ const CertificateList = () => {
       const { message } = err || {}
       message && enqueueSnackbar(messages[message] ? intl.formatMessage(messages[message]) : message)
     }
-  }, [countryPortDischarge, portDischarge, bookingRef, portLoading, maxGoodsValue, minGoodsValue, countryPortLoading, typeOfGoods, bookingDateFrom, bookingDateTo, isFilterActive, setLoading, intl, priority, confirm, enqueueSnackbar])
+  }, [confirm, enqueueSnackbar, intl, isFilterActive, priority, filters, setLoading])
   const handleExport2 = useCallback(async () => {
     try {
       const filter = {
-        countryPortDischarge,
-        portDischarge,
-        bookingRef,
-        portLoading,
-        maxGoodsValue,
-        minGoodsValue,
-        countryPortLoading,
-        typeOfGoods,
-        bookingDateFrom,
-        bookingDateTo,
+        ...filters,
       }
       if (isFilterActive) {
         await confirm({
@@ -155,7 +121,7 @@ const CertificateList = () => {
       const { message } = err || {}
       message && enqueueSnackbar(messages[message] ? intl.formatMessage(messages[message]) : message)
     }
-  }, [countryPortDischarge, portDischarge, bookingRef, portLoading, maxGoodsValue, minGoodsValue, countryPortLoading, typeOfGoods, bookingDateFrom, bookingDateTo, isFilterActive, setLoading, enqueueSnackbar, confirm, intl])
+  }, [filters, isFilterActive, setLoading, enqueueSnackbar, confirm, intl])
   const { data, refetch, ...rest } = useQuery(getQueryKey(),
     {
       keepPreviousData: true,
@@ -183,19 +149,11 @@ const CertificateList = () => {
   }, [submitFilter])
   const FilterFormWr = useMemo(() => (
     <FilterForm
-      bookingDateFrom={bookingDateFrom}
-      bookingDateTo={bookingDateTo}
-      bookingRef={bookingRef}
-      countryPortDischarge={countryPortDischarge}
-      countryPortLoading={countryPortLoading}
-      maxGoodsValue={maxGoodsValue}
-      minGoodsValue={minGoodsValue}
       onSubmit={onFilterSubmit}
-      portDischarge={portDischarge}
-      portLoading={portLoading}
-      typeOfGoods={typeOfGoods}
+      {...filters}
     />
-  ), [bookingDateFrom, bookingDateTo, bookingRef, countryPortDischarge, countryPortLoading, maxGoodsValue, minGoodsValue, onFilterSubmit, portDischarge, portLoading, typeOfGoods])
+    // eslint-disable-next-line
+  ), [onFilterSubmit, filters.bookingDateFrom, filters.bookingDateTo, filters.bookingRef, filters.countryPortDischarge, filters.countryPortLoading, filters.maxGoodsValue, filters.minGoodsValue, filters.portDischarge, filters.portLoading, filters.typeOfGoods])
   return (
     <Page
       title={intl.formatMessage(messages['menu_certificate_list'])}
