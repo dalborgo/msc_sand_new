@@ -81,12 +81,12 @@ const saveStreamFile = (stream, destination) => {
     })
   })
 }
-const saveAndCreateDir = async (folder, fileName, buffer) => {
+const saveAndCreateDir = async (folder, filename, buffer) => {
   try {
     const toSavePath = path.resolve(folder)
     const dirExists = fs.existsSync(toSavePath)
     !dirExists && await Q.nfcall(fs.mkdir, toSavePath)
-    await Q.nfcall(fs.writeFile, path.resolve(toSavePath, fileName), buffer)
+    await Q.nfcall(fs.writeFile, path.resolve(toSavePath, filename), buffer)
     return { ok: true }
   } catch (err) {
     log.error(err.message)

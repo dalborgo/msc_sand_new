@@ -11,7 +11,7 @@ const instance = axios.create({
   },
 })
 
-export async function manageFile (endpoint, fileName, type, data, options = {}) {
+export async function manageFile (endpoint, filename, type, data, options = {}) {
   try {
     const {
       method = 'POST',
@@ -27,7 +27,7 @@ export async function manageFile (endpoint, fileName, type, data, options = {}) 
       const json = await readBlob(response.data, 'application/json')
       return JSON.parse(json)
     } else {
-      const file = new File([response.data], fileName, { type })
+      const file = new File([response.data], filename, { type })
       if (toDownload) {
         FileSaver.saveAs(file)
       } else {

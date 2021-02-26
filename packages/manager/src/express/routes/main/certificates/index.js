@@ -141,9 +141,9 @@ function addRouters (router) {
     const { connClass: { projectBucketCollection: collection }, params, body } = req, partial = {}
     utils.controlParameters(params, ['code'])
     const { code } = params
-    const fileName = `cert_${code}.pdf`
+    const filename = `cert_${code}.pdf`
     {
-      const savedFilePath = path.resolve(`${basePath}/crypt/${code}/${fileName}`)
+      const savedFilePath = path.resolve(`${basePath}/crypt/${code}/${filename}`)
       const pathExists = fs.existsSync(savedFilePath)
       if (pathExists) {
         const data = await Q.nfcall(fs.readFile, savedFilePath)
@@ -166,7 +166,7 @@ function addRouters (router) {
       partial.correct &= ok
       res.send(results)
       if (partial.correct && toSave) {
-        await ioFiles.saveAndCreateDir(`${basePath}/crypt/${code}/`, fileName, results)
+        await ioFiles.saveAndCreateDir(`${basePath}/crypt/${code}/`, filename, results)
       }
     }
   })

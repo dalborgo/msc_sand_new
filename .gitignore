@@ -11,6 +11,7 @@
 yarn.lock
 ~*.docx
 ~*.tmp
+*.pdf
 /packages/web/.eslintcache
 /packages/web/.env
 /packages/manager/src/express/routes/main/routines/files/

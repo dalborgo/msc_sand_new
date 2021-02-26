@@ -3,7 +3,7 @@ import { defineMessages } from 'react-intl'
 export const messages = defineMessages({
   certificates_filter_exception: {
     id: 'certificates.filter_exception',
-    defaultMessage: 'As a derogation',
+    defaultMessage: 'As derogation',
   },
   certificates_filter_not_exception: {
     id: 'certificates.filter_not_exception',

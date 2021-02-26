@@ -53,7 +53,7 @@ const wrap = { alignment: { wrapText: true } }
 const lightBlue = { fill: { type: 'pattern', pattern: 'solid', fgColor: { argb: 'CEDFE4' } } }
 
 export const exportContainers = (rows, filter, intl, isBooking, priority) => {
-  const fileName = isBooking ? 'booking-export' : 'containers-export'
+  const filename = isBooking ? 'booking-export' : 'containers-export'
   const workbook = new ExcelJS.Workbook()
   const ws = workbook.addWorksheet('Export')
   const columns = [
@@ -293,6 +293,6 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
     }
   }
   workbook.xlsx.writeBuffer().then(buffer => {
-    saveAs(new Blob([buffer], { type: 'application/octet-stream' }), `${fileName}.xlsx`)
+    saveAs(new Blob([buffer], { type: 'application/octet-stream' }), `${filename}.xlsx`)
   })
 }

@@ -14,11 +14,15 @@ import { Accordion, AccordionDetails, AccordionSummary } from './comps'
 import NumberFormatComp from 'src/components/NumberFormatComp'
 import MandatoryToggleButtonGroup from 'src/utils/formik/MandatoryToggleButtonGroup'
 import ToggleButton from '@material-ui/lab/ToggleButton'
+import useAuth from 'src/hooks/useAuth'
 
 const useStyles = makeStyles((theme) => ({
   toggleButton: {
     fontSize: theme.typography.pxToRem(11),
     padding: theme.spacing(0.8, 0.8),
+  },
+  lastAccordion: {
+    marginBottom: theme.spacing(2),
   },
 }))
 
@@ -26,6 +30,7 @@ const { typesOfGoods } = useNewBookingStore.getState()
 const FilterForm = memo(function FilterForm (props) {
   const { onSubmit, ...filters } = props
   const classes = useStyles()
+  const { user: { priority } } = useAuth()
   console.log('%cRENDER_FORM', 'color: pink')
   const intl = useIntl()
   const [isPortFiltersExpanded] = useState(Boolean(filters.countryPortDischarge || filters.portDischarge || filters.portLoading || filters.countryPortLoading))
@@ -130,7 +135,7 @@ const FilterForm = memo(function FilterForm (props) {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                <Box mb={1.5}>
+                <Box mb={3}>
                   <BookingAutocomplete
                     label={intl.formatMessage(messages['booking_country_port_loading'])}
                     list={getCountryList()}
@@ -182,7 +187,7 @@ const FilterForm = memo(function FilterForm (props) {
                 </Box>
               </AccordionDetails>
             </Accordion>
-            <Accordion defaultExpanded={isValueFiltersExpanded}>
+            <Accordion className={classes.lastAccordion} defaultExpanded={isValueFiltersExpanded}>
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon/>}
               >
@@ -190,8 +195,8 @@ const FilterForm = memo(function FilterForm (props) {
                   <FormattedMessage defaultMessage="Value filters" id="certificates.filters_value_group"/>
                 </Typography>
               </AccordionSummary>
-              <AccordionDetails>
-                <Box mb={1.5}>
+              <AccordionDetails className={classes.lastAccordion}>
+                <Box>
                   <Grid alignItems="center" container spacing={1}>
                     <Grid item xs={4}>
                       <InputLabel>
@@ -232,37 +237,52 @@ const FilterForm = memo(function FilterForm (props) {
                     </Grid>
                   </Grid>
                 </Box>
-                <Box mb={0.5}>
-                  <Grid alignItems="center" container spacing={1}>
-                    <Grid item xs={4}>
-                      <InputLabel>
-                        {intl.formatMessage(messages['common_rate'])}
-                      </InputLabel>
+                {
+                  priority === 4 &&
+                  <Box mt={1}>
+                    <Grid alignItems="center" container spacing={1}>
+                      <Grid item xs={4}>
+                        <InputLabel>
+                          {intl.formatMessage(messages['common_rate'])}
+                        </InputLabel>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <FastField
+                          component={MandatoryToggleButtonGroup}
+                          exclusive
+                          name="typeRate"
+                          size="small"
+                          type="checkbox"
+                        >
+                          <ToggleButton
+                            classes={{ sizeSmall: classes.toggleButton }}
+                            disableRipple
+                            value=""
+                          >
+                            {intl.formatMessage(messages['common_all'])}
+                          </ToggleButton>
+                          <ToggleButton
+                            classes={{ sizeSmall: classes.toggleButton }}
+                            disableRipple
+                            value="exception"
+                          >
+                            {intl.formatMessage(messages['certificates_filter_exception'])}
+                          </ToggleButton>
+                          <ToggleButton
+                            classes={{ sizeSmall: classes.toggleButton }}
+                            disableRipple
+                            value="not_exception"
+                          >
+                            {intl.formatMessage(messages['certificates_filter_not_exception'])}
+                          </ToggleButton>
+                        </FastField>
+                      </Grid>
                     </Grid>
-                    <Grid item xs={8}>
-                      <FastField
-                        component={MandatoryToggleButtonGroup}
-                        exclusive
-                        name="typeRate"
-                        size="small"
-                        type="checkbox"
-                      >
-                        <ToggleButton classes={{ sizeSmall: classes.toggleButton }} disableRipple value="">
-                          {intl.formatMessage(messages['common_all'])}
-                        </ToggleButton>
-                        <ToggleButton classes={{ sizeSmall: classes.toggleButton }} disableRipple value="exception">
-                          {intl.formatMessage(messages['certificates_filter_exception'])}
-                        </ToggleButton>
-                        <ToggleButton classes={{ sizeSmall: classes.toggleButton }} disableRipple value="not_exception">
-                          {intl.formatMessage(messages['certificates_filter_not_exception'])}
-                        </ToggleButton>
-                      </FastField>
-                    </Grid>
-                  </Grid>
-                </Box>
+                  </Box>
+                }
               </AccordionDetails>
             </Accordion>
-            <Box display="flex" justifyContent="flex-end" mt={1.5}>
+            <Box display="flex" justifyContent="flex-end" mt={0}>
               <Box mr={2}>
                 <Button onClick={() => setValues(initialState.filter)} size="small" variant="contained">
                   <FormattedMessage defaultMessage="Clear" id="common.clear"/>
