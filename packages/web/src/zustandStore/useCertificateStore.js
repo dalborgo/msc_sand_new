@@ -5,6 +5,7 @@ import isEmpty from 'lodash/isEmpty'
 
 export const initialState = {
   openFilter: false,
+  openSoaDialog: false,
   filter: {
     bookingDateFrom: null,
     bookingDateTo: null,
@@ -13,7 +14,6 @@ export const initialState = {
     countryPortLoading: null,
     maxGoodsValue: '',
     minGoodsValue: '',
-    openSoaDialog: false,
     portDischarge: null,
     portLoading: null,
     typeOfGoods: '',

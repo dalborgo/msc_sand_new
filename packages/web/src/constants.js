@@ -1,6 +1,6 @@
 export const APP_VERSION = '0.1.0'
 
-export const REACT_QUERY_DEV_TOOLS = false
+export const REACT_QUERY_DEV_TOOLS = true
 
 export const THEMES = {
   LIGHT: 'LIGHT',

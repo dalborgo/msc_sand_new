@@ -107,7 +107,7 @@ const SoaDialog = () => {
       aria-labelledby="scroll-select-dialog-title"
       maxWidth="lg"
       onClose={handleClose}
-      open={Boolean(open)}
+      open={open}
       scroll="paper"
     >
       <div className={classes.divContainer}>
