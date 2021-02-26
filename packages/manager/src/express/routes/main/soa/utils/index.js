@@ -1,6 +1,7 @@
 import { cDate, numeric } from '@adapter/common'
 
-export const generateSoaInput = certificates => {
+export const generateSoaInput = (certificates, code) => {
+  const [year, month] = code.split('_')
   const cL = []
   let totalEurNetPr = 0, totalUsdNetPr = 0
   for (let certificate of certificates) {
@@ -24,9 +25,9 @@ export const generateSoaInput = certificates => {
   }
   return {
     cL,
-    number: 'ES2021/02',
+    number: `ES${year}/${month}`,
     pDate: cDate.mom(null, null, 'DD/MM/YYYY'),
-    refPeriod: '02/2021',
+    refPeriod: `${month}/${year}`,
     totalEurGrossPr: numeric.printDecimal(totalEurNetPr),
     totalEurNetPr: numeric.printDecimal(totalEurNetPr),
     totalUsdGrossPr: numeric.printDecimal(totalUsdNetPr),

@@ -89,6 +89,18 @@ export const messages = defineMessages({
     id: 'common.confirm',
     defaultMessage: 'confirm',
   },
+  common_year: {
+    id: 'common.year',
+    defaultMessage: 'Year',
+  },
+  common_month: {
+    id: 'common.month',
+    defaultMessage: 'Month',
+  },
+  common_generate: {
+    id: 'common.generate',
+    defaultMessage: 'Generate',
+  },
   common_save: {
     id: 'common.save',
     defaultMessage: 'save',

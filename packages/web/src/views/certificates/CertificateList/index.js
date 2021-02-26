@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import Page from 'src/components/Page'
-import { Box, Button, makeStyles } from '@material-ui/core'
+import { Box, Button, makeStyles, SvgIcon } from '@material-ui/core'
 import { FormattedMessage, useIntl } from 'react-intl'
 import { messages } from 'src/translations/messages'
 import StandardHeader from 'src/components/StandardHeader'
@@ -18,7 +18,7 @@ import { getEffectiveFetching } from 'src/utils/logics'
 import FilterForm from './FilterForm'
 import { cDate } from '@adapter/common'
 import StatsList from './StatsList'
-import { exportQuery, manageFile } from 'src/utils/axios'
+import { exportQuery } from 'src/utils/axios'
 import { useConfirm } from 'material-ui-confirm'
 import { useSnackbar } from 'notistack'
 import { exportContainers, getConfirmExportText } from './utils'
@@ -27,6 +27,8 @@ import useAuth from 'src/hooks/useAuth'
 import ExportMenu from './ExportMenu'
 import isEmpty from 'lodash/isEmpty'
 import pickBy from 'lodash/pickBy'
+import SoaDialog from './SoaDialog'
+import { FileText as FileTextIcon } from 'react-feather'
 
 const useStyles = makeStyles(theme => ({
   block: {
@@ -40,9 +42,12 @@ const useStyles = makeStyles(theme => ({
   },
 }))
 
+const calculateFilterActive = filters => !isEmpty(pickBy(filters, elem => Boolean(elem) === true))
+
 const certificateSelector = state => ({
   getQueryKey: state.getQueryKey,
   openFilter: state.openFilter,
+  setOpenSoaDialog: state.setOpenSoaDialog,
   submitFilter: state.submitFilter,
   switchOpenFilter: state.switchOpenFilter,
   reset: state.reset,
@@ -68,11 +73,12 @@ const CertificateList = () => {
     getQueryKey,
     openFilter,
     reset,
+    setOpenSoaDialog,
     submitFilter,
     switchOpenFilter,
     ...filters
   } = useCertificateStore(certificateSelector, shallow)
-  const isFilterActive = useMemo(() => !isEmpty(pickBy(filters, elem => Boolean(elem) === true)), [filters])
+  const isFilterActive = useMemo(() => calculateFilterActive(filters), [filters])
   const handleExport = useCallback(async event => {
     try {
       const filter = {
@@ -95,33 +101,7 @@ const CertificateList = () => {
       message && enqueueSnackbar(messages[message] ? intl.formatMessage(messages[message]) : message)
     }
   }, [confirm, enqueueSnackbar, intl, isFilterActive, priority, filters, setLoading])
-  const handleExport2 = useCallback(async () => {
-    try {
-      const filter = {
-        ...filters,
-      }
-      if (isFilterActive) {
-        await confirm({
-          description: parse(getConfirmExportText(filter, intl)),
-        })
-      }
-      const code = 'prova'
-      setLoading(true)
-      const { ok, message } = await manageFile(
-        `soa/print/${code}`,
-        `${code}.pdf`,
-        'application/pdf',
-        { toSave: false, filter },
-        { toDownload: false }
-      )
-      setLoading(false)
-      !ok && enqueueSnackbar(message)
-    } catch (err) {
-      setLoading(false)
-      const { message } = err || {}
-      message && enqueueSnackbar(messages[message] ? intl.formatMessage(messages[message]) : message)
-    }
-  }, [filters, isFilterActive, setLoading, enqueueSnackbar, confirm, intl])
+  
   const { data, refetch, ...rest } = useQuery(getQueryKey(),
     {
       keepPreviousData: true,
@@ -176,19 +156,24 @@ const CertificateList = () => {
           rightComponent={
             <Box alignItems="center" display="flex">
               <Box>
-                <Button
-                  onClick={handleExport2}
-                >
-                  SOA
-                </Button>
-              </Box>
-              <Box>
                 <IconButtonLoader
                   isFetching={effectiveFetching}
                   onClick={refetchOnClick}
                 />
               </Box>
               <Box ml={0.5}>
+                <Button
+                  onClick={() => setOpenSoaDialog(true)}
+                  size="small"
+                  variant="contained"
+                >
+                  <SvgIcon fontSize="small">
+                    <FileTextIcon/>
+                  </SvgIcon>
+                  &nbsp;&nbsp;SOA
+                </Button>
+              </Box>
+              <Box ml={1}>
                 <ExportMenu
                   anchorEl={anchorElExportMenu}
                   handleExport={handleExport}
@@ -221,6 +206,7 @@ const CertificateList = () => {
           rows={data?.results?.list || []}
         />
       </Paper>
+      <SoaDialog/>
     </Page>
   )
 }

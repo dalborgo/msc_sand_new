@@ -205,5 +205,10 @@
   "certificates.max_goods_value": "",
   "certificates.min_goods_value": "",
   "certificates.filter_exception": "",
-  "certificates.filter_not_exception": ""
+  "certificates.filter_not_exception": "",
+  "common.generate": "",
+  "booking.select_month": "",
+  "common.year": "",
+  "common.month": "",
+  "certificates.generate_report": ""
 }

@@ -21,7 +21,8 @@ function addRouters (router) {
     const {
       bucketName = projectBucketName,
       options,
-      ...filter
+      toSave,
+      filter,
     } = body
     const knex_ = knex({ buc: bucketName })
       .select('buc.*')
@@ -42,8 +43,7 @@ function addRouters (router) {
         return res.send(data)
       }
     }
-    const { toSave } = body
-    const input = generateSoaInput(certificates)
+    const input = generateSoaInput(certificates, code)
     {
       const { ok, message, results } = await ioFiles.fillDocxTemplate(templateFilePath, input)
       if (!ok) {return res.status(412).send({ ok, message })}

@@ -184,6 +184,10 @@
     "defaultMessage": "Reefer container"
   },
   {
+    "id": "booking.select_month",
+    "defaultMessage": "Generate SOA Report"
+  },
+  {
     "id": "booking.sender",
     "defaultMessage": "Sender"
   },
@@ -328,6 +332,10 @@
     "defaultMessage": "Value filters"
   },
   {
+    "id": "certificates.generate_report",
+    "defaultMessage": "Generate SOA report"
+  },
+  {
     "id": "certificates.list.header_title",
     "defaultMessage": "Retrieve Certificate"
   },
@@ -468,6 +476,10 @@
     "defaultMessage": "From"
   },
   {
+    "id": "common.generate",
+    "defaultMessage": "Generate"
+  },
+  {
     "id": "common.income",
     "defaultMessage": "Incassato"
   },
@@ -478,6 +490,10 @@
   {
     "id": "common.loading",
     "defaultMessage": "Loading…"
+  },
+  {
+    "id": "common.month",
+    "defaultMessage": "Month"
   },
   {
     "id": "common.no",
@@ -578,6 +594,10 @@
   {
     "id": "common.wait",
     "defaultMessage": "Attendi..."
+  },
+  {
+    "id": "common.year",
+    "defaultMessage": "Year"
   },
   {
     "id": "common.yes",

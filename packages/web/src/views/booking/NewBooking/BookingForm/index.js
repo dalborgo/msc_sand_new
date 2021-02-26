@@ -12,7 +12,7 @@ import { getMaxGoodsValue, getMinimumRate } from 'src/utils/logics'
 const useStyles = makeStyles(theme => ({
   divContainer: {
     paddingRight: theme.spacing(3),
-    [theme.breakpoints.down('sm')]: { //mobile
+    [theme.breakpoints.down('sm')]: {// mobile
       paddingRight: theme.spacing(0),
     },
     '& .MuiInputLabel-root': {

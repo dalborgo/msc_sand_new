@@ -13,6 +13,7 @@ export const initialState = {
     countryPortLoading: null,
     maxGoodsValue: '',
     minGoodsValue: '',
+    openSoaDialog: false,
     portDischarge: null,
     portLoading: null,
     typeOfGoods: '',
@@ -23,6 +24,12 @@ export const initialState = {
 const useCertificateStore = create(immerMiddleware((set, get) => ({
   ...initialState,
   reset: () => set(() => initialState),
+  setOpenSoaDialog: val => set(state => {
+    state.openSoaDialog = val
+  }),
+  handleCloseSoaDialog: () => set(state => {
+    state.openSoaDialog = false
+  }),
   getQueryKey: () => {
     const filter = get().filter
     const endpoint = 'certificates/list'

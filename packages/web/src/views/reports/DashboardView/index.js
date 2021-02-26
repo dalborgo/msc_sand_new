@@ -13,7 +13,7 @@ const useStyles = makeStyles(theme => ({
   },
   container: {
     padding: theme.spacing(2),
-    [theme.breakpoints.down('sm')]: { // mobile
+    [theme.breakpoints.down('sm')]: {// mobile
       padding: theme.spacing(0, 2),
     },
   },
