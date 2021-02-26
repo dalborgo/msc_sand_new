@@ -22,7 +22,7 @@
     "http-errors": "1.7.3",
     "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.18",
-    "lodash": "^4.17.21",
+    "lodash": "4.17.20",
     "morgan": "^1.10.0",
     "node-schedule": "^2.0.0",
     "serve-favicon": "^2.5.0",
