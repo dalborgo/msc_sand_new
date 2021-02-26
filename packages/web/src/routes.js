@@ -67,29 +67,6 @@ const routes = [
     guard: AuthGuard,
     layout: DashboardLayout,
     routes: [
-     /* {
-        exact: true,
-        private: [4, 3],
-        path: [
-          '/app/reports/browser',
-          '/app/reports/browser/:docId',
-        ],
-        component: lazy(() => import('src/views/reports/Browser')),
-      },*/
-    /*  {
-        exact: true,
-        path: [
-          '/app/reports/closed-tables',
-          '/app/reports/closed-tables/:docId',
-          '/app/reports/closed-tables/change-payment-method/:targetDocId',
-        ],
-        component: lazy(() => import('src/views/reports/ClosedTables')),
-      },*/
-      {
-        exact: true,
-        path: '/app/reports/dashboard',
-        component: lazy(() => import('src/views/reports/DashboardView')),
-      },
       {
         exact: true,
         path: '/app/certificates/list',

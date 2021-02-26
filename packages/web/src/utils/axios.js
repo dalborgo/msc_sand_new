@@ -1,15 +1,8 @@
-import axios from 'axios'
 import log from '@adapter/common/src/log'
-import { envConfig } from 'src/init'
 import readBlob from 'read-blob'
 import FileSaver from 'file-saver'
+import { axiosLocalInstance } from './reactQueryFunctions'
 
-const instance = axios.create({
-  baseURL: `${envConfig.BACKEND_HOST}/msc`,
-  validateStatus: function (status) {
-    return (status >= 200 && status < 300) || status === 412 //il 412 lo uso come identificativo di una risposta errata
-  },
-})
 
 export async function manageFile (endpoint, filename, type, data, options = {}) {
   try {
@@ -18,7 +11,7 @@ export async function manageFile (endpoint, filename, type, data, options = {}) 
       same = false,
       toDownload = false,
     } = options
-    const response = await instance(endpoint, {
+    const response = await axiosLocalInstance(endpoint, {
       data,
       method,
       responseType: 'blob',
@@ -48,7 +41,7 @@ export async function exportQuery (endpoint, data, options = {}) {
     const {
       method = 'POST',
     } = options
-    const response = await instance(endpoint, {
+    const response = await axiosLocalInstance(endpoint, {
       data,
       method,
     })
@@ -59,5 +52,3 @@ export async function exportQuery (endpoint, data, options = {}) {
   }
 }
 
-
-export default instance

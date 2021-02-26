@@ -86,7 +86,8 @@ const NewBooking = () => {
         } else {
           await queryClient.prefetchQuery(queryListKey)
         }
-        enqueueSnackbar(intl.formatMessage(messages['booking_save_certificate_ok'], { code: data.results?.code }), { variant: 'success' })
+        console.log('data.results:', data.results)
+        enqueueSnackbar(intl.formatMessage(messages['booking_save_certificate_ok'], { code: data.results?.certificate?.code }), { variant: 'success' })
       }
       setLoading(false)
     },

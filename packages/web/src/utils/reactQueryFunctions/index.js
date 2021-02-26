@@ -20,7 +20,7 @@ export const axiosLocalInstance = axios.create({
     return qs.stringify(mapValues(params, val => val === '' ? undefined : val))
   },
   validateStatus: function (status) {
-    return (status >= 200 && status < 300) || status === 412 //il 412 lo uso come identificativo di una risposta errata
+    return (status >= 200 && status < 300) || status === 412// il 412 lo uso come identificativo di una risposta errata
   },
 })
 
