@@ -68,7 +68,6 @@ const SoaDialog = () => {
   })
   
   const handleChange = useCallback(event => {
-    event.persist()
     const name = event.target.name
     setState({
       ...state,
