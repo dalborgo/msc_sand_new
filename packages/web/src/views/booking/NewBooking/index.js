@@ -16,6 +16,7 @@ import shallow from 'zustand/shallow'
 import { useSnackbar } from 'notistack'
 import useNewBookingStore from 'src/zustandStore/useNewBookingStore'
 import ConfirmDialog from './ConfirmDialog'
+import useAuth from 'src/hooks/useAuth'
 
 const useStyles = makeStyles(theme => ({
   page: {
@@ -45,6 +46,7 @@ const NewBooking = () => {
   const snackQueryError = useSnackQueryError()
   useQuery('jwt/check_session', { onError: snackQueryError })
   const { enqueueSnackbar } = useSnackbar()
+  const { user: { priority } } = useAuth()
   const classes = useStyles()
   const {
     reset,
@@ -136,7 +138,7 @@ const NewBooking = () => {
         onSubmit={
           async values => {
             try {
-              const confirmedValues = checkValues(values)
+              const confirmedValues = checkValues(values, priority)
               setBookingStore(state => {
                 state.openConfirmDialog = true
                 state.confirmedValues = confirmedValues

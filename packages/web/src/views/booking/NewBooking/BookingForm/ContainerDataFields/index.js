@@ -1,6 +1,6 @@
-import React, { memo } from 'react'
+import React, { memo, useMemo } from 'react'
 import { FastField, Field } from 'formik'
-import { Grid, InputLabel, TextField as TF } from '@material-ui/core'
+import { Grid, InputLabel, makeStyles, TextField as TF } from '@material-ui/core'
 import NumberFormatComp from 'src/components/NumberFormatComp'
 import { useIntl } from 'react-intl'
 import { messages } from 'src/translations/messages'
@@ -10,10 +10,28 @@ import MandatoryToggleButtonGroup from 'src/utils/formik/MandatoryToggleButtonGr
 import useNewBookingStore from 'src/zustandStore/useNewBookingStore'
 import { getMinimumRate } from 'src/utils/logics'
 import { numeric } from '@adapter/common'
+import useAuth from 'src/hooks/useAuth'
+
+const useStyles = makeStyles(theme => ({
+  notchedOutline: {
+    borderWidth: 1,
+    borderColor: theme.palette.text.primary,
+  },
+}))
+
+const goodsValueHighlight = {
+  fontWeight: 'bold',
+}
 
 const { typesOfGoods } = useNewBookingStore.getState()
 const ContainerDataFields = ({ handleChange, setFieldValue, maxGoodsValueLabel, goodsValue, bookingFromRef }) => {
   const intl = useIntl()
+  const { user: { priority } } = useAuth()
+  const classes = useStyles()
+  const maxValueModified = useMemo(
+    () => numeric.normNumb(goodsValue) > numeric.normNumb(maxGoodsValueLabel),
+    [goodsValue, maxGoodsValueLabel]
+  )
   return (
     <>
       <Grid alignItems="center" container>
@@ -121,15 +139,19 @@ const ContainerDataFields = ({ handleChange, setFieldValue, maxGoodsValueLabel, 
         <Grid item sm={6} xs={12}>
           <Field
             as={TF}
-            error={numeric.normNumb(goodsValue, false) > numeric.normNumb(maxGoodsValueLabel, false)}
+            error={priority > 2 ? undefined : numeric.normNumb(goodsValue, false) > numeric.normNumb(maxGoodsValueLabel, false)}
             fullWidth
             InputProps={
               {
                 inputComponent: NumberFormatComp,
+                classes: {
+                  notchedOutline: maxValueModified ? classes.notchedOutline : undefined,
+                },
+                style: (priority > 2 && maxValueModified) ? goodsValueHighlight : undefined,
                 inputProps: {
                   thousandSeparator: '.',
                   decimalScale: 2,
-                  max: numeric.normNumb(maxGoodsValueLabel, false),
+                  max: priority > 2 ? undefined : numeric.normNumb(maxGoodsValueLabel, false),
                 },
               }
             }
