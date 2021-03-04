@@ -44,8 +44,8 @@ export const priorityToRole = priority => {
   }
 }
 
-export const typeRateLabel = typeRate => {
-  switch (typeRate) {
+export const typeDerogationLabel = type => {
+  switch (type) {
     case 'exception':
       return 'certificates_filter_exception'
     case 'not_exception':

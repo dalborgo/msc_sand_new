@@ -18,6 +18,7 @@ export const initialState = {
     portLoading: null,
     typeOfGoods: '',
     typeRate: '',
+    typeGoodsValue: '',
   },
 }
 

@@ -34,7 +34,7 @@ const FilterForm = memo(function FilterForm (props) {
   console.log('%cRENDER_FORM', 'color: pink')
   const intl = useIntl()
   const [isPortFiltersExpanded] = useState(Boolean(filters.countryPortDischarge || filters.portDischarge || filters.portLoading || filters.countryPortLoading))
-  const [isValueFiltersExpanded] = useState(Boolean(filters.minGoodsValue || filters.maxGoodsValue || filters.typeRate))
+  const [isValueFiltersExpanded] = useState(Boolean(filters.minGoodsValue || filters.maxGoodsValue || filters.typeRate || filters.typeGoodsValue))
   return (
     <Formik
       initialValues={filters}
@@ -237,6 +237,49 @@ const FilterForm = memo(function FilterForm (props) {
                     </Grid>
                   </Grid>
                 </Box>
+                {
+                  priority === 4 &&
+                  <Box mt={1}>
+                    <Grid alignItems="center" container spacing={1}>
+                      <Grid item xs={4}>
+                        <InputLabel>
+                          {intl.formatMessage(messages['certificates_filter_value_goods'])}
+                        </InputLabel>
+                      </Grid>
+                      <Grid item xs={8}>
+                        <FastField
+                          component={MandatoryToggleButtonGroup}
+                          exclusive
+                          name="typeGoodsValue"
+                          size="small"
+                          type="checkbox"
+                        >
+                          <ToggleButton
+                            classes={{ sizeSmall: classes.toggleButton }}
+                            disableRipple
+                            value=""
+                          >
+                            {intl.formatMessage(messages['common_all'])}
+                          </ToggleButton>
+                          <ToggleButton
+                            classes={{ sizeSmall: classes.toggleButton }}
+                            disableRipple
+                            value="exception"
+                          >
+                            {intl.formatMessage(messages['certificates_filter_exception'])}
+                          </ToggleButton>
+                          <ToggleButton
+                            classes={{ sizeSmall: classes.toggleButton }}
+                            disableRipple
+                            value="not_exception"
+                          >
+                            {intl.formatMessage(messages['certificates_filter_not_exception'])}
+                          </ToggleButton>
+                        </FastField>
+                      </Grid>
+                    </Grid>
+                  </Box>
+                }
                 {
                   priority === 4 &&
                   <Box mt={1}>

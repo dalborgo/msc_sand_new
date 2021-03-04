@@ -4,7 +4,7 @@ import saveAs from 'file-saver'
 import moment from 'moment'
 import { getTypeOfGood } from '@adapter/common/src/msc'
 import { numeric } from '@adapter/common'
-import { typeRateLabel } from 'src/utils/logics'
+import { typeDerogationLabel } from 'src/utils/logics'
 
 export const getConfirmExportText = (filter, intl) => {
   let str = ''
@@ -39,8 +39,11 @@ export const getConfirmExportText = (filter, intl) => {
   if (filter.maxGoodsValue) {
     str += `${intl.formatMessage(messages['certificates_column_max_goods_value'])}: <strong>${filter.maxGoodsValue}</strong><br/>`
   }
+  if (filter.typeGoodsValue) {
+    str += `${intl.formatMessage(messages['certificates_filter_value_goods'])}: <strong>${intl.formatMessage(messages[typeDerogationLabel(filter.typeGoodsValue)])}</strong><br/>`
+  }
   if (filter.typeRate) {
-    str += `${intl.formatMessage(messages['common_rate'])}: <strong>${intl.formatMessage(messages[typeRateLabel(filter.typeRate)])}</strong><br/>`
+    str += `${intl.formatMessage(messages['common_rate'])}: <strong>${intl.formatMessage(messages[typeDerogationLabel(filter.typeRate)])}</strong><br/>`
   }
   return str
 }
@@ -178,11 +181,19 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
         })
         Object.assign(ws.getRow(gap).getCell(2), bold)
       }
+      if (key === 'typeGoodsValue') {
+        gap++
+        ws.addRow({
+          policyNumber: intl.formatMessage(messages['certificates_filter_value_goods']) + ':',
+          bookingRef: intl.formatMessage(messages[typeDerogationLabel(filter[key])]),
+        })
+        Object.assign(ws.getRow(gap).getCell(2), bold)
+      }
       if (key === 'typeRate') {
         gap++
         ws.addRow({
           policyNumber: intl.formatMessage(messages['common_rate']) + ':',
-          bookingRef: intl.formatMessage(messages[typeRateLabel(filter[key])]),
+          bookingRef: intl.formatMessage(messages[typeDerogationLabel(filter[key])]),
         })
         Object.assign(ws.getRow(gap).getCell(2), bold)
       }

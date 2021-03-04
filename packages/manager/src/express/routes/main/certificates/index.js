@@ -41,6 +41,8 @@ export function applyFilter (knex_, filter) {
   if (filter.minGoodsValue || filter.maxGoodsValue) {knex_.whereBetween('goodsValue', [minGoodsValue, maxGoodsValue])}
   if(filter.typeRate === 'exception'){knex_.whereRaw('defaultRate is valued')}
   if(filter.typeRate === 'not_exception'){knex_.whereRaw('defaultRate is missing')}
+  if(filter.typeGoodsValue === 'exception'){knex_.whereRaw('defaultMaxGoodsValue is valued')}
+  if(filter.typeGoodsValue === 'not_exception'){knex_.whereRaw('defaultMaxGoodsValue is missing')}
 }
 
 function addRouters (router) {
