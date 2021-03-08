@@ -14,7 +14,7 @@ function addRouters (router) {
     const dateTo = `${date} 23:59:59`
     const bucketName = connClass.projectBucketName
     const knex_ = knex({ buc: bucketName })
-      .select('buc.*')
+      .select(knex.raw('buc.*, "CERTIFICATE|" || buc.code as id'))
       .where({ type: 'CERTIFICATE' })
       .whereBetween('_createdAt', [dateFrom, dateTo])
     const statement = knex_.toQuery()
