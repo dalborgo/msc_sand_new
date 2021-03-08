@@ -1,6 +1,6 @@
 import { couchQueries, ioFiles } from '@adapter/io'
 import { generateCertificatesInput } from './utils'
-import { numeric, validation } from '@adapter/common'
+import { cDate, numeric, validation } from '@adapter/common'
 import padStart from 'lodash/padStart'
 import path from 'path'
 import fs from 'fs'
@@ -56,9 +56,9 @@ function addRouters (router) {
     const code = `${padStart(sequence, 6, '0')}`
     const input = {
       ...body,
-      _createdAt: (new Date()).toISOString(),
+      _createdAt: cDate.mom(null, null, 'YYYY-MM-DD HH:mm:ss'),
       code,
-      policyNumber: '00215192000258', // hardcoded
+      policyNumber: '00215192000258',// hardcoded
       sequence,
       type: 'CERTIFICATE',
     }
@@ -79,7 +79,6 @@ function addRouters (router) {
   router.get('/certificates/list', async function (req, res) {
     security.hasAuthorization(req.headers)
     const { connClass, query } = req
-    utils.controlParameters(query, [])
     const {
       bucketName = connClass.projectBucketName,
       options,

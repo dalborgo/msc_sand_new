@@ -134,7 +134,7 @@ function addRouters (router) {
     if (!isObject(body.set) && !body.unset) {
       throw new BadRequest('INVALID_DOC_UPDATE')
     }
-    utils.parseOwner(req) //security check
+    utils.parseOwner(req)// security check
     const { id, set, unset, bucketName = connClass.projectBucketName, options } = body
     let conditions = ''
     if (set) {conditions += createSetStatement(set)}
