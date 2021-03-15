@@ -5,7 +5,7 @@ export const generateSoaInput = (certificates, code) => {
   const cL = []
   let totalEurNetPr = 0, totalUsdNetPr = 0
   for (let certificate of certificates) {
-    const { bookingDate, currencyGoods, policyNumber, bookingRef } = certificate
+    const { _createdAt, currencyGoods, policyNumber, bookingRef } = certificate
     const isEur = currencyGoods === 'EUR'
     const goodsValue = (certificate.goodsValue / 1000) || 0
     const rate = (certificate.rate / 1000) || 0
@@ -15,7 +15,7 @@ export const generateSoaInput = (certificates, code) => {
     cL.push({
       bookingRef,
       currencyGoods,
-      effDate: bookingDate && cDate.mom(bookingDate, null, 'DD/MM/YYYY'),
+      effDate: _createdAt && cDate.mom(_createdAt, null, 'DD/MM/YYYY'),
       grossPremium: numeric.printDecimal(netPremium),
       netPremium: numeric.printDecimal(netPremium),
       policyNumber,

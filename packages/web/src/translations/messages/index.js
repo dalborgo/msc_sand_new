@@ -45,6 +45,10 @@ export const messages = defineMessages({
     id: 'certificate.filters_booking_date_from',
     defaultMessage: 'Booking date from',
   },
+  certificates_filters_creation_date_from: {
+    id: 'certificate.filters_creation_date_from',
+    defaultMessage: 'Creation date from',
+  },
   certificates_confirm_export_text: {
     id: 'certificates.confirm_export_text',
     defaultMessage: 'This filters will be applied to the export',
@@ -80,6 +84,10 @@ export const messages = defineMessages({
   certificates_filters_booking_date_to: {
     id: 'certificate.filters_booking_date_to',
     defaultMessage: 'Booking date to',
+  },
+  certificates_filters_creation_date_to: {
+    id: 'certificate.filters_creation_date_to',
+    defaultMessage: 'Creation date to',
   },
   common_cancel: {
     id: 'common.cancel',
@@ -272,6 +280,10 @@ export const messages = defineMessages({
   booking_booking_date: {
     id: 'booking.booking_date',
     defaultMessage: 'Booking date',
+  },
+  booking_creation_date: {
+    id: 'booking.creation_date',
+    defaultMessage: 'Creation date',
   },
   booking_type_goods: {
     id: 'booking.type_goods',

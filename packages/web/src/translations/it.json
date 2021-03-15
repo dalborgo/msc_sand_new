@@ -210,5 +210,8 @@
   "booking.select_month": "Generate SOA Report",
   "common.year": "Year",
   "common.month": "Month",
-  "certificates.generate_report": "Generate SOA report"
+  "certificates.generate_report": "Generate SOA report",
+  "booking.creation_date": "Creation date",
+  "certificate.filters_creation_date_from": "Creation date from",
+  "certificate.filters_creation_date_to": "Creation date to"
 }

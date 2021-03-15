@@ -9,6 +9,8 @@ export const initialState = {
   filter: {
     bookingDateFrom: null,
     bookingDateTo: null,
+    creationDateFrom: null,
+    creationDateTo: null,
     bookingRef: '',
     countryPortDischarge: null,
     countryPortLoading: null,

@@ -78,10 +78,10 @@ const SoaDialog = () => {
     try {
       const { month, year } = state
       const code = `${year}_${month}`
-      const bookingDateFrom = `${year}-${month}-01`
+      const creationDateFrom = `${year}-${month}-01`
       const filter = {
-        bookingDateFrom,
-        bookingDateEnd: `${year}-${month}-${moment(bookingDateFrom).daysInMonth()}`,
+        creationDateFrom,
+        creationDateTo: `${year}-${month}-${moment(creationDateFrom).daysInMonth()}`,
       }
       setLoading(true)
       const { ok, message } = await manageFile(

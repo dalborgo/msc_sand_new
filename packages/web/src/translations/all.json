@@ -92,6 +92,10 @@
     "defaultMessage": "Country of the port loading"
   },
   {
+    "id": "booking.creation_date",
+    "defaultMessage": "Creation date"
+  },
+  {
     "id": "booking.currency_goods",
     "defaultMessage": "Goods value currency"
   },
@@ -230,6 +234,14 @@
   {
     "id": "certificate.filters_booking_date_to",
     "defaultMessage": "Booking date to"
+  },
+  {
+    "id": "certificate.filters_creation_date_from",
+    "defaultMessage": "Creation date from"
+  },
+  {
+    "id": "certificate.filters_creation_date_to",
+    "defaultMessage": "Creation date to"
   },
   {
     "id": "certificates.booking_export",

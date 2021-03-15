@@ -18,6 +18,12 @@ export const getConfirmExportText = (filter, intl) => {
   if (filter.bookingDateTo) {
     str += `${intl.formatMessage(messages['certificates_filters_booking_date_to'])}: <strong>${moment(filter.bookingDateTo).format('DD/MM/YYYY')}</strong><br/>`
   }
+  if (filter.creationDateFrom) {
+    str += `${intl.formatMessage(messages['certificates_filters_creation_date_from'])}: <strong>${moment(filter.creationDateFrom).format('DD/MM/YYYY')}</strong><br/>`
+  }
+  if (filter.creationDateTo) {
+    str += `${intl.formatMessage(messages['certificates_filters_creation_date_to'])}: <strong>${moment(filter.creationDateTo).format('DD/MM/YYYY')}</strong><br/>`
+  }
   if (filter.typeOfGoods) {
     str += `${intl.formatMessage(messages['booking_type_goods'])}: <strong>${getTypeOfGood(filter.typeOfGoods)?.value}</strong><br/>`
   }
@@ -121,6 +127,22 @@ export const exportContainers = (rows, filter, intl, isBooking, priority) => {
         gap++
         ws.addRow({
           policyNumber: intl.formatMessage(messages['certificates_filters_booking_date_to']) + ':',
+          bookingRef: filter[key] && moment(filter[key]).format('DD/MM/YYYY'),
+        })
+        Object.assign(ws.getRow(gap).getCell(2), bold)
+      }
+      if (key === 'creationDateFrom') {
+        gap++
+        ws.addRow({
+          policyNumber: intl.formatMessage(messages['certificates_filters_creation_date_from']) + ':',
+          bookingRef: filter[key] && moment(filter[key]).format('DD/MM/YYYY'),
+        })
+        Object.assign(ws.getRow(gap).getCell(2), bold)
+      }
+      if (key === 'creationDateTo') {
+        gap++
+        ws.addRow({
+          policyNumber: intl.formatMessage(messages['certificates_filters_creation_date_to']) + ':',
           bookingRef: filter[key] && moment(filter[key]).format('DD/MM/YYYY'),
         })
         Object.assign(ws.getRow(gap).getCell(2), bold)

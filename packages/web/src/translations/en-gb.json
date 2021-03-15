@@ -210,5 +210,8 @@
   "booking.select_month": "",
   "common.year": "",
   "common.month": "",
-  "certificates.generate_report": ""
+  "certificates.generate_report": "",
+  "booking.creation_date": "",
+  "certificate.filters_creation_date_from": "",
+  "certificate.filters_creation_date_to": ""
 }

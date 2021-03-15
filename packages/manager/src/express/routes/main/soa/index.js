@@ -27,7 +27,7 @@ function addRouters (router) {
     const knex_ = knex({ buc: bucketName })
       .select('buc.*')
       .where({ type: 'CERTIFICATE' })
-      .orderBy(['bookingDate', 'bookingRef'])
+      .orderBy(['_createdAt', 'bookingRef'])
     applyFilter(knex_, filter)
     const statement = knex_.toQuery()
     const { ok, results: certificates, message, err } = await couchQueries.exec(statement, cluster, options)
@@ -70,15 +70,15 @@ function addRouters (router) {
       year,
       month,
     } = body
-    const bookingDateFrom = `${year}-${month}-01`
+    const creationDateFrom = `${year}-${month}-01`
     const filter = {
-      bookingDateFrom,
-      bookingDateEnd: `${year}-${month}-${moment(bookingDateFrom).daysInMonth()}`,
+      creationDateFrom,
+      creationDateTo: `${year}-${month}-${moment(creationDateFrom).daysInMonth()}`,
     }
     const knex_ = knex({ buc: bucketName })
       .select('buc.*')
       .where({ type: 'CERTIFICATE' })
-      .orderBy(['bookingDate', 'bookingRef'])
+      .orderBy(['_createdAt', 'bookingRef'])
     applyFilter(knex_, filter)
     const statement = knex_.toQuery()
     const { ok, results: certificates, message, err } = await couchQueries.exec(statement, cluster, options)

@@ -33,11 +33,14 @@ export function applyFilter (knex_, filter) {
   if (filter.countryPortDischarge) {knex_.where({ 'countryPortDischarge.value': filter.countryPortDischarge.value })}
   if (filter.portDischarge) {knex_.where({ 'portDischarge.key': filter.portDischarge.key })}
   if (filter.bookingRef) {knex_.whereRaw(`LOWER(bookingRef) like "%${filter.bookingRef.toLowerCase()}%"`)}
-  const dateFrom = filter.bookingDateFrom || '1900-01-01'
-  const dateTo = filter.bookingDateTo || '2100-01-01'
+  const bookingDateFrom = filter.bookingDateFrom || '1900-01-01'
+  const bookingDateTo = filter.bookingDateTo || '2100-01-01'
+  const creationDateFrom = filter.creationDateFrom || '1900-01-01'
+  const creationDateTo = filter.creationDateTo || '2100-01-01'
   const minGoodsValue = filter.minGoodsValue ? numeric.normNumb(filter.minGoodsValue) : 0
   const maxGoodsValue = filter.maxGoodsValue ? numeric.normNumb(filter.maxGoodsValue) : 999999999999
-  if (filter.bookingDateFrom || filter.bookingDateTo) {knex_.whereBetween('bookingDate', [dateFrom, dateTo])}
+  if (filter.creationDateFrom || filter.creationDateTo) {knex_.whereBetween('_createdAt', [creationDateFrom, creationDateTo])}
+  if (filter.bookingDateFrom || filter.bookingDateTo) {knex_.whereBetween('bookingDate', [bookingDateFrom, bookingDateTo])}
   if (filter.minGoodsValue || filter.maxGoodsValue) {knex_.whereBetween('goodsValue', [minGoodsValue, maxGoodsValue])}
   if(filter.typeRate === 'exception'){knex_.whereRaw('defaultRate is valued')}
   if(filter.typeRate === 'not_exception'){knex_.whereRaw('defaultRate is missing')}
@@ -128,7 +131,7 @@ function addRouters (router) {
     const knex_ = knex({ buc: bucketName })
       .select('buc.*')
       .where({ type: 'CERTIFICATE' })
-      .orderBy(['bookingDate','bookingRef'])
+      .orderBy(['_createdAt','bookingRef'])
     applyFilter(knex_, filter)
     const statement = knex_.toQuery()
     const { ok, results, message, err } = await couchQueries.exec(statement, connClass.cluster, options)
