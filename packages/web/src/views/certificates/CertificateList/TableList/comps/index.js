@@ -4,7 +4,7 @@ import { FormattedMessage } from 'react-intl'
 import Box from '@material-ui/core/Box'
 import { Table } from '@devexpress/dx-react-grid-material-ui'
 import { IntegratedSummary } from '@devexpress/dx-react-grid'
-import { useMoneyFormatter } from 'src/utils/formatters'
+import { useDateFormatter, useMoneyFormatter } from 'src/utils/formatters'
 import { useGeneralStore } from 'src/zustandStore'
 import shallow from 'zustand/shallow'
 import { ExternalLink as ExternalLinkIcon } from 'react-feather'
@@ -67,6 +67,7 @@ const { bucket, couchbaseUrl } = useGeneralStore.getState()
 const CellBase = props => {
   const { column, row, theme, value } = props
   const { user: { priority } } = useAuth()
+  const dateFormatter = useDateFormatter()
   const { setLoading } = useGeneralStore(loadingSel, shallow)
   const [intLoading, setIntLoading] = useState(false)
   const { enqueueSnackbar } = useSnackbar()
@@ -86,6 +87,13 @@ const CellBase = props => {
             :
             value
         }
+      </Table.Cell>
+    )
+  }
+  if (column.name === '_createdAt') {
+    return (
+      <Table.Cell {...props}>
+        {dateFormatter(value)}
       </Table.Cell>
     )
   }

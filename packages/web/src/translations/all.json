@@ -360,6 +360,10 @@
     "defaultMessage": "Min goods value"
   },
   {
+    "id": "certificates.policy_creation_date",
+    "defaultMessage": "Creation date"
+  },
+  {
     "id": "certificates.policy_number",
     "defaultMessage": "Policy"
   },

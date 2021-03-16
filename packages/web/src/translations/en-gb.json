@@ -213,5 +213,6 @@
   "certificates.generate_report": "",
   "booking.creation_date": "",
   "certificate.filters_creation_date_from": "",
-  "certificate.filters_creation_date_to": ""
+  "certificate.filters_creation_date_to": "",
+  "certificates.policy_creation_date": ""
 }

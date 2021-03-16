@@ -213,5 +213,6 @@
   "certificates.generate_report": "Generate SOA report",
   "booking.creation_date": "Creation date",
   "certificate.filters_creation_date_from": "Creation date from",
-  "certificate.filters_creation_date_to": "Creation date to"
+  "certificate.filters_creation_date_to": "Creation date to",
+  "certificates.policy_creation_date": "Creation date"
 }

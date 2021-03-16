@@ -206,7 +206,7 @@ const NavBar = ({ setMobileNavOpen, openMobile }) => {
               ))
             }
           </Box>
-          <Box flexGrow={1}/>
+         {/* <Box flexGrow={1}/>
           <Divider/>
           <Box p={2}>
             <Box
@@ -229,7 +229,7 @@ const NavBar = ({ setMobileNavOpen, openMobile }) => {
                 Check our docs
               </Link>
             </Box>
-          </Box>
+          </Box>*/}
         </Box>
       </PerfectScrollbar>
     </Box>

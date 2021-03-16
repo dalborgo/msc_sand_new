@@ -24,7 +24,7 @@ async function getSequence (connClass) {
   return { ok, results: sequence ? ++sequence : INITIAL_COUNT + 1 }
 }
 
-const listFields = ['code', 'policyNumber', 'bookingRef', 'portDischarge', 'portLoading']
+const listFields = ['code', 'policyNumber', 'bookingRef', 'portDischarge', 'portLoading', '_createdAt']
 
 export function applyFilter (knex_, filter) {
   if (filter.typeOfGoods) {knex_.where({ typeOfGoods: filter.typeOfGoods })}
@@ -39,7 +39,7 @@ export function applyFilter (knex_, filter) {
   const creationDateTo = filter.creationDateTo || '2100-01-01'
   const minGoodsValue = filter.minGoodsValue ? numeric.normNumb(filter.minGoodsValue) : 0
   const maxGoodsValue = filter.maxGoodsValue ? numeric.normNumb(filter.maxGoodsValue) : 999999999999
-  if (filter.creationDateFrom || filter.creationDateTo) {knex_.whereBetween('_createdAt', [creationDateFrom, creationDateTo])}
+  if (filter.creationDateFrom || filter.creationDateTo) {knex_.whereBetween('_createdAt', [`${creationDateFrom} 00:00:00`, `${creationDateTo} 23:59:59`])}
   if (filter.bookingDateFrom || filter.bookingDateTo) {knex_.whereBetween('bookingDate', [bookingDateFrom, bookingDateTo])}
   if (filter.minGoodsValue || filter.maxGoodsValue) {knex_.whereBetween('goodsValue', [minGoodsValue, maxGoodsValue])}
   if(filter.typeRate === 'exception'){knex_.whereRaw('defaultRate is valued')}

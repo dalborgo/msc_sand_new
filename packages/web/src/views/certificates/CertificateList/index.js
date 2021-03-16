@@ -121,8 +121,8 @@ const CertificateList = () => {
   const onFilterSubmit = useCallback(filter => {
     const normalizeFilter = {
       ...filter,
-      bookingDateFrom: filter.bookingDateFrom && cDate.mom(filter.bookingDateFrom, null, 'YYYY-MM-DD'),
-      bookingDateTo: filter.bookingDateTo && cDate.mom(filter.bookingDateTo, null, 'YYYY-MM-DD'),
+      creationDateFrom: filter.creationDateFrom && cDate.mom(filter.creationDateFrom, null, 'YYYY-MM-DD'),
+      creationDateTo: filter.creationDateTo && cDate.mom(filter.creationDateTo, null, 'YYYY-MM-DD'),
     }
     submitFilter(normalizeFilter)
     return filter

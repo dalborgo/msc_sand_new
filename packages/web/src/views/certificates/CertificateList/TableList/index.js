@@ -34,6 +34,7 @@ const TableList = memo(function TableList ({ rows, isFetching, isIdle }) {
   const intl = useIntl()
   const [columns] = useState([
     { name: 'code', title: intl.formatMessage(messages['certificates_column_certificate_number']) },
+    { name: '_createdAt', title: intl.formatMessage(messages['certificates_column_policy_creation_date']) },
     { name: 'policyNumber', title: intl.formatMessage(messages['certificates_column_policy_number']) },
     { name: 'bookingRef', title: intl.formatMessage(messages['certificates_column_booking_ref']) },
     {

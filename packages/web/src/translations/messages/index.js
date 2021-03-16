@@ -185,6 +185,10 @@ export const messages = defineMessages({
     id: 'certificates.policy_number',
     defaultMessage: 'Policy',
   },
+  certificates_column_policy_creation_date: {
+    id: 'certificates.policy_creation_date',
+    defaultMessage: 'Creation date',
+  },
   certificates_column_booking_ref: {
     id: 'certificates.booking_ref',
     defaultMessage: 'Booking id',

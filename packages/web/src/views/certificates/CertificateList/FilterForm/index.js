@@ -31,7 +31,6 @@ const FilterForm = memo(function FilterForm (props) {
   const { onSubmit, ...filters } = props
   const classes = useStyles()
   const { user: { priority } } = useAuth()
-  console.log('%cRENDER_FORM', 'color: pink')
   const intl = useIntl()
   const [isPortFiltersExpanded] = useState(Boolean(filters.countryPortDischarge || filters.portDischarge || filters.portLoading || filters.countryPortLoading))
   const [isValueFiltersExpanded] = useState(Boolean(filters.minGoodsValue || filters.maxGoodsValue || filters.typeRate || filters.typeGoodsValue))
@@ -51,45 +50,43 @@ const FilterForm = memo(function FilterForm (props) {
                 name="bookingRef"
               />
             </Box>
-            <Box mb={3}>
+            <Box display="flex" gridGap={15} mb={3}>
               <Field
                 allowKeyboardControl
                 allowSameDateSelection
                 as={DatePicker}
                 emptyLabel="dd/mm/yyyy"
                 format="DD/MM/YYYY"
-                label={intl.formatMessage(messages['certificates_filters_booking_date_from'])}
-                name="bookingDateFrom"
+                label={intl.formatMessage(messages['certificates_filters_creation_date_from'])}
+                name="creationDateFrom"
                 onChange={
                   newValue => {
-                    setFieldValue('bookingDateFrom', newValue)
+                    setFieldValue('creationDateFrom', newValue)
                   }
                 }
                 renderInput={
                   props => {
-                    return <TF {...props} fullWidth helperText={null}/>
+                    return <TF {...props} helperText={null}/>
                   }
                 }
               />
-            </Box>
-            <Box mb={3}>
               <Field
                 allowKeyboardControl
                 allowSameDateSelection
                 as={DatePicker}
                 emptyLabel="dd/mm/yyyy"
                 format="DD/MM/YYYY"
-                label={intl.formatMessage(messages['certificates_filters_booking_date_to'])}
-                minDate={values['bookingDateFrom']}
-                name="bookingDateTo"
+                label={intl.formatMessage(messages['certificates_filters_creation_date_to'])}
+                minDate={values['creationDateFrom']}
+                name="creationDateTo"
                 onChange={
                   newValue => {
-                    setFieldValue('bookingDateTo', newValue)
+                    setFieldValue('creationDateTo', newValue)
                   }
                 }
                 renderInput={
                   props => {
-                    return <TF {...props} fullWidth helperText={null}/>
+                    return <TF {...props} helperText={null}/>
                   }
                 }
               />
