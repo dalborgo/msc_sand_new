@@ -90,7 +90,7 @@ const App = () => {
   const { settings } = useSettings()
   const { locale = 'it' } = settings // in futuro default lingua browser per homepage prima del login
   const { reset } = useQueryErrorResetBoundary()
-  //useMemo(() => {moment.locale(locale)}, [locale])  // altrimenti prende il secondo importato
+  //useMemo(() => {moment.locale(locale)}, [locale])// altrimenti prende il secondo importato
   const theme = createTheme({
     direction: settings.direction,
     responsiveFontSizes: settings.responsiveFontSizes,

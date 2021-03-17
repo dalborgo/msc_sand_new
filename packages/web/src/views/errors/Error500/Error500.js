@@ -97,7 +97,7 @@ const Error500 = ({ error, resetErrorBoundary }) => {
               ?
               <Button
                 color="secondary"
-                onClick={() => window.location.reload()} //window.location.replace(window.location.origin)
+                onClick={() => window.location.reload()}// window.location.replace(window.location.origin)
                 variant="outlined"
               >
                 <FormattedMessage defaultMessage="Reload the page" id="error500.reload_current_page"/>

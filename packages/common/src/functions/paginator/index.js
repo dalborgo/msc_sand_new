@@ -10,7 +10,7 @@ export const cursorPaginator = (data, after, dir = 'NEXT', first = 5) => {
     start = data.findIndex(node => node.id === cursor)
     if (dir === 'NEXT') {
       sliced = start >= 0
-        ? start === data.length - 1 // don't let us overflow
+        ? start === data.length - 1// don't let us overflow
           ? []
           : data.slice(
             start + 1,

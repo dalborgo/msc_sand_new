@@ -49,7 +49,7 @@ async function exec (designDoc, viewName, bucket, options_ = {}) {
     log.verbose('Start exec view')
     const results = await bucket.viewQuery(designDoc, viewName, options)
     log.verbose('End exec view')
-    if (results.meta) { // for shape consistency with the execService "results"
+    if (results.meta) {// for shape consistency with the execService "results"
       results.total_rows = results.meta.total_rows
       results.meta = undefined
     }
