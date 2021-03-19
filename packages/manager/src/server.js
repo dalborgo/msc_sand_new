@@ -5,7 +5,7 @@ import config from 'config'
 import http from 'http'
 
 const { PORT } = config.get('express')
-const port = normalizePort(PORT || 9014)
+const port = normalizePort(PORT)
 app.set('port', port)
 
 const server = http.createServer(app)

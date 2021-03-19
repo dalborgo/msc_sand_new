@@ -61,7 +61,7 @@ function addRouters (router) {
       ...body,
       _createdAt: cDate.mom(null, null, 'YYYY-MM-DD HH:mm:ss'),
       code,
-      policyNumber: '00215192000258',// hardcoded
+      policyNumber: body.currencyGoods === 'EUR' ? '00238012000153' : '00238012000155',// hardcoded
       sequence,
       type: 'CERTIFICATE',
     }
