@@ -29,17 +29,13 @@ const lock = new AwaitLock()
 async function docxToPdf (buffer) {
   await lock.acquireAsync()
   try {
-    {
-      try {
-        const results = await toPdf(buffer)
-        return { ok: true, results }
-      } finally {
-        lock.release()
-      }
-    }
+    const results = await toPdf(buffer)
+    return { ok: true, results }
   } catch (err) {
     log.error(err.message)
     return { ok: false, message: err.message, err }
+  } finally {
+    lock.release()
   }
 }
 
