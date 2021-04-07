@@ -1,9 +1,9 @@
 import { reqAuthGet, reqAuthPost } from '../../basicAuth'
 import { couchQueries } from '@adapter/io'
+import get from 'lodash/get'
 
 const { utils } = require(__helpers)
 const knex = require('knex')({ client: 'mysql' })
-
 
 function addRouters (router) {
   router.get('/services/get_certificate_list', reqAuthGet, async function (req, res) {
@@ -16,6 +16,7 @@ function addRouters (router) {
     const knex_ = knex({ buc: bucketName })
       .select(knex.raw('buc.*, "CERTIFICATE|" || buc.code as id'))
       .where({ type: 'CERTIFICATE' })
+      .where(knex.raw('assiHub.importDate is missing'))
       .whereBetween('_createdAt', [dateFrom, dateTo])
     const statement = knex_.toQuery()
     const { ok, results, message } = await couchQueries.exec(statement, connClass.cluster)
@@ -27,13 +28,28 @@ function addRouters (router) {
     utils.controlParameters(body, ['list'])
     const bucketName = connClass.projectBucketName
     const { list } = body
-    let statement = ''
+    const promises = [], listKeys = []
     for (let key in list) {
+      listKeys.push(key)
       const assiHub = list[key]
-      statement += `UPDATE \`${bucketName}\` USE KEYS "${key}" SET assiHub = ${JSON.stringify(assiHub)} RETURNING meta().id`
+      const statement = `UPDATE \`${bucketName}\` USE KEYS "${key}" SET assiHub = ${JSON.stringify(assiHub)} RETURNING meta().id`
+      promises.push(couchQueries.exec(statement, connClass.cluster))
     }
-    const { ok, results, message } = await couchQueries.exec(statement, connClass.cluster)
-    if (!ok) {return res.send({ ok, message })}
+    const response = await Promise.all(promises)
+    let count = 0
+    const results = response.map(val => {
+      const id = listKeys[count++]
+      if (val.ok) {
+        const resultId = get(val, 'results[0].id')
+        if (resultId) {
+          return { ok: val.ok, id: resultId }
+        } else {
+          return { ok: false, message: 'not found', id }
+        }
+      } else {
+        return { ok: val.ok, message: val.message, id }
+      }
+    })
     res.send({ ok: true, results })
   })
 }
