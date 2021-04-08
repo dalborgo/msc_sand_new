@@ -1,5 +1,5 @@
 import React, { useEffect, useRef } from 'react'
-import { Link as RouterLink, matchPath, useLocation } from 'react-router-dom'
+import { matchPath, useLocation } from 'react-router-dom'
 import { PerfectScrollbarWithHotfix as PerfectScrollbar } from 'src/utils/PerfectScrollbarWithHotfix'
 import PropTypes from 'prop-types'
 import sections from './sections'
@@ -9,7 +9,6 @@ import {
   Divider,
   Drawer,
   Hidden,
-  Link,
   List,
   ListSubheader,
   makeStyles,
@@ -108,13 +107,12 @@ const useStyles = makeStyles(theme => ({
     height: 'calc(100% - 64px)',
   },
   avatar: {
-    cursor: 'pointer',
     width: 64,
     height: 64,
   },
   subheader: {
     paddingTop: theme.spacing(1),
-    paddingBottom: 0, 
+    paddingBottom: 0,
     lineHeight: 2,
   },
 }))
@@ -146,28 +144,22 @@ const NavBar = ({ setMobileNavOpen, openMobile }) => {
               display="flex"
               justifyContent="center"
             >
-              <RouterLink to="/app/account">
-                <Avatar
-                  alt="User"
-                  className={classes.avatar}
-                  src={`/static/images/avatars/${user?.priority}.png`}
-                  variant="rounded"
-                />
-              </RouterLink>
+              <Avatar
+                alt="User"
+                className={classes.avatar}
+                src={`/static/images/avatars/${user?.priority}.png`}
+                variant="rounded"
+              />
             </Box>
             <Box
               mt={1}
               textAlign="center"
             >
-              <Link
-                color="textPrimary"
-                component={RouterLink}
-                to="/app/account"
-                underline="none"
+              <Typography
                 variant="h5"
               >
                 {user?.display}
-              </Link>
+              </Typography>
               <Typography
                 color="textSecondary"
                 variant="body2"
@@ -206,7 +198,7 @@ const NavBar = ({ setMobileNavOpen, openMobile }) => {
               ))
             }
           </Box>
-         {/* <Box flexGrow={1}/>
+          {/* <Box flexGrow={1}/>
           <Divider/>
           <Box p={2}>
             <Box
