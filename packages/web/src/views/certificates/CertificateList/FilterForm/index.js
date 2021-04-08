@@ -8,7 +8,7 @@ import { useNewBookingStore } from 'src/zustandStore'
 import { DatePicker } from '@material-ui/pickers'
 import { initialState } from 'src/zustandStore/useCertificateStore'
 import BookingAutocomplete from 'src/components/BookingAutocomplete'
-import { getCountryList, getPortList } from '@adapter/common/src/msc'
+import { getPortList, getCountryListForPorts } from '@adapter/common/src/msc'
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore'
 import { Accordion, AccordionDetails, AccordionSummary } from './comps'
 import NumberFormatComp from 'src/components/NumberFormatComp'
@@ -135,7 +135,7 @@ const FilterForm = memo(function FilterForm (props) {
                 <Box mb={3}>
                   <BookingAutocomplete
                     label={intl.formatMessage(messages['booking_country_port_loading'])}
-                    list={getCountryList()}
+                    list={getCountryListForPorts()}
                     name="countryPortLoading"
                     onChange={
                       (_, value) => {
@@ -160,7 +160,7 @@ const FilterForm = memo(function FilterForm (props) {
                 <Box mb={3}>
                   <BookingAutocomplete
                     label={intl.formatMessage(messages['booking_country_port_discharge'])}
-                    list={getCountryList()}
+                    list={getCountryListForPorts()}
                     name="countryPortDischarge"
                     onChange={
                       (_, value) => {

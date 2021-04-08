@@ -1,6 +1,6 @@
 import create from 'zustand'
 import immerMiddleware from './immerMiddleware'
-import { getCountryList, getTypeOfGoods, getPortList } from '@adapter/common/src/msc'
+import { getCountryList, getCountryListForPorts, getTypeOfGoods, getPortList } from '@adapter/common/src/msc'
 
 const insuranceTypes = [
   'door-to-door',
@@ -13,6 +13,7 @@ const initialState = {
   confirmedValues: {},
   countryDischargeSelected: null,
   countryList: getCountryList(),
+  countryListForPorts: getCountryListForPorts(),
   countryLoadingSelected: null,
   dischargePorts: [],
   insuranceSelected: '',

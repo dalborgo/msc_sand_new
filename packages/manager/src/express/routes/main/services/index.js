@@ -16,7 +16,7 @@ function addRouters (router) {
     const knex_ = knex({ buc: bucketName })
       .select(knex.raw('buc.*, "CERTIFICATE|" || buc.code as id'))
       .where({ type: 'CERTIFICATE' })
-      .where(knex.raw('assiHub.importDate is missing'))
+      .where(knex.raw('assiHub is missing'))
       .whereBetween('_createdAt', [dateFrom, dateTo])
     const statement = knex_.toQuery()
     const { ok, results, message } = await couchQueries.exec(statement, connClass.cluster)

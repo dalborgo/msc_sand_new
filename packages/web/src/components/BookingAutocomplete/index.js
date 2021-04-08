@@ -17,6 +17,7 @@ const BookingAutocomplete = memo(({ list, name, label, onChange, required = fals
   const intl = useIntl()
   return (
     <Field
+      autoHighlight
       classes={
         {
           listbox: classes.listBox,

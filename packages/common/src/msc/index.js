@@ -12,6 +12,11 @@ export const getTypeOfGood = key => {
 }
 
 export const getCountryList = () => {
+  const ports = require('./files/countries.json')
+  return ports.list
+}
+
+export const getCountryListForPorts = () => {
   const ports = require('./files/ports.json')
   return sortBy(reduce(ports, (prev, _, key) => {
     prev.push({ value: key })

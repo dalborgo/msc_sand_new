@@ -8,7 +8,7 @@ import shallow from 'zustand/shallow'
 import { DatePicker } from '@material-ui/pickers'
 import BookingAutocomplete from 'src/components/BookingAutocomplete'
 
-const { countryList, insuranceTypes } = useNewBookingStore.getState()
+const { countryList, countryListForPorts, insuranceTypes } = useNewBookingStore.getState()
 const newBookingSelector = state => ({
   insuranceSelected: state.insuranceSelected,
   setInsuranceSelected: state.setInsuranceSelected,
@@ -151,7 +151,7 @@ const BookingDataFields = ({ handleChange, setFieldValue }) => {
         <Grid item sm={6} xs={12}>
           <BookingAutocomplete
             label={intl.formatMessage(messages['booking_country_port_loading'])}
-            list={countryList}
+            list={countryListForPorts}
             name="countryPortLoading"
             onChange={onCountryPortLoadingChange}
             required
@@ -199,7 +199,7 @@ const BookingDataFields = ({ handleChange, setFieldValue }) => {
         <Grid item sm={6} xs={12}>
           <BookingAutocomplete
             label={intl.formatMessage(messages['booking_country_port_discharge'])}
-            list={countryList}
+            list={countryListForPorts}
             name="countryPortDischarge"
             onChange={onCountryPortDischargeChange}
             required
