@@ -28,7 +28,7 @@ const IntegratedFilteringSel = memo(function IntegratedFilteringSel () {
 })
 
 const getPortName = (data, column) => data[column] ? `${data[column]?.value} (${data[column]?.key})` : ''
-const pageSizes = [15, 30, 45, 60]
+const pageSizes = [25, 50, 100]
 const TableList = memo(function TableList ({ rows, isFetching, isIdle }) {
   console.log('%c***EXPENSIVE_RENDER_TABLE', 'color: yellow')
   const intl = useIntl()
@@ -66,7 +66,7 @@ const TableList = memo(function TableList ({ rows, isFetching, isIdle }) {
       <IntegratedFilteringSel/>
       <PagingState
         defaultCurrentPage={0}
-        defaultPageSize={15}
+        defaultPageSize={12}
       />
       <IntegratedPaging />
       <Table
