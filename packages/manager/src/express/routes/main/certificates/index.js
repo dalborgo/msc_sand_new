@@ -9,7 +9,7 @@ import log from '@adapter/common/src/winston'
 import { security } from '../../../../helpers'
 
 const { utils, axios } = require(__helpers)
-const INITIAL_COUNT = 1000
+const INITIAL_COUNT = 275
 
 const knex = require('knex')({ client: 'mysql' })
 
