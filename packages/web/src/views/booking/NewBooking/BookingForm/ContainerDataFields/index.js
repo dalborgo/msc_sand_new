@@ -157,6 +157,7 @@ const ContainerDataFields = ({ handleChange, setFieldValue, maxGoodsValueLabel, 
             }
             label={intl.formatMessage(messages['booking_goods_value_max'], { max: maxGoodsValueLabel })}
             name="goodsValue"
+            required
           />
         </Grid>
         <Grid item sm={6} xs={12}>

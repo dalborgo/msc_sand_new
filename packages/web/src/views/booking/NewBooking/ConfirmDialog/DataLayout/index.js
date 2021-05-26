@@ -7,6 +7,7 @@ import clsx from 'clsx'
 import { numeric } from '@adapter/common'
 import { getTypeOfGood } from '@adapter/common/src/msc'
 import isNumber from 'lodash/isNumber'
+import isNil from 'lodash/isNil'
 import useAuth from 'src/hooks/useAuth'
 
 const useStyles = makeStyles(theme => ({
@@ -203,7 +204,7 @@ function DataLayout ({ values }) {
             {intl.formatMessage(messages['booking_goods_value'])}
           </Typo>
           <Typo bold mb>
-            {values.goodsValue ? numeric.printDecimal(values.goodsValue / 1000) : ''}
+            {!isNil(values.goodsValue) ? numeric.printDecimal(values.goodsValue / 1000) : ''}
           </Typo>
           <Typo>
             {intl.formatMessage(messages['booking_important_customer'])}
