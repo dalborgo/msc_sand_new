@@ -28,7 +28,7 @@ const IntegratedFilteringSel = memo(function IntegratedFilteringSel () {
 })
 
 const getPortName = (data, column) => data[column] ? `${data[column]?.value} (${data[column]?.key})` : ''
-const pageSizes = [25, 50, 100]
+const pageSizes = [12, 25, 50]
 const TableList = memo(function TableList ({ rows, isFetching, isIdle }) {
   console.log('%c***EXPENSIVE_RENDER_TABLE', 'color: yellow')
   const intl = useIntl()

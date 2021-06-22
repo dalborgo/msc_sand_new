@@ -87,6 +87,7 @@ const InsuranceDataFields = ({ handleChange, setFieldValue, minimumRateLabel, ra
                 )
             }
             name="rate"
+            required
           />
         </Grid>
       }
